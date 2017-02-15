@@ -9,10 +9,12 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use sql server as the database for Active Record
-#gem 'tiny_tds'
-gem 'activerecord-sqlserver-adapter'
+gem 'mysql2'
+#gem 'activerecord-sqlserver-adapter'
+#gem 'legacy_data'
 
-gem 'tiny_tds'
+#gem 'foreigner'
+#gem 'tiny_tds'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
