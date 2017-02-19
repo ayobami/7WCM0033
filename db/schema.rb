@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215141912) do
+ActiveRecord::Schema.define(version: 20170217221230) do
 
   create_table "address", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
     t.string  "street1",      limit: 250
@@ -111,6 +111,11 @@ ActiveRecord::Schema.define(version: 20170215141912) do
     t.bigint  "person_id", null: false
     t.integer "status",    null: false
     t.index ["person_id"], name: "FK_Staff_Person", using: :btree
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "buyer", "person", name: "FK_Buyer_Person"

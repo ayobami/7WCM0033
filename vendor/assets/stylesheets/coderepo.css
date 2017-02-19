@@ -1,0 +1,289 @@
+﻿body {
+    background: url('/Images/background.jpg' );
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: top center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed;
+}
+
+.container-bg {
+    background-color: white;
+    border: 1px solid #ccc !important;
+    padding: 0.01em 16px;
+    border-radius: 16px !important;
+}
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+
+    .rating > span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+    }
+
+        .rating > span:hover:before,
+        .rating > span:hover ~ span:before {
+            content: "\2605";
+            position: absolute;
+        }
+
+.ratingFixed {
+    content: "\2605";
+    position: absolute;
+}
+
+.ml-20 {
+    margin-left: 20px;
+}
+
+.ratingSize {
+    font-size: 12px;
+}
+
+.rate_widget {
+    border: 1px solid #CCC;
+    overflow: visible;
+    position: relative;
+    width: 165px;
+    height: 32px;
+}
+
+.ratings_stars {
+    background: url('/Images/star_empty.png') no-repeat;
+    float: left;
+    height: 28px;
+    padding: 2px;
+    width: 32px;
+}
+
+.ratings_vote {
+    background: url('/Images/star_full.png') no-repeat;
+}
+
+.ratings_over {
+    background: url('/Images/star_highlight.png') no-repeat;
+}
+
+.total_votes {
+    background: #eaeaea;
+}
+
+.ratingDiv {
+    font: 10px verdana, sans-serif;
+    margin: 0 auto 40px auto;
+    width: 180px;
+}
+
+#sourceCode {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 400px;
+}
+
+.pd-20 {
+    padding: 20px;
+}
+
+.ml-2 {
+    margin-left: 2px;
+}
+
+.tag {
+    font-size: 14px;
+    padding: .3em .4em .4em;
+    margin-right: 3px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.w-80{
+    width:80%
+}
+
+.float {
+    float: left;
+}
+
+
+.c {
+    float:  right;
+}
+.search-padding {
+    padding-right: 2px;
+    padding-left: 2px;
+}
+
+.search-text {
+    display: inline;
+}
+
+.tag a {
+    color: #bbb;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+    .tag a:hover {
+        opacity: 1.0;
+    }
+
+.tag .remove {
+    vertical-align: bottom;
+    top: 0;
+}
+
+.tag a {
+    margin: 0 0 0 .3em;
+}
+
+    .tag a .glyphicon-white {
+        color: #fff;
+        margin-bottom: 2px;
+    }
+
+.img {
+    height: 150px;
+    width: 150px;
+}
+
+
+.index-button {
+    padding-top: 9px;
+    font-size: 14px;
+}
+
+.index-div {
+    height: 170px;
+    padding-top: 20px;
+    text-align: justify;
+}
+
+.rating-img {
+    width: 80px;
+    margin-left: 20px;
+}
+
+.rating-img2 {
+    width: 80px;
+}
+
+.black
+{
+    color:black;
+}
+
+.recommendation{
+    color:cadetblue; 
+    text-align:left;
+    font-size:18px;
+}
+
+.left{
+    text-align:left;
+}
+
+.discussion-img {
+    width: 30px;
+    height: 30px;
+}
+
+.discussion-span {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+.detail-img {
+    width: 400px;
+    height: 300px;
+}
+
+.detail-height {
+    min-height: 420px;
+}
+
+.center {
+    text-align: center;
+}
+
+#sourceCode {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 400px;
+}
+
+.profilePicture {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.mr-20 {
+    margin-right: 20px;
+}
+
+
+#myTable thead .sorting_asc {
+    background: url('/Content/sort_asc.png') no-repeat center left;
+}
+
+#myTable thead .sorting_desc {
+    background: url('/Content/sort_desc.png') no-repeat center left;
+}
+
+#myTable thead .sorting {
+    background: url('/Content/sort_both.png') no-repeat center left;
+}
+
+.clear {
+    float: none;
+}
+
+
+.comment-td {
+    width: 85%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.commentor-td {
+    width: 15%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+
+.index-list-p{
+    text-align:justify;
+}
+
+.mt-5{
+    margin-top:5px;
+}
+
+.mr-5 {
+     margin-right:5px;
+}
+
+.size-25 {
+     font-size:25px;
+}
+
+.white-bg{
+    background-color: whitesmoke;
+}
+
+.v-down{
+    vertical-align:bottom;
+}
+
+

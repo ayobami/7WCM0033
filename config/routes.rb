@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  root 'home#index'
+  
+  get 'home/index'
+
+  get 'home/registration'
+  get 'home/register_user'
+  
+
   get 'test/home'
 
   get 'test/help'
