@@ -1,5 +1,5 @@
 ﻿body {
-    background: url('/Images/background.jpg' );
+    background: url(<%= asset_path 'bg-img.jpg' %>);
     -moz-background-size: cover;
     -webkit-background-size: cover;
     background-size: cover;

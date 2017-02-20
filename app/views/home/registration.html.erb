@@ -1,18 +1,112 @@
-<% @page_title = "Registration" %>
-<div class="Sign_Form">
-  <h1>Sign Up</h1>
-  <%= form_for(:user, :url => {:controller => 'home', :action => 'register_user'}) do |f| %>
-    <p> Username:</br> <%= f.text_field :username%> </p>
-    <p> Email:</br> <%= f.text_field :email%> </p>
-    <p> Password:</br> <%= f.password_field :password%></p>
-    <p> Password Confirmation:</br> <%= f.password_field :password_confirmation%> </p>
-    <%= f.submit :Signup %>
-  <% end %>
-  <% if @user.errors.any? %>
-    <ul class="Signup_Errors">
-    <% for message_error in @user.errors.full_messages %>
-      <li>* <%= message_error %></li>
-    <% end %>
-    </ul>
-  <% end %>
+<% page_title = "User Registration" %>
+
+<div id="content" class="padding-20">
+	<%= form_for(:registrationDTO, :url => {:controller => 'home', :action => 'registration'}) do |f| %>
+	<div class="panel panel-default">
+
+		<div class="panel-heading panel-heading-transparent">
+			<h3 class="text-muted lead"><%= page_title%></h3>
+			<hr />
+		</div>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="form-group">
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Personal Information</strong>
+							</div>
+						</div>
+
+						<label>Surname *</label>
+						<input id="registrationDTO_last_name" name="registrationDTO[last_name]" type="text" class="form-control required" />
+
+						</br>
+
+						<label>First Name *</label>
+						<input id="registrationDTO_first_name" name="registrationDTO[first_name]" type="text" class="form-control required" />
+						</br>
+
+						<label>Middle Name</label>
+						<input id="registrationDTO_middle_name" name="registrationDTO[middle_name]" type="text" class="form-control required" />
+						</br>
+
+						<label>Gender *</label>
+						<%= select("registrationDTO_gender", "gender", @gender.collect {|p| [ p.label, p.id] }, {prompt: 'Select Gender'}, {class: 'form-control required'})%>
+
+						</br>
+
+						<label>Marital Status *</label>
+						<%= select("registrationDTO_marital_status", "marital_status", @marital_status.collect {|p| [ p.label, p.id] }, {prompt: 'Select Marital Status'}, {class: 'form-control required'})%>
+						</br>
+
+						<label>Religion *</label>
+						<%= select("registrationDTO_religion", "religion", @religion.collect {|p| [ p.label, p.id] }, {prompt: 'Select Religion'}, {class: 'form-control required'})%>
+						</br>
+
+						<label>Date of Birth *</label>
+						<input id="registrationDTO_birth_date" name="registrationDTO[birth_date]" type="text" class="form-control required datepicker" />
+						</br>
+
+					</div>
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong  class="black">Address </strong>
+							</div>
+						</div>
+						<label>Street Address *</label>
+						<input id="registrationDTO_street1" name="registrationDTO[street1]" type="textarea" class="form-control required" />
+						<br />
+						<label>Street Address 2</label>
+						<input id="registrationDTO_street2" name="registrationDTO[street2]" type="textarea" class="form-control required" />
+						<br />
+						<label>City *</label>
+						<input id="registrationDTO_city" name="registrationDTO[city]" type="text" class="form-control required" />
+						<br />
+						<label>Postal/Zip Code *</label>
+						<input id="registrationDTO_zip_code" name="registrationDTO[zip_code]" type="text" class="form-control required" />
+						<br />
+						<label>State *</label>
+						<%= select("registrationDTO_state", "state", @state.collect {|p| [ p.label, p.id] }, {prompt: 'Select State'}, {class: 'form-control required'})%>
+						<br />
+						<label>Country *</label>
+						<br />
+						<%= select("registrationDTO_country", "country", @countries.collect {|p| [ p.label, p.id] }, {prompt: 'Select Country'}, {class: 'form-control required'})%>
+					</div>
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Account Information</strong>
+							</div>
+						</div>
+
+						<label>Email *</label>
+						<input id="registrationDTO_email" name="registrationDTO[email]" type="text" class="form-control required" />
+						</br>
+						<label>Password *</label>
+						<input id="registrationDTO_password" name="registrationDTO[password]" type="password" class="form-control required" />
+						</br>
+						<label>Password Confirmation *</label>
+						<input id="registrationDTO_password_confirmation" name="registrationDTO[password_confirmation]" type="password" class="form-control required" />
+						</br>
+						<div class="form-group">
+							<div class="col-md-offset-5 col-md-12">
+								<br />
+								<br />
+								<input id="submitButton" type="reset" class="btn btn-default" value="Submit" />
+								<input id="submitButton" type="submit" class="btn btn-success" value="Submit" />
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
 </div>

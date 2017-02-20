@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   root 'home#index'
   
-  get 'home/index'
-
-  get 'home/registration'
-  get 'home/register_user'
+  match '/home/registration', to: 'home#registration', via: :all
+  match '/home/login', to: 'home#login', via: :all
+  match '/home/search', to: 'home#search', via: :all
   
 
-  get 'test/home'
+  match '/account/change_password', to: 'account#change_password', via: :all
+  match '/account/forgot_password', to: 'account#forgot_password', via: :all
+  match '/account/forgot_password_confirmation', to: 'account#forgot_password_confirmation', via: :all
+  match '/account/reset_password', to: 'account#reset_password', via: :all
+  match '/account/reset_password_confirmation', to: 'account#reset_password_confirmation', via: :all
 
-  get 'test/help'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

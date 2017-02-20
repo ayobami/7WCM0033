@@ -14,7 +14,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="~/Home/Index" class="navbar-brand"><i class="glyphicon glyphicon-home"></i> Code Repo</a>
+                <a href="~/Home/Index" class="navbar-brand"><i class="glyphicon glyphicon-home"></i> Property Managers</a>
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -24,49 +24,20 @@
             <div class="navbar-collapse collapse" id="navbar-main">
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Snippets 
+                        <a href="#" >Search Properties 
                             <i class="glyphicon glyphicon-list-alt"></i>
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="themes">
-                            
-                            <li><a href="@Url.Action("MostPopularSnippets", "App")">Most Popular Snippets</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("SnippetsByLanguage", "App")">Snippets by Language</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("SnippetsByTag", "App")">Snippets by Tag</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("SnippetsByRating", "App")">Snippets by Rating</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("Snippets", "App")">Latest Snippets</a></li>
-
-							
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("AddNew", "App")">
-                            Archive Snippet
-                            <i class="glyphicon glyphicon-plus-sign"></i>
-                            </a>
-                    </li>
+                             </a>
+                    </li>                    
+                    <li class="divider"></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Analytics 
+                        <a href="#" >Showroom 
                             <i class="glyphicon glyphicon-stats"></i>
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="download">
-                            
-                            <li><a href="@Url.Action("AnalyticsByLanguage", "App")">Programming Languages</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("AnalyticsByRating", "App")">Ratings</a></li>
-                            <li class="divider"></li>
-                            
-                            <li><a href="@Url.Action("AnalyticsByTag", "App")">Tags</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("AnalyticsByType", "App")">Snippet Types</a></li>
-                        </ul>
+                        </a>
                     </li>
 
                     <li class="divider"></li>
-                    <li><a href="@Url.Action("RSS", "App")" target="_blank">RSS Feeds <i class="glyphicon glyphicon-th-list"></i></a></li>
+                    <li class="dropdown"><a href="#" target="_blank">RSS Feeds 
+                    	<i class="glyphicon glyphicon-th-list"></i></a></li>
                 </ul>
 
 
@@ -95,7 +66,7 @@
         </ul>
     </li>
     <li>
-        <a href="@Url.Action("Logout", "Account")">
+        <a href="">
             Logout
             <i class="glyphicon glyphicon-off"></i>
         </a>
@@ -103,13 +74,13 @@
 
 	
     <li>
-        <a href="@Url.Action("Login", "Account")">
+        <a href="/home/login">
             Login
             <i class="glyphicon glyphicon-log-in"></i>
         </a>
     </li>
     <li>
-        <a href="@Url.Action("RegisterUser", "Account")">
+        <a href="/home/registration">
             Registration
             <i class="glyphicon glyphicon-registration-mark"></i>
         </a>
@@ -132,6 +103,7 @@
                             onclick="goBack();"
                             />
                 
+                <br />
                 <br />
 				    <%= yield %>
                 <hr />
