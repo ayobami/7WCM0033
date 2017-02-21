@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170217221230) do
     t.string   "label",         limit: 250,   null: false
     t.string   "category",      limit: 50,    null: false
     t.text     "description",   limit: 65535
-    t.datetime "creation_date",               null: false
+    t.datetime "creation_date"
   end
 
   create_table "feature", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
@@ -76,12 +76,14 @@ ActiveRecord::Schema.define(version: 20170217221230) do
     t.integer  "gender"
     t.integer  "marital_status"
     t.integer  "religion"
-    t.bigint   "address_Id"
+    t.bigint   "address_id"
     t.integer  "person_type",                  null: false
     t.datetime "birth_date"
     t.datetime "registration_date"
     t.integer  "status"
-    t.index ["address_Id"], name: "FK_Person_Address", using: :btree
+    t.string   "email_address",     limit: 50
+    t.string   "phone_number",      limit: 45
+    t.index ["address_id"], name: "FK_Person_Address", using: :btree
   end
 
   create_table "property", primary_key: "PropertyId", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
@@ -121,7 +123,7 @@ ActiveRecord::Schema.define(version: 20170217221230) do
   add_foreign_key "buyer", "person", name: "FK_Buyer_Person"
   add_foreign_key "buyer", "property", primary_key: "PropertyId", name: "FK_Buyer_Property"
   add_foreign_key "feature", "property", primary_key: "PropertyId", name: "FK_Feature_Property"
-  add_foreign_key "person", "address", column: "address_Id", name: "FK_Person_Address"
+  add_foreign_key "person", "address", name: "FK_Person_Address"
   add_foreign_key "property", "address", column: "AddressId", name: "FK_Property_Address"
   add_foreign_key "room", "property", column: "id", primary_key: "PropertyId", name: "FK_Room_Property"
   add_foreign_key "staff", "person", name: "FK_Staff_Person"

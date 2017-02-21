@@ -9,6 +9,27 @@
 			<hr />
 		</div>
 
+		<% if flash[:validation_failed] %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Please fill all the required fields marked with *
+			<br/>
+			<br/>
+			<% for message_error in @registrationDTO.errors.full_messages %>
+			<li>
+				* <%= message_error %>
+			</li>
+			<% end %>
+		</div>
+		<% end %>
+
+		<% if flash[:action_failed] %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Could not saved details, checked the provided details
+		</div>
+		<% end %>
+
 		<div class="panel-body">
 			<div class="row">
 				<div class="form-group">
@@ -34,20 +55,21 @@
 						</br>
 
 						<label>Gender *</label>
-						<%= select("registrationDTO_gender", "gender", @gender.collect {|p| [ p.label, p.id] }, {prompt: 'Select Gender'}, {class: 'form-control required'})%>
+						<%= select("registrationDTO", "gender", @gender.collect {|p| [ p.label, p.id] }, {prompt: 'Select Gender'}, {class: 'form-control required'})%>
 
 						</br>
 
 						<label>Marital Status *</label>
-						<%= select("registrationDTO_marital_status", "marital_status", @marital_status.collect {|p| [ p.label, p.id] }, {prompt: 'Select Marital Status'}, {class: 'form-control required'})%>
+						<%= select("registrationDTO", "marital_status", @marital_status.collect {|p| [ p.label, p.id] }, {prompt: 'Select Marital Status'}, {class: 'form-control required'})%>
 						</br>
 
 						<label>Religion *</label>
-						<%= select("registrationDTO_religion", "religion", @religion.collect {|p| [ p.label, p.id] }, {prompt: 'Select Religion'}, {class: 'form-control required'})%>
+						<%= select("registrationDTO", "religion", @religion.collect {|p| [ p.label, p.id] }, {prompt: 'Select Religion'}, {class: 'form-control required'})%>
 						</br>
 
 						<label>Date of Birth *</label>
-						<input id="registrationDTO_birth_date" name="registrationDTO[birth_date]" type="text" class="form-control required datepicker" />
+						</br>
+						<%= date_select("registrationDTO", "birth_date" , start_year: 1930)%>
 						</br>
 
 					</div>
@@ -55,9 +77,12 @@
 					<div class="col-md-4 col-sm-4">
 						<div class="panel panel-default">
 							<div class="panel-heading panel-heading-transparent">
-								<strong  class="black">Address </strong>
+								<strong  class="black">Contact Details </strong>
 							</div>
 						</div>
+						<label>Phone Number *</label>
+						<input id="registrationDTO_phone_number" name="registrationDTO[phone_number]" type="textarea" class="form-control required" />
+						<br />
 						<label>Street Address *</label>
 						<input id="registrationDTO_street1" name="registrationDTO[street1]" type="textarea" class="form-control required" />
 						<br />
@@ -71,11 +96,11 @@
 						<input id="registrationDTO_zip_code" name="registrationDTO[zip_code]" type="text" class="form-control required" />
 						<br />
 						<label>State *</label>
-						<%= select("registrationDTO_state", "state", @state.collect {|p| [ p.label, p.id] }, {prompt: 'Select State'}, {class: 'form-control required'})%>
+						<%= select("registrationDTO", "state", @state.collect {|p| [ p.label, p.id] }, {prompt: 'Select State'}, {class: 'form-control required'})%>
 						<br />
 						<label>Country *</label>
 						<br />
-						<%= select("registrationDTO_country", "country", @countries.collect {|p| [ p.label, p.id] }, {prompt: 'Select Country'}, {class: 'form-control required'})%>
+						<%= select("registrationDTO", "country", @countries.collect {|p| [ p.label, p.id] }, {prompt: 'Select Country'}, {class: 'form-control required'})%>
 					</div>
 
 					<div class="col-md-4 col-sm-4">
@@ -98,8 +123,12 @@
 							<div class="col-md-offset-5 col-md-12">
 								<br />
 								<br />
-								<input id="submitButton" type="reset" class="btn btn-default" value="Submit" />
-								<input id="submitButton" type="submit" class="btn btn-success" value="Submit" />
+								<button  type="reset" class="btn btn-default">
+									<i class="fa fa-refresh"></i> Reset
+								</button>
+								<button type="submit" class="btn btn-success">
+									<i class="fa fa-floppy-o"></i> Submit
+								</button>
 							</div>
 						</div>
 					</div>
