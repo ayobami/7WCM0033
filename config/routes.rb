@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   match '/home/registration', to: 'home#registration', via: :all
   match '/home/login', to: 'home#login', via: :all
   match '/home/search', to: 'home#search', via: :all
-  
+  match '/home/logout', to: 'home#logout', via: :all
 
   match '/account/change_password', to: 'account#change_password', via: :all
   match '/account/forgot_password', to: 'account#forgot_password', via: :all

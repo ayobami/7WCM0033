@@ -26,7 +26,14 @@
 		<% if flash[:action_failed] %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
-			Could not saved details, checked the provided details
+			Could not saved details, checked the provided details email already exist in the database
+		</div>
+		<% end %>
+
+		<% if flash[:action_successful] %>
+		<br/>
+		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
+			Account Registration Successful !!!
 		</div>
 		<% end %>
 
@@ -42,16 +49,16 @@
 						</div>
 
 						<label>Surname *</label>
-						<input id="registrationDTO_last_name" name="registrationDTO[last_name]" type="text" class="form-control required" />
-
+						<%= text_field("registrationDTO", "last_name", {class: 'form-control required'})%>
 						</br>
 
 						<label>First Name *</label>
-						<input id="registrationDTO_first_name" name="registrationDTO[first_name]" type="text" class="form-control required" />
+						<%= text_field("registrationDTO", "first_name", {class: 'form-control required'})%>
 						</br>
 
 						<label>Middle Name</label>
-						<input id="registrationDTO_middle_name" name="registrationDTO[middle_name]" type="text" class="form-control required" />
+						<%= text_field("registrationDTO", "middle_name", {class: 'form-control required'})%>
+
 						</br>
 
 						<label>Gender *</label>
@@ -60,12 +67,12 @@
 						</br>
 
 						<label>Marital Status *</label>
-						<%= select("registrationDTO", "marital_status", @marital_status.collect {|p| [ p.label, p.id] }, {prompt: 'Select Marital Status'}, {class: 'form-control required'})%>
+						<%= select("registrationDTO", "marital_status", @marital_statuses.collect {|p| [ p.label, p.id] }, {prompt: 'Select Marital Status'}, {class: 'form-control required'})%>
 						</br>
 
 						<label>Religion *</label>
-						<%= select("registrationDTO", "religion", @religion.collect {|p| [ p.label, p.id] }, {prompt: 'Select Religion'}, {class: 'form-control required'})%>
-						</br>
+						<%= select("registrationDTO", "religion", @religions.collect {|p| [ p.label, p.id] }, {prompt: 'Select Religion'}, {class: 'form-control required'})%>
+					</br>
 
 						<label>Date of Birth *</label>
 						</br>
@@ -81,22 +88,27 @@
 							</div>
 						</div>
 						<label>Phone Number *</label>
-						<input id="registrationDTO_phone_number" name="registrationDTO[phone_number]" type="textarea" class="form-control required" />
+						<%= text_field("registrationDTO", "phone_number", {class: 'form-control required'})%>
+						
 						<br />
 						<label>Street Address *</label>
-						<input id="registrationDTO_street1" name="registrationDTO[street1]" type="textarea" class="form-control required" />
+						<%= text_field("registrationDTO", "street1", {class: 'form-control required'})%>
+						
 						<br />
 						<label>Street Address 2</label>
-						<input id="registrationDTO_street2" name="registrationDTO[street2]" type="textarea" class="form-control required" />
+						<%= text_field("registrationDTO", "street2", {class: 'form-control required'})%>
+						
 						<br />
 						<label>City *</label>
-						<input id="registrationDTO_city" name="registrationDTO[city]" type="text" class="form-control required" />
+						<%= text_field("registrationDTO", "city", {class: 'form-control required'})%>
+						
 						<br />
 						<label>Postal/Zip Code *</label>
-						<input id="registrationDTO_zip_code" name="registrationDTO[zip_code]" type="text" class="form-control required" />
+						<%= text_field("registrationDTO", "zip_code", {class: 'form-control required'})%>
+						
 						<br />
 						<label>State *</label>
-						<%= select("registrationDTO", "state", @state.collect {|p| [ p.label, p.id] }, {prompt: 'Select State'}, {class: 'form-control required'})%>
+						<%= select("registrationDTO", "state", @states.collect {|p| [ p.label, p.id] }, {prompt: 'Select State'}, {class: 'form-control required'})%>
 						<br />
 						<label>Country *</label>
 						<br />
@@ -111,13 +123,15 @@
 						</div>
 
 						<label>Email *</label>
-						<input id="registrationDTO_email" name="registrationDTO[email]" type="text" class="form-control required" />
+						<%= email_field("registrationDTO", "email", {class: 'form-control required'})%>
 						</br>
 						<label>Password *</label>
-						<input id="registrationDTO_password" name="registrationDTO[password]" type="password" class="form-control required" />
+						<%= password_field("registrationDTO", "password", {class: 'form-control required'})%>
+						
 						</br>
 						<label>Password Confirmation *</label>
-						<input id="registrationDTO_password_confirmation" name="registrationDTO[password_confirmation]" type="password" class="form-control required" />
+						<%= password_field("registrationDTO", "password_confirmation", {class: 'form-control required'})%>
+						
 						</br>
 						<div class="form-group">
 							<div class="col-md-offset-5 col-md-12">

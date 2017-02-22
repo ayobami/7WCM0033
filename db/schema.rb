@@ -32,11 +32,6 @@ ActiveRecord::Schema.define(version: 20170217221230) do
     t.index ["property_id"], name: "FK_Buyer_Property", using: :btree
   end
 
-  create_table "buyers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "dictionary", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
     t.string   "code",          limit: 50,    null: false
     t.string   "label",         limit: 250,   null: false
@@ -83,6 +78,7 @@ ActiveRecord::Schema.define(version: 20170217221230) do
     t.integer  "status"
     t.string   "email_address",     limit: 50
     t.string   "phone_number",      limit: 45
+    t.integer  "user_id"
     t.index ["address_id"], name: "FK_Person_Address", using: :btree
   end
 
@@ -95,6 +91,19 @@ ActiveRecord::Schema.define(version: 20170217221230) do
     t.string   "AreaSize",      limit: 50
     t.decimal  "PerUnitPrice",                precision: 18
     t.index ["AddressId"], name: "FK_Property_Address", using: :btree
+  end
+
+  create_table "property_rating", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "property_id"
+    t.integer "user_id"
+    t.integer "rating"
+    t.date    "rating_date"
+  end
+
+  create_table "property_tag", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "property_id"
+    t.integer "tag_id"
+    t.date    "tag_date"
   end
 
   create_table "room", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
@@ -115,9 +124,15 @@ ActiveRecord::Schema.define(version: 20170217221230) do
     t.index ["person_id"], name: "FK_Staff_Person", using: :btree
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "tag", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", limit: 150
+  end
+
+  create_table "user", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "email_address", limit: 50
+    t.text   "password",      limit: 65535
+    t.date   "created_date"
+    t.text   "salt",          limit: 65535
   end
 
   add_foreign_key "buyer", "person", name: "FK_Buyer_Person"

@@ -1,0 +1,3 @@
+class PropertyUtil
+
+end

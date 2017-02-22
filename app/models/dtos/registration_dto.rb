@@ -47,7 +47,9 @@ class RegistrationDTO
       send("#{name}=", value)
     end
     flattened_date=flatten_date_array(attributes)
-    send('birth_date=', Date.new(flattened_date[0],flattened_date[1],flattened_date[2]))   
+    if(flattened_date.count(0) !=3)
+      send('birth_date=', Date.new(flattened_date[0],flattened_date[1],flattened_date[2]))   
+    end
   end
   
   def flatten_date_array(attributes)

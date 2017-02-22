@@ -20,4 +20,17 @@ class DictionaryLoader
     entries=Dictionary.where(category: dictionary_category)
   end
   
+  def self.get_entry_by_code(entry_code)
+    entry=Dictionary.where(code: entry_code)
+  end  
+  
+  def self.get_entry_id_by_code(entry_code)
+    id=0
+    entry=Dictionary.where(code: entry_code).first
+    if(entry!=nil)
+      id=entry.id
+    end
+    return id
+  end 
+  
 end

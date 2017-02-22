@@ -376,4 +376,9 @@ insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) v
 insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('religion4','Buddhism','religion','');
 insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('religion5','Folk religion','religion','');
 insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('religion6','Not Applicable','religion','');
+insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('persontype1','Buyer','persontype','');
+insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('persontype2','Seller','persontype','');
+insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('persontype3','Property Manager','persontype','');
+insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('persontype4','Staff','persontype','');
+
 

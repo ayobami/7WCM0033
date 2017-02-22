@@ -1,0 +1,62 @@
+<% page_title = "User Login" %>
+
+<div id="content" class="padding-20">
+	<%= form_for(:loginDTO, :url => {:controller => 'home', :action => 'login'}) do |f| %>
+	<div class="panel panel-default">
+
+		<div class="panel-heading panel-heading-transparent">
+			<h3 class="text-muted lead"><%= page_title%></h3>
+			<hr />
+		</div>
+
+		<% if flash[:validation_failed] %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Please fill all the required fields marked with *
+			<br/>
+			<br/>
+			<% for message_error in @loginDTO.errors.full_messages %>
+			<li>
+				* <%= message_error %>
+			</li>
+			<% end %>
+		</div>
+		<% end %>
+
+		<% if flash[:action_failed] %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Invalid Username or Passwprd
+		</div>
+		<% end %>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="form-group">
+
+					<div class="col-md-4 col-sm-4">
+
+						<label>Email *</label>
+						<%= email_field("loginDTO", "email", {class: 'form-control required'})%>
+						</br>
+						<label>Password *</label>
+						<%= password_field("loginDTO", "password", {class: 'form-control required'})%>
+
+						</br>
+						<div class="form-group">
+							<div class="col-md-4 col-sm-4 pull-left">
+								<br />
+								<br />
+								<button type="submit" class="btn btn-success">
+									<i class="fa fa-lock"></i> Login
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>
