@@ -1,21 +1,25 @@
+
 class PortalController < ApplicationController
+  
   def property
     @propertyDTO = nil
     time = Time.now.to_s
     @date = DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
     if request.post?
-      propertyDTO = propertyDTO.new(params[:propertyDTO])
+      propertyDTO = PropertyDTO.new(params[:propertyDTO])
       if propertyDTO.valid?
         property=get_property(propertyDTO)
         address=get_address(propertyDTO)
         property_price=get_property_price(propertyDTO)
-        if(property.valid?) #save other entities only if the user account is unique
+        if(property.valid?) 
           address.save
           property.address_id=address.id
-          property.property_number=9 #write helper class to generate propety number
+          property.property_number=PropertyUtil.calculate_property_number
           property.save
+          property_price.property_id=property.id
+          property_price.save
           flash[:action_successful] = "action successful"
-          propertyDTO= propertyDTO.new  
+          propertyDTO= PropertyDTO.new  
         else
           flash[:action_failed] = "action failed"  
         end
@@ -24,7 +28,7 @@ class PortalController < ApplicationController
       end      
     @propertyDTO=propertyDTO
     else
-      @propertyDTO = propertyDTO.new
+      @propertyDTO = PropertyDTO.new
     end
     get_dictionary_entries
   end
@@ -39,14 +43,18 @@ class PortalController < ApplicationController
     property.per_unit_price=propertyDTO.per_unit_price
     property.property_date=@date
     property.property_status=propertyDTO.property_status
-    return person
+    property.area_size=propertyDTO.area_size
+    return property
   end
   
   def get_property_price(propertyDTO)
     property_price=PropertyPrice.new       
     property_price.per_unit_price=propertyDTO.per_unit_price
+    property_price.down_payment=propertyDTO.down_payment
+    property_price.mortgage_term=propertyDTO.mortgage_term
+    property_price.interest_rate=propertyDTO.interest_rate
     property_price.price_date=@date
-    property_price.price_status=dictionaryLoader.get_entries_by_category("pricestatus")
+    property_price.price_status=DictionaryLoader.get_entry_id_by_code("status1")
     return property_price
   end
   
@@ -68,6 +76,6 @@ class PortalController < ApplicationController
     @countries=dictionaryLoader.get_entries_by_category("Country")
     @states=dictionaryLoader.get_entries_by_category("state")
     @property_types=dictionaryLoader.get_entries_by_category("propertytype")
-    @property_statuses=dictionaryLoader.get_entries_by_category("propertystatus")
+    @property_statuses=dictionaryLoader.get_entries_by_category("propertyStatus")
   end
 end

@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   match '/account/reset_password', to: 'account#reset_password', via: :all
   match '/account/reset_password_confirmation', to: 'account#reset_password_confirmation', via: :all
 
+
+  match '/portal/property', to: 'portal#property', via: :all
 end

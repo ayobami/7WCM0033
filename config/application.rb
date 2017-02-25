@@ -16,5 +16,7 @@ module PropertyApp
         g.assets false
     end
 
+    config.autoload_paths += %W(#{config.root}/app/models/dtos)
+    
   end
 end

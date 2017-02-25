@@ -380,5 +380,10 @@ insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) v
 insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('persontype2','Seller','persontype','');
 insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('persontype3','Property Manager','persontype','');
 insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('persontype4','Staff','persontype','');
+insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('status1','Active','status','');
+insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('status2','Retired','status','');
+insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('propertytype1','Lease','propertytype','');
+insert into propertiesapp.dictionary (`code`,`label`,`category`,`description`) values('propertytype2','New','propertytype','');
+
 
 
