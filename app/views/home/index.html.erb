@@ -1,24 +1,36 @@
-<div class="jumbotron alert-link">
-	<%= form_for(:searchDTO, :url => {:controller => 'home', :action => 'search'}) do |f| %>
-	<p>
-		<div class="panel-body">
-			<div class="row">
-				<div class="form-group">
-					<div class="col-md-8 col-sm-8" style="float:left">
-						<%= text_field("searchDTO", "search_text", {class: 'form-control'})%>
-						<%= select("searchDTO", "no_of_rooms", @no_of_rooms.collect {|p| [ p, p] }, {prompt: 'Rooms'}, {class: 'form-control '})%>
-						<%= select("searchDTO", "no_of_baths", @no_of_baths.collect {|p| [ p, p] }, {prompt: 'Baths'}, {class: 'form-control '})%>
-						<%= select("searchDTO", "min_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Min'}, {class: 'form-control '})%>
-						<%= select("searchDTO", "max_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Min'}, {class: 'form-control '})%>
-						<button type="submit" class="btn btn-success">
-							<i class="fa fa-lock"></i> Search
-						</button>
-					</div>
+<%= form_for(:searchDTO, :url => {:controller => 'home', :action => 'search'}) do |f| %>
+<p>
+
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<div class="col-md-3 col-sm-3">
+					<%= text_field("searchDTO", "search_text", {class: 'form-control', placeholder: "Search by Location, Zip Code or Property Number"})%>
 				</div>
+				<div class="col-md-2 col-sm-2">
+					<%= select("searchDTO", "no_of_rooms", @no_of_rooms.collect {|p| [ p, p] }, {prompt: 'Rooms'}, {class: 'form-control '})%>
+				</div>
+				<div class="col-md-2 col-sm-2">
+					<%= select("searchDTO", "no_of_baths", @no_of_baths.collect {|p| [ p, p] }, {prompt: 'Baths'}, {class: 'form-control '})%>
+				</div>
+				<div class="col-md-2 col-sm-2">
+					<%= select("searchDTO", "min_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Min'}, {class: 'form-control '})%>
+				</div>
+				<div class="col-md-2 col-sm-2">
+					<%= select("searchDTO", "max_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Max'}, {class: 'form-control '})%>
+				</div>
+				<div class="col-md-1 col-sm-1">
+					<button type="submit" class="btn btn-success btn-sm">
+						<i class="fa fa-lock"></i> Search
+					</button>
+				</div>
+
 			</div>
-		</div>
-		<% end %>
-	</p>
+	
+	</div>
+	<% end %>
+</p>
+
+<div class="jumbotron alert-link">
 	<p>
 		Do you know? You can easily manage your properties with us!!! Use our Property Showroom to
 		showcase your properties, let our valuers evaluate your properties

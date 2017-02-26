@@ -1,5 +1,5 @@
 ﻿body {
-    background: url(<%= asset_path 'bg-img.jpg' %>);
+    
     -moz-background-size: cover;
     -webkit-background-size: cover;
     background-size: cover;
@@ -9,7 +9,7 @@
 }
 
 .container-bg {
-    background-color: white;
+    background: url(asset-path('bg.png'));
     border: 1px solid #ccc !important;
     padding: 0.01em 16px;
     border-radius: 16px !important;
