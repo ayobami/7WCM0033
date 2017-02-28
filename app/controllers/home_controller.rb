@@ -46,7 +46,8 @@ class HomeController < ApplicationController
           encrypted_password= BCrypt::Engine.hash_secret(loginDTO.password, user.salt)
           if(encrypted_password==user.password)
            session[:user_id] = user.id
-           render 'index'
+           get_search_dictionary_entries
+           render action: 'index'
           end
         end 
         flash[:action_failed] = "action failed"
@@ -59,6 +60,7 @@ class HomeController < ApplicationController
   
   def logout
     session[:user_id] =nil
+    get_search_dictionary_entries
     render action: 'index'
   end
 

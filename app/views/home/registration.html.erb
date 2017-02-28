@@ -9,7 +9,7 @@
 			<hr />
 		</div>
 
-		<% if flash[:validation_failed] %>
+		<% if !flash[:validation_failed].blank? %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -23,14 +23,14 @@
 		</div>
 		<% end %>
 
-		<% if flash[:action_failed] %>
+		<% if !flash[:action_failed].blank?  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Could not saved details, checked the provided details email already exist in the database
 		</div>
 		<% end %>
 
-		<% if flash[:action_successful] %>
+		<% if !flash[:action_successful].blank?  %>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
 			Account Registration Successful !!!
@@ -131,10 +131,10 @@
 						</br>
 						<label>Password Confirmation *</label>
 						<%= password_field("registrationDTO", "password_confirmation", {class: 'form-control required'})%>
-						
 						</br>
-						<div class="form-group">
-							<div class="col-md-offset-5 col-md-12">
+						
+					
+							
 								<br />
 								<br />
 								<button  type="reset" class="btn btn-default">
@@ -143,8 +143,7 @@
 								<button type="submit" class="btn btn-success">
 									<i class="fa fa-floppy-o"></i> Submit
 								</button>
-							</div>
-						</div>
+						
 					</div>
 
 				</div>

@@ -13,6 +13,10 @@ gem 'mysql2'
 #gem 'activerecord-sqlserver-adapter'
 #gem 'legacy_data'
 
+gem 'mini_magick'
+
+gem 'carrierwave'
+
 #gem 'foreigner'
 #gem 'tiny_tds'
 # Use Puma as the app server
