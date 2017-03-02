@@ -17,6 +17,10 @@ gem 'mini_magick'
 
 gem 'carrierwave'
 
+gem "audited", "~> 4.3"
+
+gem "rails-observers", github: 'rails/rails-observers'
+
 #gem 'foreigner'
 #gem 'tiny_tds'
 # Use Puma as the app server

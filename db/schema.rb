@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217221230) do
+ActiveRecord::Schema.define(version: 20170301203425) do
 
   create_table "address", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
     t.string  "street1",      limit: 250
@@ -21,6 +21,28 @@ ActiveRecord::Schema.define(version: 20170217221230) do
     t.string  "zip_code",     limit: 50
     t.string  "plot_number",  limit: 50
     t.string  "floor_number", limit: 50
+  end
+
+  create_table "audits", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "associated_id"
+    t.string   "associated_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "audited_changes", limit: 65535
+    t.integer  "version",                       default: 0
+    t.string   "comment"
+    t.string   "remote_address"
+    t.string   "request_uuid"
+    t.datetime "created_at"
+    t.index ["associated_id", "associated_type"], name: "associated_index", using: :btree
+    t.index ["auditable_id", "auditable_type"], name: "auditable_index", using: :btree
+    t.index ["created_at"], name: "index_audits_on_created_at", using: :btree
+    t.index ["request_uuid"], name: "index_audits_on_request_uuid", using: :btree
+    t.index ["user_id", "user_type"], name: "user_index", using: :btree
   end
 
   create_table "buyer", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
@@ -49,10 +71,10 @@ ActiveRecord::Schema.define(version: 20170217221230) do
 
   create_table "file", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
     t.string "file_name",       limit: 150
-    t.string "file_path",       limit: 250, null: false
+    t.string "file_path",       limit: 250,              collation: "utf8_general_ci"
     t.string "extension",       limit: 10,  null: false
     t.string "title",           limit: 100
-    t.bigint "size",                        null: false
+    t.bigint "size"
     t.string "owner_unique_id", limit: 150
   end
 
@@ -82,15 +104,30 @@ ActiveRecord::Schema.define(version: 20170217221230) do
     t.index ["address_id"], name: "FK_Person_Address", using: :btree
   end
 
-  create_table "property", primary_key: "PropertyId", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
-    t.bigint   "AddressId",                                  null: false
-    t.text     "Description",   limit: 65535
-    t.integer  "PropertyType"
-    t.datetime "PropertyDate"
-    t.integer  "NumberOfRooms"
-    t.string   "AreaSize",      limit: 50
-    t.decimal  "PerUnitPrice",                precision: 18
-    t.index ["AddressId"], name: "FK_Property_Address", using: :btree
+  create_table "property", id: :bigint, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin" do |t|
+    t.bigint   "address_id",                                     null: false
+    t.text     "description",       limit: 65535,                             collation: "utf8_general_ci"
+    t.integer  "property_type"
+    t.datetime "property_date"
+    t.integer  "number_of_rooms"
+    t.string   "area_size",         limit: 50,                                collation: "utf8_general_ci"
+    t.decimal  "per_unit_price",                  precision: 18
+    t.integer  "property_status"
+    t.integer  "number_of_baths"
+    t.string   "short_description", limit: 150
+    t.string   "property_number",   limit: 45
+    t.index ["address_id"], name: "FK_Property_Address", using: :btree
+  end
+
+  create_table "property_price", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "property_id",                             null: false
+    t.decimal  "per_unit_price", precision: 18, scale: 2, null: false
+    t.integer  "price_status",                            null: false
+    t.datetime "price_date",                              null: false
+    t.datetime "price_end_date"
+    t.decimal  "down_payment",   precision: 10
+    t.integer  "mortgage_term"
+    t.integer  "interest_rate"
   end
 
   create_table "property_rating", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -136,10 +173,9 @@ ActiveRecord::Schema.define(version: 20170217221230) do
   end
 
   add_foreign_key "buyer", "person", name: "FK_Buyer_Person"
-  add_foreign_key "buyer", "property", primary_key: "PropertyId", name: "FK_Buyer_Property"
-  add_foreign_key "feature", "property", primary_key: "PropertyId", name: "FK_Feature_Property"
+  add_foreign_key "buyer", "property", name: "FK_Buyer_Property"
+  add_foreign_key "feature", "property", name: "FK_Feature_Property"
   add_foreign_key "person", "address", name: "FK_Person_Address"
-  add_foreign_key "property", "address", column: "AddressId", name: "FK_Property_Address"
-  add_foreign_key "room", "property", column: "id", primary_key: "PropertyId", name: "FK_Room_Property"
+  add_foreign_key "room", "property", column: "id", name: "FK_Room_Property"
   add_foreign_key "staff", "person", name: "FK_Staff_Person"
 end

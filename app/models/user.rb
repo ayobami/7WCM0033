@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   self.table_name='user' 
+  audited
   has_one :person  
   validates :email_address, :uniqueness => true
    

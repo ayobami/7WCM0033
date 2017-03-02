@@ -15,4 +15,6 @@ Rails.application.routes.draw do
 
 
   match '/portal/property', to: 'portal#property', via: :all
+  
+  match '/admin/audittrail', to: 'admin#audit_trail', via: :all
 end
