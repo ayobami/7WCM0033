@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   def index
     get_search_dictionary_entries
+    @latest_properties=Property.order(id: :desc).take(4)
   end
 
   def registration
@@ -63,10 +64,22 @@ class HomeController < ApplicationController
     get_search_dictionary_entries
     render action: 'index'
   end
+  
+  def property
+    id=params[:id]
+    if(id!= nil)
+      @property=Property.find_by(id: id)
+    else
+      redirect_back fallback_location: index
+    end
+  end
 
   def search
-
+    get_search_dictionary_entries
+    get_dictionary_entries
+    @search_result=Property.order(id: :desc).take(4)
   end
+
   
   
   private 

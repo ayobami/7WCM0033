@@ -31,7 +31,8 @@
 		</div>
 		<% end %>
 	</p>
-<br/><br/>
+	<br/>
+	<br/>
 	<p class="header">
 		Do you know? You can easily manage your properties with us!!! Use our Property Showroom to
 		showcase your properties, let our valuers evaluate your properties
@@ -45,83 +46,49 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<h1>Featured Properties</h1>
-				<br/><br/>
+			<br/>
+			<br/>
 		</div>
 	</div>
 	<!-- /.row -->
 
 	<!-- Page Features -->
 	<div class="row text-center">
+		<% if @latest_properties != nil  %>
+		<% for latest_property in @latest_properties%>
 
 		<div class="col-md-3 col-sm-6 hero-feature">
 			<div class="thumbnail">
-				<img src="#" alt="">
+				<%= image_tag(ImageRetrieval.get_property_main_image_path(latest_property.property_number)) %>
 				<div class="caption">
-					<h3>Feature Label</h3>
+					<h3># <%= latest_property.property_price.per_unit_price%></h3>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+						<%= latest_property.short_description%>
 					</p>
 					<p>
-						<a href="#" class="btn btn-primary">Buy Now!</a><a href="#" class="btn btn-default">More Info</a>
+					   Rooms <%= latest_property.number_of_rooms%> Baths<%= latest_property.number_of_baths%>
+					</p>
+					
+					<p>
+						<a href="#" class="btn btn-primary">Buy Now!</a><a href="/home/property?id=<%=latest_property.id%>" class="btn btn-default">More Info</a>
 					</p>
 				</div>
 			</div>
 		</div>
+		<% end %>
+		<% end %>
 
-		<div class="col-md-3 col-sm-6 hero-feature">
-			<div class="thumbnail">
-				<img src="#" alt="">
-				<div class="caption">
-					<h3>Feature Label</h3>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-					</p>
-					<p>
-						<a href="#" class="btn btn-primary">Buy Now!</a><a href="#" class="btn btn-default">More Info</a>
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-3 col-sm-6 hero-feature">
-			<div class="thumbnail">
-				<img src="#" alt="">
-				<div class="caption">
-					<h3>Feature Label</h3>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-					</p>
-					<p>
-						<a href="#" class="btn btn-primary">Buy Now!</a><a href="#" class="btn btn-default">More Info</a>
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-3 col-sm-6 hero-feature">
-			<div class="thumbnail">
-				<img src="#" alt="">
-				<div class="caption">
-					<h3>Feature Label</h3>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-					</p>
-					<p>
-						<a href="#" class="btn btn-primary">Buy Now!</a><a href="#" class="btn btn-default">More Info</a>
-					</p>
-				</div>
-			</div>
-		</div>
+	</div>
 
 	</div>
 </p>
-
 
 <p>
 	<div class="row">
 		<div class="col-lg-12">
 			<h1>Latest Properties</h1>
-				<br/><br/>
+			<br/>
+			<br/>
 		</div>
 	</div>
 	<!-- /.row -->
