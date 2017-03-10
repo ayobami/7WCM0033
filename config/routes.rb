@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   match '/home/index', to: 'home#index', via: :all
   match '/home/search', to: 'home#search', via: :all
   match '/home/logout', to: 'home#logout', via: :all
+  match '/home/property', to: 'home#property', via: :all
 
   match '/account/changepassword', to: 'account#change_password', via: :all
   match '/account/forgotpassword', to: 'account#forgot_password', via: :all
