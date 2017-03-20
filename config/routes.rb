@@ -5,8 +5,13 @@ Rails.application.routes.draw do
   match '/home/login', to: 'home#login', via: :all
   match '/home/index', to: 'home#index', via: :all
   match '/home/search', to: 'home#search', via: :all
+  match '/home/showroom', to: 'home#show_room', via: :all
   match '/home/logout', to: 'home#logout', via: :all
   match '/home/property', to: 'home#property', via: :all
+  match '/home/latestproperties', to: 'home#latest_properties', via: :all
+  match '/home/featuredproperties', to: 'home#featured_properties', via: :all
+  match '/home/contact', to: 'home#contact', via: :all
+  match '/home/chat', to: 'home#chat', via: :all
 
   match '/account/changepassword', to: 'account#change_password', via: :all
   match '/account/forgotpassword', to: 'account#forgot_password', via: :all

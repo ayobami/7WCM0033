@@ -1,161 +1,125 @@
-<header class=" hero-spacer">
+<div class="wrapper" style="padding: 3px">
+	<div class="container">
+		<div>
 
-	<%= form_for(:searchDTO, :url => {:controller => 'home', :action => 'search'}) do |f| %>
-	<p>
+			<h2 class="bnr-sub-title white">Starting the journey!!</h2>
+			<p class="bnr-para">
+				<%= form_for(:searchDTO, :url => {:controller => 'home', :action => 'search'}) do |f| %>
+			<p>
+				<br/>
+				<br/>
+				<div class="row">
+					<div class="col-md-12 col-sm-12">
+						<div class="col-md-4 col-sm4">
+							<%= text_field("searchDTO", "search_text", {class: 'form-control', placeholder: "Search by Location, Zip Code or Property Number"})%>
+						</div>
+						<div class="col-md-2 col-sm-2">
+							<%= select("searchDTO", "no_of_rooms", @no_of_rooms.collect {|p| [ p, p] }, {prompt: 'Rooms'}, {class: 'form-control '})%>
+						</div>
+						<div class="col-md-2 col-sm-2">
+							<%= select("searchDTO", "no_of_baths", @no_of_baths.collect {|p| [ p, p] }, {prompt: 'Baths'}, {class: 'form-control '})%>
+						</div>
+						<div class="col-md-2 col-sm-2">
+							<%= select("searchDTO", "min_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Min'}, {class: 'form-control '})%>
+						</div>
+						<div class="col-md-2 col-sm-2">
+							<%= select("searchDTO", "max_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Max'}, {class: 'form-control '})%>
+						</div>
 
-		<div class="row">
-			<div class="col-md-12 col-sm-12">
-				<div class="col-md-3 col-sm-3">
-					<%= text_field("searchDTO", "search_text", {class: 'form-control', placeholder: "Search by Location, Zip Code or Property Number"})%>
+					</div>
+
 				</div>
-				<div class="col-md-2 col-sm-2">
-					<%= select("searchDTO", "no_of_rooms", @no_of_rooms.collect {|p| [ p, p] }, {prompt: 'Rooms'}, {class: 'form-control '})%>
-				</div>
-				<div class="col-md-2 col-sm-2">
-					<%= select("searchDTO", "no_of_baths", @no_of_baths.collect {|p| [ p, p] }, {prompt: 'Baths'}, {class: 'form-control '})%>
-				</div>
-				<div class="col-md-2 col-sm-2">
-					<%= select("searchDTO", "min_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Min'}, {class: 'form-control '})%>
-				</div>
-				<div class="col-md-2 col-sm-2">
-					<%= select("searchDTO", "max_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Max'}, {class: 'form-control '})%>
-				</div>
-				<div class="col-md-1 col-sm-1">
-					<button type="submit" class="btn btn-success btn-sm">
-						<i class="fa fa-lock"></i> Search
+
+				<div class="brn-btn">
+					<button class="btn btn-download" type="submit">
+						Search
 					</button>
-				</div>
+					<a href="#" class="btn btn-more">Chat with us</a>
+				</div><% end %>
 
+			</p>
+			<br/>
+			<br/>
+			<h1 class="bnr-para white" style="font-weight: bold">Do you know? You can easily manage your properties with us!!! Use our Property Showroom to
+			showcase your properties, let our valuers evaluate your properties
+			while you can manage the properties payment transactions online</h1>
+		</div>
+	</div>
+
+	<p>
+		<div class="row">
+			<div class="col-lg-12">
+				<br/>
+				<br/>
+				<h1 class="btn-download btn">Latest Properties</h1>
+				<br/>
+				<br/>
+			</div>
+		</div>
+		<!-- /.row -->
+
+		<!-- Page Features -->
+		<div class="row text-center">
+			<% if @latest_properties != nil  %>
+			<% for latest_property in @latest_properties%>
+
+			<div class="col-md-4 col-sm-4">
+				<div class="thumbnail">
+					<%= image_tag(ImageRetrieval.get_property_main_image_path(latest_property.property_number), height: '400', width: '400') %>
+					<div class="caption">
+						<h3>&#8358; <%= latest_property.property_price.per_unit_price%></h3>
+						<h4> Rooms <%= latest_property.number_of_rooms%> Baths <%= latest_property.number_of_baths%> </h4>
+
+						<p>
+							<%= latest_property.short_description%>
+
+							<br/>
+							<a href="#" class="btn btn-download">Buy Now!</a>
+							<a href="/home/property?id=<%=latest_property.id%>" class="btn btn-more">More Info</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<% end %>
+			<% end %>
+
+		</div>
+		<div class="container-bg">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1 class="btn-download btn">Trending Properties</h1>
+					<br/>
+					<br/>
+				</div>
+			</div>
+			<% if @latest_properties != nil  %>
+			<div class="panel-body">
+				<div class="row">
+					<% for property in @latest_properties%>
+					<div class="col-md-4 col-sm-4">
+						<h3> <%= property.short_description%></h3>
+						<br />
+						<span class="logo-dec"> &#8358; <%= property.property_price.per_unit_price%> </span>
+
+						<span> <b>Rooms</b> <%= property.number_of_rooms%> <b>Baths</b> <%= property.number_of_baths%> </span>
+						<br />
+						<br />
+						<%= image_tag(ImageRetrieval.get_property_main_image_path(property.property_number), height: '200', width: '300') %>
+						<br />
+						<br />
+						<button class="btn btn-default mr-20" type="submit">
+							<i class="fa fa-money"></i> Buy Now
+						</button>
+						<a href="#" class="btn btn-info"><i class="fa fa-search"></i> View Details</a>
+						<br />
+						<br />
+					</div>
+					<% end %>
+				</div>
+				<% end %>
 			</div>
 
 		</div>
-		<% end %>
 	</p>
-	<br/>
-	<br/>
-	<p class="header">
-		Do you know? You can easily manage your properties with us!!! Use our Property Showroom to
-		showcase your properties, let our valuers evaluate your properties
-		while you can manage the properties payment transactions online
-	</p>
-</header>
 
-<hr>
-
-<p>
-	<div class="row">
-		<div class="col-lg-12">
-			<h1>Featured Properties</h1>
-			<br/>
-			<br/>
-		</div>
-	</div>
-	<!-- /.row -->
-
-	<!-- Page Features -->
-	<div class="row text-center">
-		<% if @latest_properties != nil  %>
-		<% for latest_property in @latest_properties%>
-
-		<div class="col-md-3 col-sm-6 hero-feature">
-			<div class="thumbnail">
-				<%= image_tag(ImageRetrieval.get_property_main_image_path(latest_property.property_number)) %>
-				<div class="caption">
-					<h3># <%= latest_property.property_price.per_unit_price%></h3>
-					<p>
-						<%= latest_property.short_description%>
-					</p>
-					<p>
-					   Rooms <%= latest_property.number_of_rooms%> Baths<%= latest_property.number_of_baths%>
-					</p>
-					
-					<p>
-						<a href="#" class="btn btn-primary">Buy Now!</a><a href="/home/property?id=<%=latest_property.id%>" class="btn btn-default">More Info</a>
-					</p>
-				</div>
-			</div>
-		</div>
-		<% end %>
-		<% end %>
-
-	</div>
-
-	</div>
-</p>
-
-<p>
-	<div class="row">
-		<div class="col-lg-12">
-			<h1>Latest Properties</h1>
-			<br/>
-			<br/>
-		</div>
-	</div>
-	<!-- /.row -->
-
-	<!-- Page Features -->
-	<div class="row text-center">
-
-		<div class="col-md-3 col-sm-6 hero-feature">
-			<div class="thumbnail">
-				<img src="#" alt="">
-				<div class="caption">
-					<h3>Feature Label</h3>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-					</p>
-					<p>
-						<a href="#" class="btn btn-primary">Buy Now!</a><a href="#" class="btn btn-default">More Info</a>
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-3 col-sm-6 hero-feature">
-			<div class="thumbnail">
-				<img src="#" alt="">
-				<div class="caption">
-					<h3>Feature Label</h3>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-					</p>
-					<p>
-						<a href="#" class="btn btn-primary">Buy Now!</a><a href="#" class="btn btn-default">More Info</a>
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-3 col-sm-6 hero-feature">
-			<div class="thumbnail">
-				<img src="#" alt="">
-				<div class="caption">
-					<h3>Feature Label</h3>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-					</p>
-					<p>
-						<a href="#" class="btn btn-primary">Buy Now!</a><a href="#" class="btn btn-default">More Info</a>
-					</p>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-3 col-sm-6 hero-feature">
-			<div class="thumbnail">
-				<img src="#" alt="">
-				<div class="caption">
-					<h3>Feature Label</h3>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-					</p>
-					<p>
-						<a href="#" class="btn btn-primary">Buy Now!</a><a href="#" class="btn btn-default">More Info</a>
-					</p>
-				</div>
-			</div>
-		</div>
-
-	</div>
-</p>
-
+</div>

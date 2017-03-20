@@ -2,12 +2,13 @@
 
 <div id="content" class="padding-20">
 	<%= form_for(:registrationDTO, :url => {:controller => 'home', :action => 'registration'}) do |f| %>
-	<div class="panel panel-default">
-
-		<div class="panel-heading panel-heading-transparent">
-			<h3 class="text-muted lead"><%= page_title%></h3>
+		<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
 			<hr />
 		</div>
+
 
 		<% if !flash[:validation_failed].blank? %>
 		<br/>

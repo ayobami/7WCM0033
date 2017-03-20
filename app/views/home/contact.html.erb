@@ -1,0 +1,73 @@
+<% page_title = "Contact" %>
+
+<div id="content" class="padding-20">
+	<%= form_for(:contact_dto, :url => {:controller => 'home', :action => 'contact'}) do |f| %>
+	<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<hr />
+		</div>
+
+		<% if !flash[:action_successful].blank?  %>
+		<br/>
+		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
+			We have reserved your message and will get back to you shortly
+		</div>
+		<% end %>
+
+		<% if !flash[:validation_failed].blank?  %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Please fill all the required fields marked with *
+			<br/>
+			<br/>
+			<% for message_error in @contact_dto.errors.full_messages %>
+			<li>
+				* <%= message_error %>
+			</li>
+			<% end %>
+		</div>
+		<% end %>
+
+		<% if !flash[:action_failed].blank?  %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			something went wrong
+		</div>
+		<% end %>
+
+		<div class="panel-body center">
+			<div class="center">
+				<div class="col-md-3 col-sm-3">
+					</div>
+				<div class="col-md-6 col-sm-6">
+					<label>Surname *</label>
+						<%= text_field("contact_dto", "last_name", {class: 'form-control required'})%>
+						</br>
+
+						<label>First Name *</label>
+						<%= text_field("contact_dto", "first_name", {class: 'form-control required'})%>
+						</br>
+
+					<label>Email Address</label>
+					<%= email_field("contact_dto", "email", {class: 'form-control required'})%>
+					<br/>
+					<label>Message *</label>
+						<%= text_area("contact_dto", "message", {class: 'form-control required'})%>
+					<br/>
+					<button type="reset" class="btn btn-default">Reset</button>
+								<button type="submit" class="btn btn-success ml-20">
+						<i class="fa fa-envelope"></i> Submit
+					</button>
+					<br/>
+					<br/>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					</div>
+			</div>
+		</div>
+	</div>
+</div>
+<% end %>
+</div>

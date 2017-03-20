@@ -8,4 +8,14 @@ class ImageRetrieval
     end
   end
   
+  def self.get_property_images_path(property_number)
+    paths=Array.new
+    files=FileModel.where(owner_unique_id: property_number)
+    files.each{
+      |f|
+      paths.push("/public/uploads/property_image/#{f.file_name}.#{f.extension}")
+    }
+    return paths
+  end
+  
 end

@@ -1,11 +1,11 @@
-<% page_title = "User Login" %>
+<% page_title = "Account Login" %>
 
 <div id="content" class="padding-20">
 	<%= form_for(:loginDTO, :url => {:controller => 'home', :action => 'login'}) do |f| %>
-	<div class="panel panel-default">
-
-		<div class="panel-heading panel-heading-transparent">
-			<h3 class="text-muted lead"><%= page_title%></h3>
+	<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
 			<hr />
 		</div>
 
@@ -26,37 +26,35 @@
 		<% if !flash[:action_failed].blank?  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
-			Invalid Username or Passwprd
+			Invalid Username or Password
 		</div>
 		<% end %>
 
-		<div class="panel-body">
-			<div class="row">
-				<div class="form-group">
-
-					<div class="col-md-4 col-sm-4">
-
-						<label>Email *</label>
-						<%= email_field("loginDTO", "email", {class: 'form-control required'})%>
-						</br>
-						<label>Password *</label>
-						<%= password_field("loginDTO", "password", {class: 'form-control required'})%>
-
-						</br>
-						<div class="form-group">
-							<div class="col-md-4 col-sm-4 pull-left">
-								<br />
-								<br />
-								<button type="submit" class="btn btn-success">
-									<i class="fa fa-lock"></i> Login
-								</button>
-							</div>
-						</div>
+		<div class="panel-body center">
+			<div class="center">
+				<div class="col-md-4 col-sm-4">
 					</div>
+				<div class="col-md-4 col-sm-4">
+					<label>Email *</label>
+					<%= email_field("loginDTO", "email", {class: 'form-control required'})%>
+					</br>
+					<label>Password *</label>
+					<%= password_field("loginDTO", "password", {class: 'form-control required'})%>
 
+					<br/>
+					<br/>
+					<button type="submit" class="btn btn-success">
+						<i class="fa fa-unlock"></i> Login
+					</button>
+					<br /><br />
+                        <a href="/account/forgotpassword">Forgot password?</a> 
+                            <a href="/home/registration">New User?</a> <br />
+					<br/>
+					<br/>
 				</div>
 			</div>
 		</div>
 	</div>
-	<% end %>
+</div>
+<% end %>
 </div>

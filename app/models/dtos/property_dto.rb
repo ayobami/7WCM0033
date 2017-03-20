@@ -28,7 +28,6 @@ class PropertyDTO
     :property_type,
     :number_of_rooms,
     :number_of_baths,
-    :area_size,
     :property_status,
     :per_unit_price,
     :short_description,

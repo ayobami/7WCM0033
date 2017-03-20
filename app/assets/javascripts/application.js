@@ -15,5 +15,6 @@
 //= require bootbox.min
 //= require jquery.dataTables
 //= require modernizr
+//= require bootstrap.min
 //= require Highcharts-4.0.1/js/highcharts
 

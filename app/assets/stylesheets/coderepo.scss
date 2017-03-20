@@ -15,6 +15,24 @@
     border-radius: 16px !important;
 }
 
+.center{
+  margin: 0 auto;
+}
+
+.hd-align{
+  padding-left:5px; 
+  padding-right:5px; 
+  padding-bottom:5px; 
+  padding-top:0px; 
+  background-color:black; 
+  height:30px
+}
+
+.white
+{
+  color:white;
+}
+
 .rating {
     unicode-bidi: bidi-override;
     direction: rtl;
@@ -320,6 +338,12 @@
 .hero-spacer {
     margin-top: 50px;
 }
+
+.justified {
+     text-align: justify;
+    text-justify: inter-word;
+}
+
 
 .hero-feature {
     margin-bottom: 30px;

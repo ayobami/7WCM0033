@@ -1,116 +1,99 @@
-<h1>Advanced Search</h1>
-<%= form_for(:search_dto, :url => {:controller => 'home', :action => 'search'}) do |f| %>
-<p>
+<% page_title = "Property Search" %>
 
-	<div class="row">
-			<div class="col-md-3 col-sm-3">
-				<%= select("search_dto", "no_of_rooms", @no_of_rooms.collect {|p| [ p, p] }, {prompt: 'Rooms'}, {class: 'form-control '})%>
-			</div>
-			<div class="col-md-3 col-sm-3">
-				<%= select("search_dto", "no_of_baths", @no_of_baths.collect {|p| [ p, p] }, {prompt: 'Baths'}, {class: 'form-control '})%>
-			</div>
-			<div class="col-md-3 col-sm-3">
-				<%= select("search_dto", "min_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Min'}, {class: 'form-control '})%>
-			</div>
-			<div class="col-md-3 col-sm-3">
-				<%= select("search_dto", "max_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Max'}, {class: 'form-control '})%>
-			</div>
-	</div>
-<br/>
-	<div class="row">
-		<div class="col-md-3 col-sm-3">
-			<%= text_field("search_dto", "street1", {class: 'form-control required', placeholder: 'Street Address'})%>
-		</div>
-
-		<div class="col-md-3 col-sm-3">
-			<%= text_field("search_dto", "city", {class: 'form-control required', placeholder: 'City'})%>
-		</div>
-		<div class="col-md-3 col-sm-3">
-			<%= text_field("search_dto", "zip_code", {class: 'form-control required', placeholder: 'Postal/Zip Code'})%>
-		</div>
-
-		<div class="col-md-3 col-sm-3">
-			<%= select("search_dto", "state", @states.collect {|p| [ p.label, p.id] }, {prompt: 'Select State'}, {class: 'form-control required'})%>
-		</div>
-
-	</div>
-<br/>
-	<div class="row">
-		<div class="col-md-12 col-sm-12">
-			<button type="submit" class="btn btn-success btn-lg">
-				<i class="fa fa-search"></i> Search
-			</button>
-		</div>
-	</div>
-	<% end %>
-</p>
-<br/>
-<br/>
-
-<hr>
-
-<p>
-	<div class="row">
-		<div class="col-lg-12">
-			<h1>Search Result</h1>
+<div id="content" class="padding-20">
+	<div class="panel">
+		<div class="panel-heading">
 			<br/>
-			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<hr />
 		</div>
-	</div>
-	<!-- /.row -->
+		<%= form_for(:search_dto, :url => {:controller => 'home', :action => 'search'}) do |f| %>
+		<div class="panel mr-20 ml-20">
 
-	
-
-        <div class="panel-body">
-
-          	<% if @search_result != nil  %>
-                <div class="panel-body">
-
-                    <table id="myTable" class="display table table-striped table-bordered">
-                        <thead><tr><th></th></tr></thead>
-                        <tbody>
-                            <% for property in @search_result%>
-                                        <tr>
-                                            <td>
-                                                <div class="col-lg-9">
-                                                    <h3> <%= property.short_description%></h3>
-
-                                                    <span class="tag label label-primary">
-													# <%= property.property_price.per_unit_price%>
-                                                    </span>
-
-                                                    <br /><br />
-                                                    <p class="index-list-p">
-                                                        <%= property.description%>
-                                                    </p>
-                                                    <p>
-
-
-                                                      <span class="tag label label-info">
-                                                        Rooms <%= property.number_of_rooms%> Baths<%= property.number_of_baths%>
-                                                        </span>
-                                                    </p>
-                                                    <div class="thumbnail">
-				<%= image_tag(ImageRetrieval.get_property_main_image_path(property.property_number)) %>
+			<div class="row">
+				<div class="col-md-3 col-sm-3">
+					<%= select("search_dto", "no_of_rooms", @no_of_rooms.collect {|p| [ p, p] }, {prompt: 'Rooms'}, {class: 'form-control '})%>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<%= select("search_dto", "no_of_baths", @no_of_baths.collect {|p| [ p, p] }, {prompt: 'Baths'}, {class: 'form-control '})%>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<%= select("search_dto", "min_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Min'}, {class: 'form-control '})%>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<%= select("search_dto", "max_price", @price_ranges.collect {|p| [ p, p] }, {prompt: 'Max'}, {class: 'form-control '})%>
+				</div>
 			</div>
-                                                </div>
-                                            </td>
+			<br/>
+			<div class="row">
+				<div class="col-md-3 col-sm-3">
+					<%= text_field("search_dto", "street1", {class: 'form-control required', placeholder: 'Street Address'})%>
+				</div>
 
-                                        </tr>
+				<div class="col-md-3 col-sm-3">
+					<%= text_field("search_dto", "city", {class: 'form-control required', placeholder: 'City'})%>
+				</div>
+				<div class="col-md-3 col-sm-3">
+					<%= text_field("search_dto", "zip_code", {class: 'form-control required', placeholder: 'Postal/Zip Code'})%>
+				</div>
 
-<% end %>
-                        </tbody>
-                    </table>
+				<div class="col-md-3 col-sm-3">
+					<%= select("search_dto", "state", @states.collect {|p| [ p.label, p.id] }, {prompt: 'Select State'}, {class: 'form-control required'})%>
+				</div>
 
+			</div>
+			<br/>
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
 
+					<button type="submit" class="btn btn-success">
+						<i class="fa fa-search"></i> Search
+					</button>
+					<br/>
+					<br/>
+				</div>
+			</div>
+			<% end %>
+		</div>
+		<br/>
+		<h1 class="size-25">Search Result</h1>
+		<hr/>
+		<br/>
+		<br/>
+		<p>
+			<div class="panel-body">
 
-                </div>
-                                                       	<% end %>
+				<% if @search_result != nil  %>
+				<div class="panel-body">
+					<div class="row">
+						<% for property in @search_result%>
+							<div class="col-md-4 col-sm-4">
+								<h3> <%= property.short_description%></h3>
+								<br />
+								<span class="logo-dec"> &#8358; <%= property.property_price.per_unit_price%> </span>
+								
+								<span> <b>Rooms</b> <%= property.number_of_rooms%> <b>Baths</b> <%= property.number_of_baths%> </span>
+								<br />	<br />
+								<%= image_tag(ImageRetrieval.get_property_main_image_path(property.property_number), height: '200', width: '300') %>
+								<br />
+								<br />
+								<button class="btn btn-default mr-20" type="submit">
+									<i class="fa fa-money"></i> Buy Now
+								</button>
+								<a href="#" class="btn btn-info"><i class="fa fa-search"></i> View Details</a>
+								<br />
+								<br />
+							</div>
+						<% end %>
+					</div>
+					<% end %>
 
-        </div>
-        <br />
+				</div>
+				<br />
 
-    </div>
+			</div>
 
 	</div>
-</p>
+	</p>
+</div>
+</div>

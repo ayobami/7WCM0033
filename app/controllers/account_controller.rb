@@ -1,4 +1,5 @@
 class AccountController < ApplicationController
+  
   def change_password
     @change_password_dto = nil
     if request.post?
