@@ -77,10 +77,35 @@ class HomeController < ApplicationController
   def search
     get_search_dictionary_entries
     get_dictionary_entries
-    @search_result=Property.order(id: :desc).take(4)
+    @search_result=nil    
+    if request.post?
+      search_dto = SearchDTO.new(params[:search_dto])
+      query=search_dto.get_query
+      if(query.size>0)
+       @search_result=Property.where()
+      end
+    end 
   end
-
   
+  def show_room
+    @properties=Property.all
+  end
+  
+  def latest_properties
+    @latest_properties=Property.order(id: :asc).take(4)
+  end
+  
+  def featured_properties
+    @featured_properties=Property.order(id: :desc).take(4)
+  end
+  
+  def contact
+    
+  end
+  
+  def chat
+    
+  end
   
   private 
   
