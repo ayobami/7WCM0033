@@ -4,7 +4,7 @@
 	<div class="panel">
 		<div class="panel-heading">
 			<br/>
-			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<h3 class="text-muted lead"><span class="logo-dec size-20"><%= page_title%></span></h3>
 			<hr />
 		</div>
 		<%= form_for(:search_dto, :url => {:controller => 'home', :action => 'search'}) do |f| %>
@@ -43,6 +43,24 @@
 
 			</div>
 			<br/>
+			<%if session[:user_id] != nil%>
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="col-md-3 col-sm-3"></div>
+					<div class="col-md-3 col-sm-3">
+						<label> <i class="fa fa-search"></i> Register Interest </label>
+						<%= check_box("search_dto", "is_interest", {class: 'form-control'})%>
+
+					</div>
+					<div class="col-md-3 col-sm-3">
+						<label> <i class="fa fa-save"></i> Save Search </label>
+						<%= check_box("search_dto", "save_search", {class: 'form-control'})%>
+
+					</div><div class="col-md-3 col-sm-3"></div>
+				</div>
+			</div>
+			<br/>
+		   <% end %>
 			<div class="row">
 				<div class="col-md-12 col-sm-12">
 
@@ -53,47 +71,50 @@
 					<br/>
 				</div>
 			</div>
-			<% end %>
 		</div>
+		<% end %>
+
 		<br/>
-		<h1 class="size-25">Search Result</h1>
-		<hr/>
-		<br/>
-		<br/>
+		<% if @search_result != nil  %>
 		<p>
+			<h1 class="size-14">Search Result</h1>
+			<hr/>
+			<br/>
+			<br/>
+
 			<div class="panel-body">
 
-				<% if @search_result != nil  %>
 				<div class="panel-body">
 					<div class="row">
 						<% for property in @search_result%>
-							<div class="col-md-4 col-sm-4">
-								<h3> <%= property.short_description%></h3>
-								<br />
-								<span class="logo-dec"> &#8358; <%= property.property_price.per_unit_price%> </span>
-								
-								<span> <b>Rooms</b> <%= property.number_of_rooms%> <b>Baths</b> <%= property.number_of_baths%> </span>
-								<br />	<br />
-								<%= image_tag(ImageRetrieval.get_property_main_image_path(property.property_number), height: '200', width: '300') %>
-								<br />
-								<br />
-								<button class="btn btn-default mr-20" type="submit">
-									<i class="fa fa-money"></i> Buy Now
-								</button>
-								<a href="#" class="btn btn-info"><i class="fa fa-search"></i> View Details</a>
-								<br />
-								<br />
-							</div>
+						<div class="col-md-4 col-sm-4">
+							<h3> <%= property.short_description%></h3>
+							<br />
+							<span class="logo-dec"> &#8358; <%= property.property_price.per_unit_price%> </span>
+
+							<span> <b>Rooms</b> <%= property.number_of_rooms%> <b>Baths</b> <%= property.number_of_baths%> </span>
+							<br />
+							<br />
+							<%= image_tag(ImageRetrieval.get_property_main_image_path(property.property_number), height: '200', width: '300') %>
+							<br />
+							<br />
+							<button class="btn btn-default mr-20" type="submit">
+								<i class="fa fa-money"></i> Buy Now
+							</button>
+							<a href="#" class="btn btn-info"><i class="fa fa-search"></i> View Details</a>
+							<br />
+							<br />
+						</div>
 						<% end %>
 					</div>
-					<% end %>
 
 				</div>
+
 				<br />
 
 			</div>
+		</p>
+		<% end %>
 
 	</div>
-	</p>
-</div>
 </div>

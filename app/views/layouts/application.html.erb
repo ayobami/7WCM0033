@@ -36,7 +36,7 @@
 						</li>
 						<li class="divider"></li>
 						<%if session[:user_id] != nil%>
-						
+
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Reports <i class="glyphicon glyphicon-stats"></i> <span class="caret"></span></a>
 							<ul class="dropdown-menu" aria-labelledby="themes">
@@ -55,7 +55,7 @@
 							</ul>
 						</li>
 						<% end%>
-						
+
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Property <i class="glyphicon glyphicon-list-alt"></i> <span class="caret"></span></a>
 							<ul class="dropdown-menu" aria-labelledby="themes">
@@ -71,6 +71,10 @@
 								<li class="divider"></li>
 								<li>
 									<a href="/portal/property">Registration</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/portal/properties">All Properties</a>
 								</li>
 								<li class="divider"></li>
 								<li>
@@ -98,8 +102,8 @@
 								</li>
 							</ul>
 						</li>
-						
-							<li class="dropdown">
+
+						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Admin <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span></a>
 							<ul class="dropdown-menu" aria-labelledby="download">
 
@@ -112,8 +116,7 @@
 								</li>
 							</ul>
 						</li>
-						
-						
+
 						<li>
 							<a href="/home/logout"> Logout <i class="glyphicon glyphicon-off"></i> </a>
 						</li>
@@ -161,6 +164,13 @@
 			$(document).ready(function() {
 				$(".datepicker").datepicker({
 					dateFormat : 'dd/mm/yy'
+				});
+
+				$('#dataTable').DataTable({
+					deferRender : false,
+					scrollY : 400,
+					scrollCollapse : true,
+					scroller : true
 				});
 			});
 		</script>

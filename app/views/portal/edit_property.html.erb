@@ -1,0 +1,174 @@
+<% page_title = "Property Update" %>
+
+<div id="content" class="padding-20">
+	<%= form_for(:property_dto, :url => {:controller => 'portal', :action => 'edit_property'}, :html => { :multipart => true }) do |f| %>
+	<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec size-25"><%= page_title%></span></h3>
+			<hr />
+		</div>
+
+		<% if !flash[:validation_failed].blank? %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Please fill all the required fields marked with *
+			<br/>
+			<br/>
+			<% for message_error in @property_dto.errors.full_messages %>
+			<li>
+			 <%= message_error %>
+			</li>
+			<% end %>
+		</div>
+		<% end %>
+
+		<% if !flash[:action_failed].blank? %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Could not save details, checked the provided details
+		</div>
+		<% end %>
+
+		<% if !flash[:action_successful].blank? %>
+		<br/>
+		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
+			Property Updated Successful !!!
+		</div>
+		<% end %>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="form-group">
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Property Details</strong>
+							</div>
+						</div>
+						<%= hidden_field("property_dto", "id")%>
+						<label>Short Description *</label>
+						<%= text_area("property_dto", "short_description", {class: 'form-control required'})%>
+						</br>
+						<label>Description *</label>
+						<%= text_area("property_dto", "description", {class: 'form-control required'})%>
+						</br>
+
+						<label>Number of Rooms *</label>
+						<%= text_field("property_dto", "number_of_rooms", {class: 'form-control required'})%>
+						</br>
+
+						<label>Number of Baths</label>
+						<%= text_field("property_dto", "number_of_baths", {class: 'form-control required'})%>
+
+						</br>
+
+						<label>Property Type</label>
+						<%= select("property_dto", "property_type", @property_types.collect {|p| [ p.label, p.id] }, {prompt: 'Select Property Type'}, {class: 'form-control required'})%>
+</br>
+
+						<label>Property Status</label>
+						<%= select("property_dto", "property_status", @property_statuses.collect {|p| [ p.label, p.id] }, {prompt: 'Select Property Status'}, {class: 'form-control required'})%>
+
+						</br>
+						<label>Area Size</label>
+						<%= text_field("property_dto", "area_size", {class: 'form-control'})%>
+						</br>
+
+					</div>
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong  class="black">Location </strong>
+							</div>
+						</div>
+						<label>Floor Number</label>
+						<%= text_field("property_dto", "floor_number", {class: 'form-control'})%>
+
+						<br />
+						<label>Plot Number</label>
+						<%= text_field("property_dto", "plot_number", {class: 'form-control'})%>
+
+						<br />
+						<label>Street Address *</label>
+						<%= text_field("property_dto", "street1", {class: 'form-control required'})%>
+<br />
+						<label>Street Address 2</label>
+						<%= text_field("property_dto", "street2", {class: 'form-control'})%>
+
+						<br />
+						<label>City *</label>
+						<%= text_field("property_dto", "city", {class: 'form-control required'})%>
+
+						<br />
+						<label>Postal/Zip Code *</label>
+						<%= text_field("property_dto", "zip_code", {class: 'form-control required'})%>
+
+						<br />
+						<label>State *</label>
+						<%= select("property_dto", "state", @states.collect {|p| [ p.label, p.id] }, {prompt: 'Select State'}, {class: 'form-control required'})%>
+						<br />
+						<label>Country *</label>
+						<br />
+						<%= select("property_dto", "country", @countries.collect {|p| [ p.label, p.id] }, {prompt: 'Select Country'}, {class: 'form-control required'})%>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Pricing Information</strong>
+							</div>
+						</div>
+
+						<label>Price *</label>
+						<%= text_field("property_dto", "per_unit_price", {class: 'form-control required'})%>
+						</br>
+						<label>Down Payment</label>
+						<%= text_field("property_dto", "down_payment", {class: 'form-control required'})%>
+						</br>
+						<label>Mortgage Term</label>
+						<%= text_field("property_dto", "mortgage_term", {class: 'form-control required'})%>
+						</br>
+						<label>Interest Rate</label>
+						<%= text_field("property_dto", "interest_rate", {class: 'form-control required'})%>
+						</br>
+						</br>
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Property Pictures</strong>
+							</div>
+						</div>
+						</br>
+						  <%= file_field(:property_dto, :image1, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
+						</br></br>
+						<label>Optional</label>
+						  <%= file_field(:property_dto, :image2, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
+						</br>
+						  <%= file_field(:property_dto, :image3, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
+						</br>
+						
+						
+						
+					</div>
+					
+				</div>
+			</div>
+		<div class="row">
+			<div class="form-group">
+						
+							<br />
+							<br />
+							<button  type="reset" class="btn btn-default">
+								<i class="fa fa-refresh"></i> Reset
+							</button>
+							<button type="submit" class="btn btn-success">
+								<i class="fa fa-floppy-o"></i> Update
+							</button>
+					
+					</div>
+		</div>
+		</div>
+	</div>
+	<% end %>
+</div>

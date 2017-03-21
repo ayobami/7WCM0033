@@ -21,6 +21,9 @@ Rails.application.routes.draw do
 
 
   match '/portal/property', to: 'portal#property', via: :all
+  match '/portal/editproperty', to: 'portal#edit_property', via: :all
+  match '/portal/propertyevaluation', to: 'portal#property_evaluation', via: :all
+  match '/portal/properties', to: 'portal#properties', via: :all
   
   match '/admin/audittrail', to: 'admin#audit_trail', via: :all
 end

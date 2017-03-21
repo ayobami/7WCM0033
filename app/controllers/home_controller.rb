@@ -1,3 +1,5 @@
+require 'time'
+
 class HomeController < ApplicationController
   def index
     get_search_dictionary_entries
@@ -77,13 +79,30 @@ class HomeController < ApplicationController
   def search
     get_search_dictionary_entries
     get_dictionary_entries
-    @search_result=nil    
+    @search_result=nil
+    @search_dto =nil    
     if request.post?
       search_dto = SearchDTO.new(params[:search_dto])
       query=search_dto.get_query
       if(query.size>0)
-       @search_result=Property.where()
+       @search_result=Property.where(query)
       end
+      if session[:user_id] != nil
+        if(search_dto.save_search || search_dto.is_interest)
+          property_search=PropertySearch.new
+          property_search.number_of_rooms=search_dto.no_of_rooms
+          property_search.number_of_baths=search_dto.no_of_baths
+          property_search.price_range_start=search_dto.min_price
+          property_search.price_range_end=search_dto.max_price
+          property_search.user_id=session[:user_id]
+          time = Time.now.to_s
+          @date = DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
+          property_search.search_date=@date
+          property_search.is_interest=search_dto.is_interest.to_i==1? 'YES' : 'NO'
+          property_search.save
+        end
+      end
+      @search_dto=search_dto
     end 
   end
   
@@ -92,11 +111,13 @@ class HomeController < ApplicationController
   end
   
   def latest_properties
-    @latest_properties=Property.order(id: :asc).take(4)
+    time_range=Time.now
+    time_range=time_range - (60 * 60 * 240) # properties added in the last 10 days
+    @latest_properties=Property.where(["property_date >= ?", time_range])
   end
   
   def featured_properties
-    @featured_properties=Property.order(id: :desc).take(4)
+    @featured_properties=Property.where(property_status: 388) # featured properties
   end
   
   def contact
