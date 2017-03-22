@@ -90,6 +90,57 @@ class PortalController < ApplicationController
     @all_properties=Property.all
   end
 
+  def property_evaluation
+    @property_evaluation_dto = nil
+    time = Time.now.to_s
+    @date = DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
+    if request.post?
+      property_evaluation_dto = PropertyEvaluationDTO.new(params[:property_evaluation_dto])
+      if(property_evaluation_dto.valid?)
+        property= Property.find_by(property_number: property_evaluation_dto.property_number)
+        if(property!=nil)
+          property_evaluation =PropertyEvaluation.new
+          property_evaluation.property_id= property.id
+          property_evaluation.instructions= property_evaluation_dto.instructions
+          property_evaluation.site_area= property_evaluation_dto.site_area
+          #property_evaluation.number_of_rooms= property_evaluation_dto.number_of_rooms
+          #property_evaluation.number_of_baths= property_evaluation_dto.number_of_baths
+          property_evaluation.zoning= property_evaluation_dto.zoning
+          property_evaluation.comments= property_evaluation_dto.comments
+          property_evaluation.terms_of_reference= property_evaluation_dto.terms_of_reference
+          property_evaluation.date_of_inspection= property_evaluation_dto.date_of_inspection
+          property_evaluation.date_of_valuation= property_evaluation_dto.date_of_valuation
+          property_evaluation.land_value= property_evaluation_dto.land_value
+          property_evaluation.improvements= property_evaluation_dto.improvements
+          property_evaluation.market_valuation= property_evaluation_dto.market_valuation
+          property_evaluation.registered_proprietor= property_evaluation_dto.registered_proprietor
+          property_evaluation.land_dimensions= property_evaluation_dto.land_dimensions
+          property_evaluation.land_area= property_evaluation_dto.land_area
+          property_evaluation.encumberances= property_evaluation_dto.encumberances
+          property_evaluation.topography= property_evaluation_dto.topography
+          property_evaluation.services= property_evaluation_dto.services
+          property_evaluation.environmental_issues= property_evaluation_dto.environmental_issues
+          property_evaluation.location= property_evaluation_dto.location
+          property_evaluation.dwelling_description= property_evaluation_dto.dwelling_description
+          property_evaluation.construction= property_evaluation_dto.construction
+          property_evaluation.pc_items= property_evaluation_dto.pc_items
+          #property_evaluation.fixture_features= property_evaluation_dto.fixture_features
+          property_evaluation.other_improvements= property_evaluation_dto.other_improvements
+          property_evaluation.building_areas= property_evaluation_dto.building_areas
+          property_evaluation.save
+          flash[:action_successful] = "action successful"
+          @property_evaluation_dto= PropertyEvaluationDTO.new
+        else
+          flash[:action_failed] = "action failed"
+          @property_evaluation_dto=property_evaluation_dto
+        end
+      else
+        flash[:validation_failed] = "validation failed"
+        @property_evaluation_dto=property_evaluation_dto
+      end
+    end
+  end
+
   private
 
   def get_property(property_dto)
@@ -134,7 +185,7 @@ class PortalController < ApplicationController
     property_dto.down_payment=property_price.down_payment
     property_dto.mortgage_term=property_price.mortgage_term
     property_dto.interest_rate=property_price.interest_rate
-    
+
     return property_dto
   end
 

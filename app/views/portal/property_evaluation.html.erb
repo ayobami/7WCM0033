@@ -1,0 +1,182 @@
+<% page_title = "Property Evaluation Form" %>
+
+<div id="content" class="padding-20">
+	<%= form_for(:property_evaluation_dto, :url => {:controller => 'portal', :action => 'property_evaluation'}, :html => { :multipart => true }) do |f| %>
+	<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<hr />
+		</div>
+	<% if !flash[:action_successful].blank? %>
+		<br/>
+		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
+			Property Evaluation Form Filled Successful !!!
+		</div>
+		<% end %>
+
+		<% if !flash[:validation_failed].blank? %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Please fill all the required fields marked with *
+			<br/>
+			<br/>
+			<% if @property_evaluation_dto!= nil %>
+			<% for message_error in @property_evaluation_dto.errors.full_messages %>
+			<li>
+				<%= message_error %>
+			</li>
+			<% end %>
+			<% end %>
+		</div>
+		<% end %>
+
+		<% if !flash[:action_failed].blank? %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Could not saved details, checked the provided details
+		</div>
+		<% end %>
+
+	
+		<div class="panel-body">
+			<div class="row">
+				<div class="form-group">
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Property Details</strong>
+							</div>
+						</div>
+						<label>Property Number*</label>
+						<%= text_field("property_evaluation_dto", "property_number", {class: 'form-control required'})%>
+						</br>
+						<label>Description</label>
+						<%= text_area("property_evaluation_dto", "comments", {class: 'form-control required'})%>
+						</br>
+						<label>Instructions</label>
+						<%= text_area("property_evaluation_dto", "instructions", {class: 'form-control required'})%>
+						</br>
+
+						<label>Market Valuation *</label>
+						<%= text_field("property_evaluation_dto", "market_valuation", {class: 'form-control required'})%>
+						</br>
+
+						<label>Land Value</label>
+						<%= text_field("property_evaluation_dto", "land_value", {class: 'form-control required'})%>
+
+						</br>
+
+						<label>Number of Rooms</label>
+						<%= text_field("property_evaluation_dto", "number_of_rooms", {class: 'form-control required'})%>
+						</br>
+
+						<label>Number of Baths</label>
+						<%= text_field("property_evaluation_dto", "number_of_baths", {class: 'form-control required'})%>
+
+						</br>
+						<label>Improvements</label>
+						<%= text_area("property_evaluation_dto", "improvements", {class: 'form-control required'})%>
+						</br>
+
+						<label>Date of Inspection*</label>
+						</br>
+						<%= date_select("property_evaluation_dto", "date_of_inspection" , start_year: 1930)%>
+						</br>
+</br>
+						<label>Date of Valuation *</label>
+						</br>
+						<%= date_select("property_evaluation_dto", "date_of_valuation" , start_year: 1930)%>
+						</br>
+					</div>
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong  class="black">Location </strong>
+							</div>
+						</div>
+						<label>Registered Proprietor</label>
+						<%= text_field("property_evaluation_dto", "registered_proprietor", {class: 'form-control'})%>
+
+						<br />
+						<label>Terms of Reference</label>
+						<%= text_field("property_evaluation_dto", "terms_of_reference", {class: 'form-control'})%>
+
+						<br />
+						<label> Zoning</label>
+						<%= text_field("property_evaluation_dto", "zoning", {class: 'form-control'})%>
+
+						<br />
+						<label> Site Area</label>
+						<%= text_field("property_evaluation_dto", "site_area", {class: 'form-control required'})%>
+						<br />
+						<label>Land Dimensions</label>
+						<%= text_field("property_evaluation_dto", "land_dimensions", {class: 'form-control'})%>
+
+						<br />
+						<label>Land Area</label>
+						<%= text_field("property_evaluation_dto", "land_area", {class: 'form-control required'})%>
+
+						<br />
+						<label>Building Areas</label>
+						<%= text_field("property_evaluation_dto", "building_areas", {class: 'form-control required'})%>
+						</br>
+						<label>Encumberances</label>
+						<%= text_area("property_evaluation_dto", "encumberances", {class: 'form-control required'})%>
+						<br />
+						<label>Location</label>
+						<%= text_field("property_evaluation_dto", "location", {class: 'form-control required'})%>
+						<br />
+						<label>Topography</label>
+						<%= text_area("property_evaluation_dto", "topography", {class: 'form-control required'})%>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Pricing Information</strong>
+							</div>
+						</div>
+						<label>Services</label>
+						<%= text_area("property_evaluation_dto", "services", {class: 'form-control required'})%>
+						</br>
+						<label>Environmental Issues</label>
+						<%= text_area("property_evaluation_dto", "environmental_issues", {class: 'form-control required'})%>
+						</br>
+						<label>Dwelling Description</label>
+						<%= text_area("property_evaluation_dto", "dwelling_description", {class: 'form-control required'})%>
+						</br>
+						<label>Construction</label>
+						<%= text_area("property_evaluation_dto", "construction", {class: 'form-control required'})%>
+						</br>
+						<label>PC Items</label>
+						<%= text_area("property_evaluation_dto", "pc_items", {class: 'form-control required'})%>
+						</br>
+						<label>Fixture & Features</label>
+						<%= text_area("property_evaluation_dto", "fixture_features", {class: 'form-control required'})%>
+						</br>
+						<label>Other Improvements</label>
+						<%= text_area("property_evaluation_dto", "other_improvements", {class: 'form-control required'})%>
+						</br>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group">
+
+						<br />
+						<br />
+						<button  type="reset" class="btn btn-default">
+							<i class="fa fa-refresh"></i> Reset
+						</button>
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-floppy-o"></i> Submit
+						</button>
+	</br>	</br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
