@@ -140,6 +140,17 @@ class PortalController < ApplicationController
       end
     end
   end
+  
+  def evaluation_report
+    id=params[:id]
+    if(id!=nil)
+      @property=Property.find_by(id: id)
+      @evaluation=PropertyEvaluation.find_by(property_id: id)
+    else
+      @property=Property.new
+      @evaluation=PropertyEvaluation.new
+    end
+  end
 
   private
 

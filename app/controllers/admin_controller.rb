@@ -10,7 +10,11 @@ class AdminController < ApplicationController
     end
   end
 
-  def change_password
+  def contact
+    @contacts=Contact.all
+  end
+  
+   def change_password
 
   end
 

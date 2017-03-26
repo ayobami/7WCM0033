@@ -42,15 +42,13 @@
 
 				</div>
 				<div class="col-md-8 col-sm-8">
-					<h1 class="pull-left size-25">
-					 &#8358; <%= @property.per_unit_price%> .	<%= @property.number_of_rooms%> Rooms .  <%= @property.number_of_baths%> Baths
-					</h1>
+					<h1 class="pull-left size-25"> &#8358; <%= @property.per_unit_price%> .	<%= @property.number_of_rooms%> Rooms .  <%= @property.number_of_baths%> Baths ..
+					<%if session[:user_id] != nil%> <a class="ml-20 btn btn-small btn-info" target="new" href="/portal/evaluationreport?id=<%= @property.id%>"><i class="fa fa-book"></i> Valuation Report</a> <%end%> </h1>
 					<br/>
+
 					<br/>
-					<%address=Address.find_by(id: @property.address_id)%> 
-					<h1 class="pull-left size-25 logo-dec">
-						<%= address.street1%> .  <%= address.zip_code%>
-					</h1>
+					<% address=Address.find_by(id: @property.address_id)%>
+					<h1 class="pull-left size-25 logo-dec"> <%= address.street1%> .  <%= address.zip_code%> </h1>
 					<br/>
 					<br/>
 					<p class="justified">
@@ -60,11 +58,13 @@
 				<div class="col-md-2 col-sm-2">
 
 				</div>
-				<br/><br/>
+				<br/>
+				<br/>
 			</div>
 		</div>
 	</div>
-	<br/><br/>
+	<br/>
+	<br/>
 </div>
 <script>
 	//var slideIndex = 1;

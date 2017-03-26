@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   match '/home/featuredproperties', to: 'home#featured_properties', via: :all
   match '/home/contact', to: 'home#contact', via: :all
   match '/home/chat', to: 'home#chat', via: :all
+  match '/home/feed', to: 'home#feed', via: :all
 
   match '/account/changepassword', to: 'account#change_password', via: :all
   match '/account/forgotpassword', to: 'account#forgot_password', via: :all
@@ -23,7 +24,9 @@ Rails.application.routes.draw do
   match '/portal/property', to: 'portal#property', via: :all
   match '/portal/editproperty', to: 'portal#edit_property', via: :all
   match '/portal/propertyevaluation', to: 'portal#property_evaluation', via: :all
+  match '/portal/evaluationreport', to: 'portal#evaluation_report', via: :all
   match '/portal/properties', to: 'portal#properties', via: :all
   
   match '/admin/audittrail', to: 'admin#audit_trail', via: :all
+    match '/admin/contact', to: 'admin#contact', via: :all
 end

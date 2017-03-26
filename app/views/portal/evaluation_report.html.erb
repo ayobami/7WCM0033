@@ -1,0 +1,107 @@
+<div id="content" class="padding-20">
+	<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec">Property Evaluation Report</span></h3>
+			<hr />
+		</div>
+		<div class="panel-body">
+
+			<div class="row">
+				<div class="col-md-2 col-sm-2">
+
+				</div>
+				<div class="col-md-8 col-sm-8">
+					<% if @evaluation != nil%>
+
+					<table id="dataTable" class="table table-striped table-bordered">
+						<tbody>
+							<tr>
+								<td width="27%" align="left"><b>Description</b></td>
+								<td width="73%"  align="left"><%= @property.short_description%></td>
+							</tr>
+							<tr>
+								<td width="27%" align="left"><b>Features</b></td>
+								<td width="73%"  align="left"><%= @property.per_unit_price%> .	<%= @property.number_of_rooms%> Rooms .  <%= @property.number_of_baths%> Baths</td>
+							</tr>
+							<% @evaluation.attributes.each do |attr_name, attr_value| %>
+							<% if (attr_name == 'id' || attr_name == 'property_id' || attr_value == nil || attr_value.to_s.empty?) then
+                next
+                end %>
+							<tr>
+								<td width="27%" align="left"><b><%= attr_name.to_s.gsub(/_/,' ').titleize %></b></td>
+								<td width="73%"  align="left"><%= attr_value %></td>
+							</tr>
+
+							<% end %>
+
+						</tbody>
+					</table>
+					<% else %>
+					<div class="alert alert-warning noborder text-center weight-400 nomargin noradius">
+						Valuation has not been done yet for this property
+					</div>
+					<% end %>
+					<br/>
+					<br/>
+				</div>
+				<div class="col-md-2 col-sm-2">
+
+				</div>
+				<br/>
+				<br/>
+			</div>
+		</div>
+	</div>
+	<br/>
+	<br/>
+</div>
+<script>
+	//var slideIndex = 1;
+	//showSlides(slideIndex);
+	var slideIndex = 0;
+	showSlides();
+
+	function plusSlides(n) {
+		showSlides(slideIndex += n);
+	}
+
+	function currentSlide(n) {
+		showSlides( slideIndex = n);
+	}
+
+	function showSlides() {
+		var i;
+		var slides = document.getElementsByClassName("mySlides");
+		for ( i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		slideIndex++;
+		if (slideIndex > slides.length) {
+			slideIndex = 1
+		}
+		slides[slideIndex - 1].style.display = "block";
+		setTimeout(showSlides, 5000);
+		// Change image every 2 seconds
+	}
+
+	/*function showSlides(n) {
+	 var i;
+	 var slides = document.getElementsByClassName("mySlides");
+	 var dots = document.getElementsByClassName("dot");
+	 if (n > slides.length) {
+	 slideIndex = 1
+	 }
+	 if (n < 1) {
+	 slideIndex = slides.length
+	 }
+	 for ( i = 0; i < slides.length; i++) {
+	 slides[i].style.display = "none";
+	 }
+	 for ( i = 0; i < dots.length; i++) {
+	 dots[i].className = dots[i].className.replace(" active", "");
+	 }
+	 slides[slideIndex - 1].style.display = "block";
+	 dots[slideIndex - 1].className += " active";
+	 }*/
+</script>

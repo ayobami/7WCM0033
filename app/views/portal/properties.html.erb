@@ -22,7 +22,7 @@
 									<th width="10%"> Baths </th>
 									<th width="10%"> Price ( &#8358; )</th>
 									<th> Address </th>
-									<th width="18%"></th>
+									<th width="27%"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -44,7 +44,9 @@
 										<i class="fa fa-search"></i> View</a>
                                                 ||
                                                 <a class="btn btn-small btn-default" 
-                                                href="/portal/editproperty?id=<%= property.id%>"><i class="fa fa-edit"></i> Edit</a>	
+                                                href="/portal/editproperty?id=<%= property.id%>"><i class="fa fa-edit"></i> Edit</a>
+                                                ||
+                                                <a class="btn btn-small btn-default" target="new" href="/portal/evaluationreport?id=<%=property.id%>">Valuation</a>	
 								    </td>
 								</tr>
 								<% count+=1%>

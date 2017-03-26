@@ -120,12 +120,38 @@ class HomeController < ApplicationController
     @featured_properties=Property.where(property_status: 388) # featured properties
   end
   
-  def contact
-    
+ def contact
+    if request.post?
+      contact_dto=ContactDTO.new(params[:contact_dto])
+      if contact_dto.valid? then
+        contact=Contact.new
+        contact.surname=contact_dto.surname
+        contact.first_name=contact_dto.first_name
+        contact.email_address=contact_dto.email_address
+        contact.message=contact_dto.message
+        contact.message_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
+        if(contact.valid? && contact.save!)
+          flash[:action_successful] = "action successful"
+          contact_dto= ContactDTO.new
+        else
+          flash[:action_failed] = "action failed"
+        end
+      else
+        flash[:validation_failed] = "validation failed"
+      end
+      @contact_dto=contact_dto
+    end
   end
   
   def chat
     
+  end
+  
+  def feed
+    @properties = Property.all
+    respond_to do |format|
+      format.rss { render :layout => false }
+    end
   end
   
   private 
