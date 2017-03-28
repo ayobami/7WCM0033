@@ -26,7 +26,12 @@ Rails.application.routes.draw do
   match '/portal/propertyevaluation', to: 'portal#property_evaluation', via: :all
   match '/portal/evaluationreport', to: 'portal#evaluation_report', via: :all
   match '/portal/properties', to: 'portal#properties', via: :all
+  match '/portal/showroom', to: 'portal#show_room', via: :all
   
   match '/admin/audittrail', to: 'admin#audit_trail', via: :all
-    match '/admin/contact', to: 'admin#contact', via: :all
+  match '/admin/contact', to: 'admin#contact', via: :all
+  match '/admin/changepassword', to: 'admin#change_password', via: :all
+  match '/admin/index', to: 'admin#index', via: :all
+  match '/admin/registration', to: 'admin#registration', via: :all
+  match '/admin/news', to: 'admin#news', via: :all
 end

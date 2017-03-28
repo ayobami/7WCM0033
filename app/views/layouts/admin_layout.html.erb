@@ -1,152 +1,157 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Properties for Sale</title
-	  <%= csrf_meta_tags %>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Site - Admin</title>
 
-<script src="/assets/admin.js" type="text/javascript"></script><script src="/assets/admin.js" type="text/javascript"></script>
-</head>
-<body>
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a href="~/Home/Index" class="navbar-brand"><i class="glyphicon glyphicon-home"></i> Code Repo</a>
-                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse" id="navbar-main">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Snippets 
-                            <i class="glyphicon glyphicon-list-alt"></i>
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="themes">
-                            
-                            <li><a href="@Url.Action("MostPopularSnippets", "App")">Most Popular Snippets</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("SnippetsByLanguage", "App")">Snippets by Language</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("SnippetsByTag", "App")">Snippets by Tag</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("SnippetsByRating", "App")">Snippets by Rating</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("Snippets", "App")">Latest Snippets</a></li>
+		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	</head>
 
+	<body>
+		<div class="header">
+			<div class="navbar navbar-default navbar-fixed-top" style="padding-left:10px; padding-right:10px; padding-bottom:10px; padding-top:0px; background-color:black; height:30px">
+
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/admin/index"> <i class="glyphicon glyphicon-home"></i> Property <span class="logo-dec">Managers</span></a>
+				</div>
+				<div class="navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+
+
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Property <i class="glyphicon glyphicon-list-alt"></i> <span class="caret"></span></a>
+							<ul class="dropdown-menu" aria-labelledby="themes">
+
+								<li class="divider"></li>
+								<li>
+									<a href="/portal/property">Registration</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/portal/properties">All Properties</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/portal/propertyevaluation">Evaluation</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/portal/mortgage">Mortgage Brokage</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/portal/showroom" >Showroom <i class="glyphicon glyphicon-film"></i> </a>
+								</li>
 							
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("AddNew", "App")">
-                            Archive Snippet
-                            <i class="glyphicon glyphicon-plus-sign"></i>
-                            </a>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Analytics 
-                            <i class="glyphicon glyphicon-stats"></i>
-                        <span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="download">
-                            
-                            <li><a href="@Url.Action("AnalyticsByLanguage", "App")">Programming Languages</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("AnalyticsByRating", "App")">Ratings</a></li>
-                            <li class="divider"></li>
-                            
-                            <li><a href="@Url.Action("AnalyticsByTag", "App")">Tags</a></li>
-                            <li class="divider"></li>
-                            <li><a href="@Url.Action("AnalyticsByType", "App")">Snippet Types</a></li>
-                        </ul>
-                    </li>
+							</ul>
+						</li>
+						
+						
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Reports <i class="glyphicon glyphicon-stats"></i> <span class="caret"></span></a>
+							<ul class="dropdown-menu" aria-labelledby="themes">
 
-                    <li class="divider"></li>
-                    <li><a href="@Url.Action("RSS", "App")" target="_blank">RSS Feeds <i class="glyphicon glyphicon-th-list"></i></a></li>
-                </ul>
+								<li>
+									<a href="/report/property">Property</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/report/users">Users</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/report/sales">Sales/Mortgage</a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Account <i class="glyphicon glyphicon-user"></i> <span class="caret"></span></a>
+							<ul class="dropdown-menu" aria-labelledby="download">
+
+								<li>
+									<a href="/admin/updateprofile"> View & Update Profile <i class="glyphicon glyphicon-list-alt"></i> </a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/admin/changepassword"> Change Password <i class="glyphicon glyphicon-wrench"></i> </a>
+								</li>
+							</ul>
+						</li>
+
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Admin <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span></a>
+							<ul class="dropdown-menu" aria-labelledby="download">
+								<li>
+									<a href="/admin/contact"> Contact Messages <i class="fa fa-envelope"></i> </a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/admin/users"> Users <i class="glyphicon glyphicon-user"></i> </a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/admin/news"> News <i class="glyphicon glyphicon-book"></i> </a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/admin/audittrail" > Audit Trail <i class="glyphicon glyphicon-wrench"></i> </a>
+								</li>
+							</ul>
+						</li>
+
+						<li>
+							<a href="/home/logout"> Logout <i class="glyphicon glyphicon-off"></i> </a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			<div class="wrapper">
+				<div class="container bg-color">
+					<div class="body-content">
+						<br />
+
+						<br />
+						<br />
+						<%= yield %>
+						<hr />
+						<footer>
+							<p class="white">
+								&copy; 2017 - Ayobami Adewole (14172658)
+							</p>
+						</footer>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			function goBack() {
+				window.history.back();
+			}
 
 
-                <ul class="nav navbar-nav navbar-right">
+			$(document).ready(function() {
+				$(".datepicker").datepicker({
+					dateFormat : 'dd/mm/yy'
+				});
 
-				
-    <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Account 
-            <i class="glyphicon glyphicon-user"></i>
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu" aria-labelledby="download">
-           
-            <li>
-                <a href="@Url.Action("ProfileUpdate", "App")">
-                    View & Update Profile
-                    <i class="glyphicon glyphicon-list-alt"></i>
-                </a>
-            </li>
-            <li class="divider"></li>
-            <li>
-                <a href="@Url.Action("ChangePassword", "Account")" >
-                    Change Password
-                    <i class="glyphicon glyphicon-wrench"></i>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li>
-        <a href="@Url.Action("Logout", "Account")">
-            Logout
-            <i class="glyphicon glyphicon-off"></i>
-        </a>
-    </li>
+				$('#dataTable').DataTable({
+					deferRender : false,
+					scrollY : 400,
+					scrollCollapse : true,
+					scroller : true
+				});
+			});
+		</script>
 
-	
-    <li>
-        <a href="@Url.Action("Login", "Account")">
-            Login
-            <i class="glyphicon glyphicon-log-in"></i>
-        </a>
-    </li>
-    <li>
-        <a href="@Url.Action("RegisterUser", "Account")">
-            Registration
-            <i class="glyphicon glyphicon-registration-mark"></i>
-        </a>
-    </li>
-
-	
-                </ul>
-    
-	
-
-            </div>
-        </div>       
-    </div>
-        <div class="container container-bg">
-            <div class="body-content">
-                <br />
-                
-                     <br />                
-                     <input id="tag-button" type="button" class="btn btn-sm btn-group ml-2" value="<<" 
-                            onclick="goBack();"
-                            />
-                
-                <br />
-				    <%= yield %>
-                <hr />
-                <br />
-                <footer>
-                    <p>&copy; 2017 - Ayobami Adewole (14172658)</p>
-                </footer>
-            </div>
-        </div>        
-        <script>
-            function goBack(){
-                window.history.back();
-            }
-
-            $(document).ready(function () {
-                $(".datepicker").datepicker({ dateFormat: 'dd/mm/yy' });
-            });
-        </script>
-</body>
+	</body>
 </html>

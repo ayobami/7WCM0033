@@ -35,27 +35,6 @@
 							<a href="/home/contact" target="_blank">Chat <i class="glyphicon glyphicon-headphones"></i></a>
 						</li>
 						<li class="divider"></li>
-						<%if session[:user_id] != nil%>
-
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Reports <i class="glyphicon glyphicon-stats"></i> <span class="caret"></span></a>
-							<ul class="dropdown-menu" aria-labelledby="themes">
-
-								<li>
-									<a href="/report/property">Property</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="/report/users">Users</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="/report/sales">Sales/Mortgage</a>
-								</li>
-							</ul>
-						</li>
-						<% end%>
-
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Property <i class="glyphicon glyphicon-list-alt"></i> <span class="caret"></span></a>
 							<ul class="dropdown-menu" aria-labelledby="themes">
@@ -70,19 +49,7 @@
 								<%if session[:user_id] != nil%>
 								<li class="divider"></li>
 								<li>
-									<a href="/portal/property">Registration</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="/portal/properties">All Properties</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="/portal/propertyevaluation">Evaluation</a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="/portal/mortgage">Mortgage Brokage</a>
+									<a href="/portal/property">Purchase History</a>
 								</li>
 								<% end%>
 							</ul>
@@ -99,23 +66,6 @@
 								<li class="divider"></li>
 								<li>
 									<a href="/account/changepassword" > Change Password <i class="glyphicon glyphicon-wrench"></i> </a>
-								</li>
-							</ul>
-						</li>
-
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Admin <i class="glyphicon glyphicon-cog"></i> <span class="caret"></span></a>
-							<ul class="dropdown-menu" aria-labelledby="download">
-<li>
-									<a href="/admin/contact"> Contact Messages <i class="fa fa-envelope"></i> </a>
-								</li>
-									<li class="divider"></li>
-								<li>
-									<a href="/admin/users"> Users <i class="glyphicon glyphicon-user"></i> </a>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="/admin/audittrail" > Audit Trail <i class="glyphicon glyphicon-wrench"></i> </a>
 								</li>
 							</ul>
 						</li>

@@ -1,6 +1,7 @@
 require 'time'
 
 class HomeController < ApplicationController
+  layout 'application' 
   def index
     get_search_dictionary_entries
     @latest_properties=Property.order(id: :desc).take(4)
@@ -49,8 +50,12 @@ class HomeController < ApplicationController
           encrypted_password= BCrypt::Engine.hash_secret(loginDTO.password, user.salt)
           if(encrypted_password==user.password)
            session[:user_id] = user.id
-           get_search_dictionary_entries
-           render action: 'index'
+           if user.role == "admin"
+             redirect_to :controller => 'admin', :action => 'index' 
+           else
+             redirect_to :action => 'index' 
+           end
+           
           end
         end 
         flash[:action_failed] = "action failed"
@@ -63,8 +68,7 @@ class HomeController < ApplicationController
   
   def logout
     session[:user_id] =nil
-    get_search_dictionary_entries
-    render action: 'index'
+    redirect_to :action => 'index'     
   end
   
   def property
@@ -189,6 +193,7 @@ class HomeController < ApplicationController
     user.email_address=registrationDTO.email
     user.password=registrationDTO.password
     user.created_date=@date
+    user.role="user"
     return user
   end
 

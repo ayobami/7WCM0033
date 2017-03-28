@@ -15,6 +15,8 @@ gem 'mysql2'
 
 gem 'mini_magick'
 
+gem 'tinymce-rails'
+
 gem 'carrierwave'
 
 gem "audited", "~> 4.3"

@@ -1,4 +1,5 @@
 class PortalController < ApplicationController
+  layout 'admin_layout' 
   def property
     @property_dto = nil
     time = Time.now.to_s

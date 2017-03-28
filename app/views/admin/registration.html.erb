@@ -1,0 +1,155 @@
+<% page_title = "Staff Registration" %>
+
+<div id="content" class="padding-20">
+	<%= form_for(:registrationDTO, :url => {:controller => 'admin', :action => 'registration'}) do |f| %>
+		<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<hr />
+		</div>
+
+
+		<% if !flash[:validation_failed].blank? %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Please fill all the required fields marked with *
+			<br/>
+			<br/>
+			<% for message_error in @registrationDTO.errors.full_messages %>
+			<li>
+				* <%= message_error %>
+			</li>
+			<% end %>
+		</div>
+		<% end %>
+
+		<% if !flash[:action_failed].blank?  %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Could not saved details, checked the provided details, email already exist in the database
+		</div>
+		<% end %>
+
+		<% if !flash[:action_successful].blank?  %>
+		<br/>
+		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
+			Staff Account Registration Successful !!!
+		</div>
+		<% end %>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="form-group">
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Personal Information</strong>
+							</div>
+						</div>
+
+						<label>Surname *</label>
+						<%= text_field("registrationDTO", "last_name", {class: 'form-control required'})%>
+						</br>
+
+						<label>First Name *</label>
+						<%= text_field("registrationDTO", "first_name", {class: 'form-control required'})%>
+						</br>
+
+						<label>Middle Name</label>
+						<%= text_field("registrationDTO", "middle_name", {class: 'form-control required'})%>
+
+						</br>
+
+						<label>Gender *</label>
+						<%= select("registrationDTO", "gender", @gender.collect {|p| [ p.label, p.id] }, {prompt: 'Select Gender'}, {class: 'form-control required'})%>
+
+						</br>
+
+						<label>Marital Status *</label>
+						<%= select("registrationDTO", "marital_status", @marital_statuses.collect {|p| [ p.label, p.id] }, {prompt: 'Select Marital Status'}, {class: 'form-control required'})%>
+						</br>
+
+						<label>Religion *</label>
+						<%= select("registrationDTO", "religion", @religions.collect {|p| [ p.label, p.id] }, {prompt: 'Select Religion'}, {class: 'form-control required'})%>
+					</br>
+
+						<label>Date of Birth *</label>
+						</br>
+						<%= date_select("registrationDTO", "birth_date" , start_year: 1930)%>
+						</br>
+
+					</div>
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong  class="black">Contact Details </strong>
+							</div>
+						</div>
+						<label>Phone Number *</label>
+						<%= text_field("registrationDTO", "phone_number", {class: 'form-control required'})%>
+						
+						<br />
+						<label>Street Address *</label>
+						<%= text_field("registrationDTO", "street1", {class: 'form-control required'})%>
+						
+						<br />
+						<label>Street Address 2</label>
+						<%= text_field("registrationDTO", "street2", {class: 'form-control required'})%>
+						
+						<br />
+						<label>City *</label>
+						<%= text_field("registrationDTO", "city", {class: 'form-control required'})%>
+						
+						<br />
+						<label>Postal/Zip Code *</label>
+						<%= text_field("registrationDTO", "zip_code", {class: 'form-control required'})%>
+						
+						<br />
+						<label>State *</label>
+						<%= select("registrationDTO", "state", @states.collect {|p| [ p.label, p.id] }, {prompt: 'Select State'}, {class: 'form-control required'})%>
+						<br />
+						<label>Country *</label>
+						<br />
+						<%= select("registrationDTO", "country", @countries.collect {|p| [ p.label, p.id] }, {prompt: 'Select Country'}, {class: 'form-control required'})%>
+					</div>
+
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Account Information</strong>
+							</div>
+						</div>
+
+						<label>Email *</label>
+						<%= email_field("registrationDTO", "email", {class: 'form-control required'})%>
+						</br>
+						<label>Password *</label>
+						<%= password_field("registrationDTO", "password", {class: 'form-control required'})%>
+						
+						</br>
+						<label>Password Confirmation *</label>
+						<%= password_field("registrationDTO", "password_confirmation", {class: 'form-control required'})%>
+						</br>
+						
+					
+							
+								<br />
+								<br />
+								<button  type="reset" class="btn btn-default">
+									<i class="fa fa-refresh"></i> Reset
+								</button>
+								<button type="submit" class="btn btn-success">
+									<i class="fa fa-floppy-o"></i> Submit
+								</button>
+						
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>
