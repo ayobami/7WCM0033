@@ -15,7 +15,9 @@ gem 'mysql2'
 
 gem 'mini_magick'
 
-gem 'tinymce-rails'
+gem 'ckeditor'
+
+gem "paperclip"
 
 gem 'carrierwave'
 

@@ -1,0 +1,71 @@
+<% page_title = "News Entries" %>
+<div id="content" class="padding-20">
+	<%= form_for(:news_dto, :url => {:controller => 'admin', :action => 'create_news'}) do |f| %>
+	<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<hr />
+		</div>
+
+		<% if flash[:validation_failed].blank?  == false %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Please fill all the required fields marked with *
+			<br/>
+			<br/>
+			<% for message_error in @news_dto.errors.full_messages %>
+			<li>
+				* <%= message_error %>
+			</li>
+			<% end %>
+		</div>
+		<% end %>
+
+		<% if flash[:action_failed].blank?  == false  %>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			New not saved
+		</div>
+		<% end %>
+
+		<% if flash[:action_successful].blank? == false %>
+		<br/>
+		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
+			News Saved Successfully!!!
+		</div>
+		<% end %>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="form-group">
+						<div class="col-md-2 col-sm-2"></div>
+					<div class="col-md-8 col-sm-8">
+
+						
+						<label>Title *</label>
+						<%= text_field("news_dto", "title", {class: 'form-control required'})%>
+
+						</br>
+
+						<label>News Text *</label>
+						</br>
+						<%= cktext_area("news_dto", "text", {class: 'tinymce required', rows: 15, cols: 96 })%>
+				
+								<br /><br />
+								<button type="reset" class="btn btn-default">Reset</button>
+								<button type="submit" class="btn btn-success ml-20">
+									<i class="fa fa-edit"></i> Submit
+								</button>
+								<br />
+								<br />
+							
+						</div><div class="col-md-2 col-sm-2"></div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>

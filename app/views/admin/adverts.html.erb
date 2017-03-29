@@ -1,4 +1,4 @@
-<% page_title = "All News Entries" %>
+<% page_title = "All Adverts" %>
 
 <div id="content" class="padding-20">
 <div class="panel">
@@ -12,8 +12,7 @@
 
 		<div class="panel-body mr-20 ml-20">
 			<div class="row">
-				
-				<a class="btn btn-small btn-default pull-left" href="/admin/createnews"><i class="fa fa-newspaper-o"></i> New Entry</a>
+					<a class="btn btn-small btn-default pull-left" href="/admin/createadvert"><i class="fa fa-newspaper-o"></i> New Entry</a>
 				<br/><br/>
 				<p>
 						<table id="dataTable" class="table table-striped table-bordered">
@@ -27,23 +26,23 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% if @allnews != nil  %>
+								<% if @alladvert != nil  %>
 								<% count=1%>
-								<% for entry in @allnews
+								<% for entry in @alladvert
 									person =Person.find_by(user_id: entry.user_id)
 									full_name=person.last_name + " " +person.first_name
 								%>
 								<tr>
 									<td><%= count%></td>
 									<td> <%= entry.title%> </td>
-									<td> <%= entry.news_date%> </td>
+									<td> <%= entry.advert_date%> </td>
 									<td> <%= full_name%> </td>
 									<td>
 										 <a class="btn btn-small btn-default" 
-                                                href="/admin/editnews?id=<%= entry.id%>"><i class="fa fa-edit"></i> Edit</a>
+                                                href="/admin/editadvert?id=<%= entry.id%>"><i class="fa fa-edit"></i> Edit</a>
                                                 ||
 												<a class="btn btn-small btn-default" 
-                                                href="/admin/deletenews?id=<%= entry.id%>"><i class="fa fa-thrash"></i> Delete</a>
+                                                href="/admin/deleteadvert?id=<%= entry.id%>"><i class="fa fa-thrash"></i> Delete</a>
 									</td>
 								</tr>
 								<% count+=1%>

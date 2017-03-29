@@ -18,5 +18,6 @@ module PropertyApp
 
     config.autoload_paths += %W(#{config.root}/app/models/dtos)
     
+    Paperclip.options[:command_path] = "/ckeditor_assets/attachments/"
   end
 end

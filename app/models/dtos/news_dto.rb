@@ -2,7 +2,7 @@ class NewsDTO
   
   include ActiveModel::Validations
 
-  attr_accessor :title, :text
+  attr_accessor :title, :text, :user_id, :id, :news_date
   validates_presence_of  :title, :text
   
   def initialize(attributes = {})

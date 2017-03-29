@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   root 'home#index'
   
   match '/home/registration', to: 'home#registration', via: :all
@@ -34,4 +35,11 @@ Rails.application.routes.draw do
   match '/admin/index', to: 'admin#index', via: :all
   match '/admin/registration', to: 'admin#registration', via: :all
   match '/admin/news', to: 'admin#news', via: :all
+  match '/admin/createnews', to: 'admin#create_news', via: :all
+  match '/admin/editnews', to: 'admin#edit_news', via: :all
+  match '/admin/deletenews', to: 'admin#delete_news', via: :all
+  match '/admin/adverts', to: 'admin#adverts', via: :all
+  match '/admin/createadvert', to: 'admin#create_advert', via: :all
+  match '/admin/editadvert', to: 'admin#edit_advert', via: :all
+  match '/admin/deleteadvert', to: 'admin#delete_advert', via: :all
 end
