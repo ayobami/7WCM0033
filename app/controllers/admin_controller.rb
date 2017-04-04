@@ -14,12 +14,37 @@ class AdminController < ApplicationController
   def contact
     @contacts=Contact.all
   end
-  
-  def news
-	@allnews=News.all
+ def news
+    @allnews=News.all
+  end
+
+  def users
+    @all_users=User.all
+  end
+
+  def activate_user
+    id=params[:id]
+    if(id !=nil )
+      user = User.find_by(id: id)
+      if(user != nil)
+      user.status=284
+      user.save
+      end
+    end
   end
   
-   def create_news
+  def deactivate_user
+  id=params[:id]
+  if(id !=nil )
+    user = User.find_by(id: id)
+    if(user != nil)
+      user.status=285
+      user.save
+    end
+  end
+  end
+  
+ def create_news
     if request.post?
       news_dto=NewsDTO.new(params[:news_dto])
       if news_dto.valid? then
@@ -244,6 +269,7 @@ class AdminController < ApplicationController
     user.password=registrationDTO.password
     user.created_date=@date
     user.role="admin"
+    user.status=284
     return user
   end
 
@@ -256,5 +282,30 @@ class AdminController < ApplicationController
     @religions=dictionaryLoader.get_entries_by_category("religion")
     @marital_statuses=dictionaryLoader.get_entries_by_category("maritalstatus")
   end  
+  
+  def get_person(registrationDTO, id)
+    person=Person.find_by(user_id: id)
+    registrationDTO.first_name=person.first_name
+    registrationDTO.last_name=person.last_name
+    registrationDTO.middle_name=person.middle_name
+    registrationDTO.phone_number=person.phone_number
+    registrationDTO.gender=person.gender
+    registrationDTO.marital_status=person.marital_status
+    registrationDTO.religion=person.religion
+    registrationDTO.birth_date=person.birth_date
+    registrationDTO.email_address=person.email
+    return registrationDTO,person.address_id
+  end
+  
+   def get_address(registrationDTO, id)
+    address=Address.find_by(id: id)
+    registrationDTO.street1=address.street1
+    registrationDTO.street2=address.street2
+    registrationDTO.city=address.city
+    registrationDTO.state=address.state
+    registrationDTO.country=address.country
+    registrationDTO.zip_code=address.zip_code
+    return registrationDTO
+  end
 
 end

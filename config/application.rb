@@ -18,6 +18,6 @@ module PropertyApp
 
     config.autoload_paths += %W(#{config.root}/app/models/dtos)
     
-    Paperclip.options[:command_path] = "/ckeditor_assets/attachments/"
+    Paperclip.options[:command_path] = "C:\\Program Files\\ImageMagick-7.0.5-Q16\\"
   end
 end

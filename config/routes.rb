@@ -17,9 +17,8 @@ Rails.application.routes.draw do
 
   match '/account/changepassword', to: 'account#change_password', via: :all
   match '/account/forgotpassword', to: 'account#forgot_password', via: :all
-  match '/account/forgotpasswordconfirmation', to: 'account#forgot_password_confirmation', via: :all
+  match '/account/updateprofile', to: 'account#update_profile', via: :all
   match '/account/resetpassword', to: 'account#reset_password', via: :all
-  match '/account/resetpasswordconfirmation', to: 'account#reset_password_confirmation', via: :all
 
 
   match '/portal/property', to: 'portal#property', via: :all
@@ -35,6 +34,7 @@ Rails.application.routes.draw do
   match '/admin/index', to: 'admin#index', via: :all
   match '/admin/registration', to: 'admin#registration', via: :all
   match '/admin/news', to: 'admin#news', via: :all
+  match '/admin/users', to: 'admin#users', via: :all
   match '/admin/createnews', to: 'admin#create_news', via: :all
   match '/admin/editnews', to: 'admin#edit_news', via: :all
   match '/admin/deletenews', to: 'admin#delete_news', via: :all
@@ -42,4 +42,7 @@ Rails.application.routes.draw do
   match '/admin/createadvert', to: 'admin#create_advert', via: :all
   match '/admin/editadvert', to: 'admin#edit_advert', via: :all
   match '/admin/deleteadvert', to: 'admin#delete_advert', via: :all
+  match '/admin/activateuser', to: 'admin#activate_user', via: :all
+  match '/admin/deactivateuser', to: 'admin#deactivate_user', via: :all
+  match '/admin/updateprofile', to: 'admin#update_profile', via: :all
 end

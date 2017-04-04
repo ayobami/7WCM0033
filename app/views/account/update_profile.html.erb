@@ -1,7 +1,7 @@
-<% page_title = "Staff Registration" %>
+<% page_title = "Profile Update" %>
 
 <div id="content" class="padding-20">
-	<%= form_for(:registrationDTO, :url => {:controller => 'admin', :action => 'registration'}) do |f| %>
+	<%= form_for(:registrationDTO, :url => {:controller => 'account', :action => 'update_profile'}) do |f| %>
 		<div class="panel">
 		<div class="panel-heading">
 			<br/>
@@ -10,7 +10,7 @@
 		</div>
 
 
-		<% if flash[:validation_failed]!= nil %>
+		<% if !flash[:validation_failed].blank? %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -24,17 +24,17 @@
 		</div>
 		<% end %>
 
-		<% if flash[:action_failed]!= nil %>
+		<% if !flash[:action_failed].blank?  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
-			Could not saved details, checked the provided details, email already exist in the database
+			Could not update profile
 		</div>
 		<% end %>
 
-		<% if flash[:action_successful]!= nil%>
+		<% if !flash[:action_successful].blank?  %>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
-			Staff Account Registration Successful !!!
+			Profile Updated Successfully
 		</div>
 		<% end %>
 
@@ -114,26 +114,7 @@
 						<label>Country *</label>
 						<br />
 						<%= select("registrationDTO", "country", @countries.collect {|p| [ p.label, p.id] }, {prompt: 'Select Country'}, {class: 'form-control required'})%>
-					</div>
-
-					<div class="col-md-4 col-sm-4">
-						<div class="panel panel-default">
-							<div class="panel-heading panel-heading-transparent">
-								<strong class="black">Account Information</strong>
-							</div>
-						</div>
-
-						<label>Email *</label>
-						<%= email_field("registrationDTO", "email", {class: 'form-control required'})%>
-						</br>
-						<label>Password *</label>
-						<%= password_field("registrationDTO", "password", {class: 'form-control required'})%>
-						
-						</br>
-						<label>Password Confirmation *</label>
-						<%= password_field("registrationDTO", "password_confirmation", {class: 'form-control required'})%>
-						</br>
-						
+								
 					
 							
 								<br />

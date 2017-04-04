@@ -194,6 +194,7 @@ class HomeController < ApplicationController
     user.password=registrationDTO.password
     user.created_date=@date
     user.role="user"
+    user.status=284
     return user
   end
 

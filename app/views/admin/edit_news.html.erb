@@ -42,8 +42,9 @@
 					
 
 						<%= hidden_field("news_dto", "id")%>
-							<div class="col-md-2 col-sm-2"></div>
-					<div class="col-md-8 col-sm-8">
+							<div class="col-md-1 col-sm-1"></div>
+					<div class="col-md-10 col-sm-10">
+
 
 						
 						<label>Title *</label>
@@ -53,7 +54,7 @@
 
 						<label>News Text *</label>
 						</br>
-						<%= cktext_area("news_dto", "text", {class: 'tinymce required', rows: 15, cols: 96 })%>
+						<%= cktext_area("news_dto", "text", {class: 'tinymce required', rows: 25, cols: 96 })%>
 				
 								<br /><br />
 								<button type="reset" class="btn btn-default">Reset</button>
@@ -63,7 +64,7 @@
 								<br />
 								<br />
 							
-						</div><div class="col-md-2 col-sm-2"></div>
+						</div><div class="col-md-1 col-sm-1"></div>
 					</div>
 
 				</div>
