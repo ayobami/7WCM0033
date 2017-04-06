@@ -86,6 +86,17 @@ class PortalController < ApplicationController
 
     get_dictionary_entries
   end
+  
+ 
+  
+  def mortgage_evaluation
+    id=params[:id]
+    if(id!=nil)
+      @mortgage=Mortgage.find_by(id: id)
+    else
+      @mortgage=Mortgage.new
+    end
+  end
 
   def properties
     @all_properties=Property.all

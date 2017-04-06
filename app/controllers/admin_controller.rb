@@ -1,5 +1,15 @@
 class AdminController < ApplicationController
   layout 'admin_layout' 
+  
+  def index
+	@properties_count=Property.all.count
+	@messages_count=Contact.all.count
+	@users_count=User.all.count
+	@adverts_count=Advert.all.count
+	@news_count=News.all.count
+	@transactions_count=Payment.all.count
+  end
+  
   def audit_trail
     @audit_trails = nil
     if request.post?
@@ -31,6 +41,7 @@ class AdminController < ApplicationController
       user.save
       end
     end
+	redirect_to :action => 'users'
   end
   
   def deactivate_user
@@ -42,6 +53,7 @@ class AdminController < ApplicationController
       user.save
     end
   end
+  redirect_to :action => 'users'
   end
   
  def create_news

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
+  mount ActionCable.server => '/cable'
   root 'home#index'
   
   match '/home/registration', to: 'home#registration', via: :all
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
   match '/home/contact', to: 'home#contact', via: :all
   match '/home/chat', to: 'home#chat', via: :all
   match '/home/feed', to: 'home#feed', via: :all
+  match '/home/propertymortgage', to: 'home#property_mortgage', via: :all
 
   match '/account/changepassword', to: 'account#change_password', via: :all
   match '/account/forgotpassword', to: 'account#forgot_password', via: :all
@@ -26,7 +28,8 @@ Rails.application.routes.draw do
   match '/portal/propertyevaluation', to: 'portal#property_evaluation', via: :all
   match '/portal/evaluationreport', to: 'portal#evaluation_report', via: :all
   match '/portal/properties', to: 'portal#properties', via: :all
-  match '/portal/showroom', to: 'portal#show_room', via: :all
+  match '/portal/showroom', to: 'portal#show_room', via: :all  
+  match '/portal/mortgageevaluation', to: 'portal#mortgage_evaluation', via: :all
   
   match '/admin/audittrail', to: 'admin#audit_trail', via: :all
   match '/admin/contact', to: 'admin#contact', via: :all

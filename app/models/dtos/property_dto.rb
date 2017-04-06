@@ -23,7 +23,10 @@ class PropertyDTO
     :floor_number,
     :image1,
     :image2,
-    :image3
+    :image3,
+	:customer_number,
+	:customer_number2,
+	:customer_number3
 
   validates_presence_of :description,
     :property_type,
@@ -36,7 +39,8 @@ class PropertyDTO
     :city,
     :state,
     :country,
-    :zip_code
+    :zip_code,
+	:customer_number
 
   #mount_uploader :image1,:image2,:image3 ImageUploader
   def initialize(attributes = {})

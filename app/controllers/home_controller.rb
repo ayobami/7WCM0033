@@ -79,6 +79,41 @@ class HomeController < ApplicationController
       redirect_back fallback_location: index
     end
   end
+  
+  def property_mortgage
+    @mortgage_dto = nil
+    time = Time.now.to_s
+    @date = DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
+    if request.post?
+      mortgage_dto = MortgageDTO.new(params[:mortgage_dto])
+      if(mortgage_dto.valid?)
+        property= Property.find_by(property_number: mortgage_dto.property_number)
+        if(property!=nil)
+          mortgage =Mortgage.new
+          mortgage.property_id= property.id
+          mortgage.house_hold_income= mortgage_dto.house_hold_income
+          mortgage.home_value= mortgage_dto.home_value
+          mortgage.interest_rate= mortgage_dto.interest_rate
+          mortgage.loan_term= mortgage_dto.loan_term
+          mortgage.start_date= mortgage_dto.start_date
+          mortgage.property_tax= mortgage_dto.property_tax
+          mortgage.pmi= mortgage_dto.pmi
+          mortgage.home_ins= mortgage_dto.home_ins
+          mortgage.monthly_hoa= mortgage_dto.monthly_hoa
+		  mortgage.mortgage_number=PropertyUtil.calculate_mortgage_number
+          mortgage.save
+          flash[:action_successful] = "action successful"
+          @mortgage_dto= MortgageDTO.new
+        else
+          flash[:action_failed] = "action failed"
+          @mortgage_dto=mortgage_dto
+        end
+      else
+        flash[:validation_failed] = "validation failed"
+        @mortgage_dto=mortgage_dto
+      end
+    end
+  end
 
   def search
     get_search_dictionary_entries

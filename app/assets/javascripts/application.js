@@ -17,5 +17,5 @@
 //= require dataTables.scroller.min
 //= require modernizr
 //= require bootstrap.min
-//= require Highcharts-4.0.1/js/highcharts
+//= require chart.min
 //= require ckeditor/init

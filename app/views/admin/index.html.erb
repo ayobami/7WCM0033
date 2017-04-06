@@ -9,133 +9,108 @@
 		</div>
 
 		<div class="panel-body mr-20 ml-20">
-		<!-- top tiles -->
-<div class="row tile_count">
-    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <a href="/portal/properties">
-            <span class="count_top"><i class="fa fa-home"></i> Total Properties</span>
-            <div class="count">3</div>
-        </a>
-    </div>
+			<!-- top tiles -->
+			<div class="row tile_count">
+				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<a href="/portal/properties"> <span class="count_top"><i class="fa fa-home"></i> Total Properties</span>
+					<div class="count">
+						<%= @properties_count%>
+					</div> </a>
+				</div>
 
-      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <a href="/portal/properties">
-            <span class="count_top"><i class="fa fa-money"></i> Total Transactions</span>
-            <div class="count">3</div>
-        </a>
-    </div>
-    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <a href="/portal/properties">
-            <span class="count_top"><i class="fa fa-envelope"></i> Total Messages</span>
-            <div class="count">3</div>
-        </a>
-    </div>
+				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<a href="/portal/transactions"> <span class="count_top"><i class="fa fa-money"></i> Total Transactions</span>
+					<div class="count">
+						<%= @transactions_count%>
+					</div> </a>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<a href="/portal/properties"> <span class="count_top"><i class="fa fa-envelope"></i> Total Messages</span>
+					<div class="count">
+						<%= @messages_count%>
+					</div> </a>
+				</div>
 
-      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <a href="/portal/properties">
-            <span class="count_top"><i class="fa fa-user"></i> Total News</span>
-            <div class="count">3</div>
-        </a>
-    </div>
-    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <a href="/portal/properties">
-            <span class="count_top"><i class="fa fa-user"></i> Total Adverts</span>
-            <div class="count">3</div>
-        </a>
-    </div>
+				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<a href="/admin/news"> <span class="count_top"><i class="fa fa-user"></i> Total News</span>
+					<div class="count">
+						<%= @news_count%>
+					</div> </a>
+				</div>
+				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<a href="/admin/adverts"> <span class="count_top"><i class="fa fa-user"></i> Total Adverts</span>
+					<div class="count">
+						<%= @adverts_count%>
+					</div> </a>
+				</div>
 
-      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <a href="/portal/properties">
-            <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-            <div class="count">3</div>
-        </a>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-        <div class="dashboard_graph">
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-3 vis-style">
-                <a href="@Url.Action("Members", "People" )">
-                    <h4>Total Properties </h4>
-
-                    <div class="vis-style">
-                        <br /><br />
-                        <canvas id="myChart2"></canvas>
-                    </div>
-                </a>
-</div>
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 vis-style">
-                <a href="@Url.Action("Members", "People" )">
-                    <h4>Total Transactions</h4>
-                    <div class="vis-style">
-                        <br /><br />
-                        <canvas id="myChart1" width="450" height="300"></canvas>
-                    </div>
-                </a>
-</div>
-            <div class="col-md-12 col-sm-12 col-xs-12 col-lg-3 vis-style">
-                <a href="@Url.Action("Messages", "Event" )">
-                    <h4>Total Adverts</h4>
-                    <div class="canvas-holder">
-                        <br /><br />
-                        <canvas id="sms_usage"></canvas>
-                    </div>
-                </a>
-</div>
-            <div class="clearfix"></div>
+				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+					<a href="/admin/users"> <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+					<div class="count">
+						<%= @users_count%>
+					</div> </a>
+				</div>
+			</div>
+<br/><br/>
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+					<div class="dashboard_graph">
+						<div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 vis-style">
+							<a href="/portal/properties"> <h4>Total Properties </h4>
+							<div class="vis-style">
+								<br />
+								<br />
+								<canvas id="myChart1" width="450" height="300"></canvas>
+							</div> </a>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 vis-style">
+							<a href="/portal/transactions"> <h4>Total Transactions</h4>
+							<div class="vis-style">
+								<br />
+								<br />
+								<canvas id="myChart2" width="450" height="300"></canvas>
+							</div> </a>
+						</div>
+						</a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
 
+		<script>
+			var ctx = document.getElementById("myChart1").getContext("2d");
+			var ctx1 = document.getElementById("myChart2").getContext("2d");
+			var data = {
+				labels : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+				datasets : [{
+					backgroundColor : "rgba(220,220,220,0.5)",
+					fillColor : "rgba(220,220,220,0.2)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]
+				}]
+			};
 
-<script>
+			var data2 = {
+				labels : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+				datasets : [{
+					backgroundColor : "rgba(220,220,220,0.5)",
+					fillColor : "rgba(220,220,220,0.2)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]
+				}]
+			};
 
-    var ctx = document.getElementById("myChart1").getContext("2d");
-    var ctx1 = document.getElementById("myChart2").getContext("2d");
-    var data = {
-        labels: ["@ViewTexts.January", "@ViewTexts.February", "@ViewTexts.March", "@ViewTexts.April", "@ViewTexts.May", "@ViewTexts.June", "@ViewTexts.July", "@ViewTexts.August", "@ViewTexts.September", "@ViewTexts.October", "@ViewTexts.November", "@ViewTexts.December"],
-        datasets: [{
-            backgroundColor: "rgba(220,220,220,0.5)",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [@january, @february, @march, @april, @may, @june, @july, @august, @september, @october, @november, @december]
-        }]
-    };
+			var MyNewChart1 = new Chart(ctx).Bar(data);
+			var MyNewChart2 = new Chart(ctx1).Bar(data2);
 
-    var MyNewChart1 = new Chart(ctx).Bar(data);
-    var pieData = [{ label: "@ViewTexts.Male", value: @dashboard.TotalMaleMembers, color: "#46BFBD" }, { label: "@ViewTexts.Female", value: @dashboard.TotalFemaleMembers, color: "#F7464A" }];
-    var MyNewChart2 = new Chart(ctx1).Pie(pieData);
+		</script>
 
-</script>
-
-
-<script>
-    var opts = {
-        angle: -0.1, // The span of the gauge arc
-        lineWidth: 0.44, // The line thickness
-        radiusScale: 1, // Relative radius
-        pointer: {
-            length: 0.6, // // Relative to gauge radius
-            strokeWidth: 0.035, // The thickness
-            color: '#000000' // Fill color
-        },
-        limitMax: false,     // If false, the max value of the gauge will be updated if value surpass max
-        limitMin: false,     // If true, the min value of the gauge will be fixed unless you set it manually
-        colorStart: '#6FADCF',   // Colors
-        colorStop: '#8FC0DA',    // just experiment with them
-        strokeColor: '#E0E0E0',  // to see which ones work best for you
-        generateGradient: true,
-        highDpiSupport: true     // High resolution support
-    };
-    var target = document.getElementById('sms_usage'); // your canvas element
-    var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-    gauge.maxValue = @dashboard.TotalSmsUnits; // set max gauge value
-    gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
-    gauge.animationSpeed = 64; // set animation speed (32 is default value)
-    gauge.set(@dashboard.TotalSmsUnitsUsed); // set actual value
-</script>

@@ -1,14 +1,26 @@
 class PropertyUtil
   
   def self.calculate_property_number
-    alphabet='abcdefghijklmnopqrstuvwxyz'
-    property_number='10'
+    number="10"+get_number
+	return number
+  end
+
+  
+  def self.calculate_mortgage_number
+	number="M"+get_number
+	return number
+  end
+  
+  private 
+  
+  def get_number
+	alphabet='abcdefghijklmnopqrstuvwxyz'
+    number=''
     random=Random.new
     6.times{      
       index=random.rand(25)
-      property_number+=alphabet.upcase.chars.at(index)
+      number+=alphabet.upcase.chars.at(index)
     }
-    return property_number
+    return number
   end
-
 end

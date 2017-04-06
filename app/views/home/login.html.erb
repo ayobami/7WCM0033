@@ -9,7 +9,7 @@
 			<hr />
 		</div>
 
-		<% if !flash[:validation_failed].blank?  %>
+		<% if flash[:validation_failed] != nil %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -23,7 +23,7 @@
 		</div>
 		<% end %>
 
-		<% if !flash[:action_failed].blank?  %>
+		<% if flash[:action_failed] != nil  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Invalid Username or Password
