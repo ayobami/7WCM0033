@@ -1,15 +1,19 @@
 class AdminController < ApplicationController
   layout 'admin_layout' 
   
-  def index
-	@properties_count=Property.all.count
-	@messages_count=Contact.all.count
-	@users_count=User.all.count
-	@adverts_count=Advert.all.count
-	@news_count=News.all.count
-	@transactions_count=Payment.all.count
+ def index
+    @properties_count=Property.all.count
+    @messages_count=Contact.all.count
+    @users_count=User.all.count
+    @adverts_count=Advert.all.count
+    @news_count=News.all.count
+    @transactions_count=Payment.all.count
+    get_properties_count
+    get_transactions_count
   end
   
+  
+
   def audit_trail
     @audit_trails = nil
     if request.post?
@@ -45,18 +49,18 @@ class AdminController < ApplicationController
   end
   
   def deactivate_user
-  id=params[:id]
-  if(id !=nil )
-    user = User.find_by(id: id)
-    if(user != nil)
+    id=params[:id]
+    if(id !=nil )
+      user = User.find_by(id: id)
+      if(user != nil)
       user.status=285
       user.save
+      end
     end
+    redirect_to :action => 'users'
   end
-  redirect_to :action => 'users'
-  end
-  
- def create_news
+
+  def create_news
     if request.post?
       news_dto=NewsDTO.new(params[:news_dto])
       if news_dto.valid? then
@@ -77,24 +81,24 @@ class AdminController < ApplicationController
       @news_dto=news_dto
     end
   end
-  
+
   def edit_news
-	@news_dto = nil
-	time = Time.now.to_s
+    @news_dto = nil
+    time = Time.now.to_s
     @date = DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
     id=params[:id]
     if(id!=nil)
-	  news=News.find_by(id: id)
-	  if(news != nil) then
-		@news_dto=NewsDTO.new
-		@news_dto.title=news.title
-		@news_dto.text=news.text
-		@news_dto.user_id=news.user_id
-		@news_dto.id=news.id
-		@news_dto.news_date=news.news_date
-	  end      
+      news=News.find_by(id: id)
+      if(news != nil) then
+        @news_dto=NewsDTO.new
+      @news_dto.title=news.title
+      @news_dto.text=news.text
+      @news_dto.user_id=news.user_id
+      @news_dto.id=news.id
+      @news_dto.news_date=news.news_date
+      end
     end
-	
+
     if request.post?
       news_dto=NewsDTO.new(params[:news_dto])
       if news_dto.valid? then
@@ -112,17 +116,16 @@ class AdminController < ApplicationController
       @news_dto=news_dto
     end
   end
-  
+
   def delete_news
-	  id=params[:id]
-    News.find(id).destroy 
-    redirect_to :action => 'news' 
+    id=params[:id]
+    News.find(id).destroy
+    redirect_to :action => 'news'
   end
-  
+
   def adverts
-	  @alladvert=Advert.all
+    @alladvert=Advert.all
   end
-  
    def create_advert
     if request.post?
       advert_dto=AdvertDTO.new(params[:advert_dto])
@@ -131,7 +134,7 @@ class AdminController < ApplicationController
         advert.title=advert_dto.title
         advert.text=advert_dto.text
         advert.start_date=advert_dto.start_date
-        advert.end_date=advert_dto.end_date        
+        advert.end_date=advert_dto.end_date
         advert.user_id=session[:user_id]
         advert.advert_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
         if(advert.valid? && advert.save!)
@@ -146,9 +149,9 @@ class AdminController < ApplicationController
       @advert_dto=advert_dto
     end
   end
-  
+
   def edit_advert
-	  @advert_dto = nil
+    @advert_dto = nil
     time = Time.now.to_s
     @date = DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
     id=params[:id]
@@ -165,7 +168,7 @@ class AdminController < ApplicationController
       @advert_dto.id=advert.id
       end
     end
-	
+
     if request.post?
       advert_dto=AdvertDTO.new(params[:advert_dto])
       if advert_dto.valid? then
@@ -183,7 +186,7 @@ class AdminController < ApplicationController
       @advert_dto=advert_dto
     end
   end
-  
+
   def delete_advert
 	  id=params[:id]
     Advert.find(id).destroy 
@@ -309,7 +312,7 @@ class AdminController < ApplicationController
     return registrationDTO,person.address_id
   end
   
-   def get_address(registrationDTO, id)
+  def get_address(registrationDTO, id)
     address=Address.find_by(id: id)
     registrationDTO.street1=address.street1
     registrationDTO.street2=address.street2
@@ -319,5 +322,35 @@ class AdminController < ApplicationController
     registrationDTO.zip_code=address.zip_code
     return registrationDTO
   end
+  
+  def get_properties_count
+    @property_jan=Property.where('extract(month from property_date) = ?', 1).count
+    @property_feb=Property.where('extract(month from property_date) = ?', 2).count
+    @property_mar=Property.where('extract(month from property_date) = ?', 3).count
+    @property_apr=Property.where('extract(month from property_date) = ?', 4).count
+    @property_may=Property.where('extract(month from property_date) = ?', 5).count
+    @property_jun=Property.where('extract(month from property_date) = ?', 6).count
+    @property_jul=Property.where('extract(month from property_date) = ?', 7).count
+    @property_aug=Property.where('extract(month from property_date) = ?', 8).count
+    @property_sep=Property.where('extract(month from property_date) = ?', 9).count
+    @property_oct=Property.where('extract(month from property_date) = ?', 10).count
+    @property_nov=Property.where('extract(month from property_date) = ?', 11).count
+    @property_dec=Property.where('extract(month from property_date) = ?', 12).count
+  end
+  
+  def get_transactions_count
+    @transaction_jan=Payment.where('extract(month from payment_date) = ?', 1).count
+    @transaction_feb=Payment.where('extract(month from payment_date) = ?', 2).count
+    @transaction_mar=Payment.where('extract(month from payment_date) = ?', 3).count
+    @transaction_apr=Payment.where('extract(month from payment_date) = ?', 4).count
+    @transaction_may=Payment.where('extract(month from payment_date) = ?', 5).count
+    @transaction_jun=Payment.where('extract(month from payment_date) = ?', 6).count
+    @transaction_jul=Payment.where('extract(month from payment_date) = ?', 7).count
+    @transaction_aug=Payment.where('extract(month from payment_date) = ?', 8).count
+    @transaction_sep=Payment.where('extract(month from payment_date) = ?', 9).count
+    @transaction_oct=Payment.where('extract(month from payment_date) = ?', 10).count
+    @transaction_nov=Payment.where('extract(month from payment_date) = ?', 11).count
+    @transaction_dec=Payment.where('extract(month from payment_date) = ?', 12).count
+ end
 
 end

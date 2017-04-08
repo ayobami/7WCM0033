@@ -88,9 +88,12 @@ class HomeController < ApplicationController
       mortgage_dto = MortgageDTO.new(params[:mortgage_dto])
       if(mortgage_dto.valid?)
         property= Property.find_by(property_number: mortgage_dto.property_number)
-        if(property!=nil)
+        if(property!=nil && property.property_status==290) #check if property is not currently mortgaged
           mortgage =Mortgage.new
-          mortgage.property_id= property.id
+          mortgage.customer_number1=mortgage_dto.customer_number
+          mortgage.customer_number2=mortgage_dto.customer_number1
+          mortgage.customer_number3=mortgage_dto.customer_number2
+          mortgage.property_number= mortgage_dto.property_number
           mortgage.house_hold_income= mortgage_dto.house_hold_income
           mortgage.home_value= mortgage_dto.home_value
           mortgage.interest_rate= mortgage_dto.interest_rate
@@ -100,10 +103,14 @@ class HomeController < ApplicationController
           mortgage.pmi= mortgage_dto.pmi
           mortgage.home_ins= mortgage_dto.home_ins
           mortgage.monthly_hoa= mortgage_dto.monthly_hoa
-		  mortgage.mortgage_number=PropertyUtil.calculate_mortgage_number
+		      mortgage.mortgage_number=PropertyUtil.calculate_mortgage_number
           mortgage.save
+          #update property status
+          property.property_status=390
+          property.save
           flash[:action_successful] = "action successful"
           @mortgage_dto= MortgageDTO.new
+          @mortgage_dto.customer_number=mortgage_dto.customer_number
         else
           flash[:action_failed] = "action failed"
           @mortgage_dto=mortgage_dto
@@ -112,6 +119,11 @@ class HomeController < ApplicationController
         flash[:validation_failed] = "validation failed"
         @mortgage_dto=mortgage_dto
       end
+    else
+      @mortgage_dto = MortgageDTO.new
+      user_id=session[:user_id]
+      person=Person.find_by(user_id: user_id)
+      @mortgage_dto.customer_number=person.person_number      
     end
   end
 

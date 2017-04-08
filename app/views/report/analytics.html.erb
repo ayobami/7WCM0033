@@ -1,57 +1,15 @@
-<% page_title = "Admin Dashboard" %>
+<% page_title = "Reports Analytics" %>
 
 <div id="content" class="padding-20">
 	<div class="panel">
 		<div class="panel-heading">
 			<br/>
-			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<h3 class="text-muted lead"><span class="logo-dec"><%=page_title%></span></h3>
 			<hr />
 		</div>
 
 		<div class="panel-body mr-20 ml-20">
-			<!-- top tiles -->
-			<div class="row tile_count">
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					<a href="/portal/properties"> <span class="count_top"><i class="fa fa-home"></i> Total Properties</span>
-					<div class="count">
-						<%= @properties_count%>
-					</div> </a>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					<a href="/portal/transactions"> <span class="count_top"><i class="fa fa-money"></i> Total Transactions</span>
-					<div class="count">
-						<%= @transactions_count%>
-					</div> </a>
-				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					<a href="/portal/properties"> <span class="count_top"><i class="fa fa-envelope"></i> Total Messages</span>
-					<div class="count">
-						<%= @messages_count%>
-					</div> </a>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					<a href="/admin/news"> <span class="count_top"><i class="fa fa-user"></i> Total News</span>
-					<div class="count">
-						<%= @news_count%>
-					</div> </a>
-				</div>
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					<a href="/admin/adverts"> <span class="count_top"><i class="fa fa-user"></i> Total Adverts</span>
-					<div class="count">
-						<%= @adverts_count%>
-					</div> </a>
-				</div>
-
-				<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-					<a href="/admin/users"> <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-					<div class="count">
-						<%= @users_count%>
-					</div> </a>
-				</div>
-			</div>
-<br/><br/>
+		
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
 					<div class="dashboard_graph">
@@ -76,11 +34,39 @@
 					<div class="clearfix"></div>
 				</div>
 			</div>
+			<br />
+								<br />
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+					<div class="dashboard_graph">
+						<div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 vis-style">
+							<a href="/report/users"> <h4>Customers Registration</h4>
+							<div class="vis-style">
+								<br />
+								<br />
+								<canvas id="myChart3" width="450" height="300"></canvas>
+							</div> </a>
+						</div>
+						<div class="col-md-12 col-sm-12 col-xs-12 col-lg-6 vis-style">
+							<a href="/portal/transactions"> <h4>Mortgages for the year</h4>
+							<div class="vis-style">
+								<br />
+								<br />
+								<canvas id="myChart4" width="450" height="300"></canvas>
+							</div> </a>
+						</div>
+						</a>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
 		</div>
 
 		<script>
 			var ctx = document.getElementById("myChart1").getContext("2d");
 			var ctx1 = document.getElementById("myChart2").getContext("2d");
+			var ctx2 = document.getElementById("myChart3").getContext("2d");
+			var ctx3= document.getElementById("myChart4").getContext("2d");
 			var data = {
 				labels : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
 				datasets : [{
@@ -112,9 +98,44 @@
 					<%=@transaction_oct%>, <%=@transaction_nov%>, <%=@transaction_dec%>]
 				}]
 			};
+			
+			var data3 = {
+				labels : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+				datasets : [{
+					backgroundColor : "rgba(220,220,220,0.5)",
+					fillColor : "rgba(220,220,220,0.2)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : [<%=@users_jan%>, <%=@users_feb%>, <%=@users_mar%>, <%=@users_apr%>, 
+					<%=@users_may%>, <%=@users_jun%>, <%=@users_jul%>, <%=@users_aug%>, <%=@users_sep%>, 
+					<%=@users_oct%>, <%=@users_nov%>, <%=@users_dec%>]
+				}]
+			};
+			
+			var data4 = {
+				labels : ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+				datasets : [{
+					backgroundColor : "rgba(220,220,220,0.5)",
+					fillColor : "rgba(220,220,220,0.2)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : [<%=@mortgages_jan%>, <%=@mortgages_feb%>, <%=@mortgages_mar%>, <%=@mortgages_apr%>, 
+					<%=@mortgages_may%>, <%=@mortgages_jun%>, <%=@mortgages_jul%>, <%=@mortgages_aug%>, <%=@mortgages_sep%>, 
+					<%=@mortgages_oct%>, <%=@mortgages_nov%>, <%=@mortgages_dec%>]
+				}]
+			};
+
 
 			var MyNewChart1 = new Chart(ctx).Bar(data);
 			var MyNewChart2 = new Chart(ctx1).Bar(data2);
-
+			var MyNewChart3 = new Chart(ctx2).Bar(data3);
+			var MyNewChart4 = new Chart(ctx3).Bar(data4);
+			
 		</script>
 

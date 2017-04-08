@@ -18,35 +18,36 @@
 								<tr>
 									<th width="5%">SN</th>
 									<th width="10%"> Number </th>
-									<th width="10%"> Owner </th>
+									<th width="10%"> Customer </th>
+									<th width="14%"> Loan Amount </th>
 									<th width="10%"> Property </th>
-									<th width="10%"> </th>
-									<th> Address </th>
-									<th width="27%"></th>
+									<th> Property Address</th>
+									<th width="20%"></th>
 								</tr>
 							</thead>
 							<tbody>
 								<% if @mortgages != nil  %>
 								<% count=1%>
 								<% for mortgage in @mortgages%>
-								<%address=Address.find_by(id: property.address_id)%> 
+								<%
+								property=Property.find_by(property_number:mortgage.property_number)
+								person =Person.find_by(person_number: mortgage.customer_number1)
+								full_name="#{person.last_name} #{person.first_name} (#{mortgage.customer_number1})"
+								address=Address.find_by(id: property.address_id)%> 
 								<tr>
 									<td><%= count%></td>
-									<td> <%= property.property_number%> </td>
-									<td> <%= property.number_of_rooms%> </td>
-									<td> <%= property.number_of_baths%> </td>
-									<td> <%= property.per_unit_price%> </td>
+									<td> <%= mortgage.property_number%> </td>
+									<td> <%= full_name%> </td>
+									<td> <%= mortgage.loan_amount%> </td>
+									<td> <%= mortgage.property_number%> </td>
 									<td> 
 									<%= address.street1%> .  <%= address.zip_code%>.  <%= address.city%>
 					               </td>
 									<td>
-									<a class="btn btn-small btn-default" href="/home/property?id=<%= property.id%>" target="new">
-										<i class="fa fa-search"></i> View</a>
-                                                ||
                                                 <a class="btn btn-small btn-default" 
-                                                href="/portal/editproperty?id=<%= property.id%>"><i class="fa fa-edit"></i> Edit</a>
+                                                href="/portal/mortgageevaluation?id=<%= mortgage.id%>"><i class="fa fa-edit"></i> Review</a>
                                                 ||
-                                                <a class="btn btn-small btn-default" target="new" href="/portal/evaluationreport?id=<%=property.id%>">Valuation</a>	
+                                                <a class="btn btn-small btn-default" target="new" href="/portal/mortgageremoval?id=<%=mortgage.id%>">Remove</a>	
 								    </td>
 								</tr>
 								<% count+=1%>

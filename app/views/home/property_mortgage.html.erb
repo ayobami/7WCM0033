@@ -1,27 +1,27 @@
 <% page_title = "Property Mortgage Form" %>
 
 <div id="content" class="padding-20">
-	<%= form_for(:mortgage_dto, :url => {:controller => 'portal', :action => 'property_evaluation'}, :html => { :multipart => true }) do |f| %>
+	<%=form_for(:mortgage_dto, :url => {:controller => 'home', :action => 'property_mortgage'}, :html => { :multipart => true }) do |f| %>
 	<div class="panel">
 		<div class="panel-heading">
 			<br/>
 			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
 			<hr />
 		</div>
-	<% if !flash[:action_successful].blank? %>
+		<% if flash[:action_successful] != nil %>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
-			Property Evaluation Form Filled Successful !!!
+			Mortgage Application Form Filled Successful !!!
 		</div>
 		<% end %>
 
-		<% if !flash[:validation_failed].blank? %>
+		<% if flash[:validation_failed] != nil %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
 			<br/>
 			<br/>
-			<% if @mortgage_dto!= nil %>
+			<% if @mortgage_dto != nil %>
 			<% for message_error in @mortgage_dto.errors.full_messages %>
 			<li>
 				<%= message_error %>
@@ -31,19 +31,18 @@
 		</div>
 		<% end %>
 
-		<% if !flash[:action_failed].blank? %>
+		<% if flash[:action_failed]!= nil%>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Could not saved details, checked the provided details
 		</div>
 		<% end %>
 
-	
 		<div class="panel-body">
 			<div class="row">
 				<div class="form-group">
-				
-				<div class="col-md-4 col-sm-4">
+
+					<div class="col-md-4 col-sm-4">
 						<div class="panel panel-default">
 							<div class="panel-heading panel-heading-transparent">
 								<strong class="black">Details</strong>
@@ -55,7 +54,7 @@
 						<label>Customer Number 1</label>
 						<%= text_field("mortgage_dto", "customer_number1", {class: 'form-control required'})%>
 						</br>
-							<label>Customer Number 2</label>
+						<label>Customer Number 2</label>
 						<%= text_field("mortgage_dto", "customer_number2", {class: 'form-control required'})%>
 						</br>
 						<label>Household Income (Annual)</label>
@@ -65,99 +64,107 @@
 						<label>Household debt/expenses (monthly) *</label>
 						<%= text_field("mortgage_dto", "house_hold_debt", {class: 'form-control required'})%>
 						</br>
-						<div class="col-md-4 col-sm-4">
-						<div class="panel panel-default">
-							<div class="panel-heading panel-heading-transparent">
-								<strong class="black">Required Documents</strong>
-							</div>
-						</div>
-						</br>
-						<label>W-2 forms from the previous two years</label>
-						  <%= file_field(:mortgage_dto, :image1, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
-						</br></br>
-						<label>Profit and loss statements / 1099 forms</label>
-						  <%= file_field(:mortgage_dto, :image2, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
-						</br></br>
-						<label>Most recent Federal tax return</label>
-						  <%= file_field(:mortgage_dto, :image3, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
-						  </br></br>
-						<label>A complete list of debts</label>
-						  <%= file_field(:mortgage_dto, :image4, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
-						  </br></br>
-						<label>List of assets</label>
-						  <%= file_field(:mortgage_dto, :image5, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
-						</br>
-						
-						
-						
-					</div>
-						
+
 					</div>
 
-					<div class="col-md-4 col-sm-4">
+					<div class="col-md-8 col-sm-8">
 						<div class="panel panel-default">
 							<div class="panel-heading panel-heading-transparent">
 								<strong class="black">Loan Break Down</strong>
 							</div>
 						</div>
-						<label>Property Number*</label>
-						<%= text_field("mortgage_dto", "property_number", {class: 'form-control required'})%>
-						</br>
-						<label>Home Value</label>
-						<%= text_field("mortgage_dto", "home_value", {class: 'form-control required'})%>
-						</br>
-						<label>Loan Amount</label>
-						<%= text_field("mortgage_dto", "loan_amount", {class: 'form-control required'})%>
-						</br>
+						<div class="col-md-6 col-sm-6">
+							<label>Property Number*</label>
+							<%= text_field("mortgage_dto", "property_number", {class: 'form-control required'})%>
+							</br>
+							<label>Home Value</label>
+							<%= text_field("mortgage_dto", "home_value", {class: 'form-control required'})%>
+							</br>
+							<label>Loan Amount</label>
+							<%= text_field("mortgage_dto", "loan_amount", {class: 'form-control required'})%>
+							</br>
 
-						<label>Interest Rate *</label>
-						<%= text_field("mortgage_dto", "interest_rate", {class: 'form-control required'})%>
-						</br>
+							<label>Interest Rate *</label>
+							<%= text_field("mortgage_dto", "interest_rate", {class: 'form-control required'})%>
+							</br>
 
-						<label>Loan Term</label>
-						<%= text_field("mortgage_dto", "loan_term", {class: 'form-control required'})%>
+							<label>Loan Term</label>
+							<%= text_field("mortgage_dto", "loan_term", {class: 'form-control required'})%>
+						</div>
+						<div class="col-md-6 col-sm-6">
+							<label>Start Date*</label>
+							</br>
+							<%= date_select("mortgage_dto", "start_date" , start_year: 2017)%>
+							</br></br>
 
-						</br>
-						
-						<label>Start Date*</label>
-						</br>
-						<%= date_select("mortgage_dto", "start_date" , start_year: 2017)%>
-						</br>
+							<label>Property Tax %</label>
+							<%= text_field("mortgage_dto", "property_tax", {class: 'form-control required'})%>
+							</br>
 
-						<label>Property Tax %</label>
-						<%= text_field("mortgage_dto", "property_tax", {class: 'form-control required'})%>
-						</br>
+							<label>PMI %</label>
+							<%= text_field("mortgage_dto", "pmi", {class: 'form-control required'})%>
 
-						<label>PMI %</label>
-						<%= text_field("mortgage_dto", "pmi", {class: 'form-control required'})%>
-
-						</br>
-						<label>Home Ins #/yr</label>
-						<%= text_field("mortgage_dto", "home_ins", {class: 'form-control required'})%>
-						</br>
-						<label>Monthly HOA</label>
-						<%= text_field("mortgage_dto", "monthly_hoa", {class: 'form-control required'})%>
-						</br>
+							</br>
+							<label>Home Ins #/yr</label>
+							<%= text_field("mortgage_dto", "home_ins", {class: 'form-control required'})%>
+							</br>
+							<label>Monthly HOA</label>
+							<%= text_field("mortgage_dto", "monthly_hoa", {class: 'form-control required'})%>
+							</br>
+						</div>
 					</div>
-					
-					
+					<div class="row">
+						<div class="col-md-12 col-sm-12">
+							<div class="panel panel-default">
+								<div class="panel-heading panel-heading-transparent">
+									<strong class="black">Required Documents</strong>
+								</div>
+							</div>
+							<div class="col-md-4 col-sm-4">
+								<label>W-2 forms from the previous two years</label>
+								<%= file_field(:mortgage_dto, :image1, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
+								</br></br>
+								<label>Profit and loss statements / 1099 forms</label>
+								<%= file_field(:mortgage_dto, :image2, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
+								</br></br>
 
-					
-				<div class="row">
-					<div class="form-group">
+							</div>
 
-						<br />
-						<br />
-						<button  type="reset" class="btn btn-default">
-							<i class="fa fa-refresh"></i> Reset
-						</button>
-						<button type="submit" class="btn btn-success">
-							<i class="fa fa-floppy-o"></i> Submit
-						</button>
-	</br>	</br>
+							<div class="col-md-4 col-sm-4">
+
+								<label>Most recent Federal tax return</label>
+								<%= file_field(:mortgage_dto, :image3, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
+								</br></br>
+								<label>A complete list of debts</label>
+								<%= file_field(:mortgage_dto, :image4, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
+								</br></br>
+							</div>
+
+							<div class="col-md-4 col-sm-4">
+								<label>List of assets</label>
+								<%= file_field(:mortgage_dto, :image5, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
+								</br>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+
+							<br />
+							<br />
+							<button  type="reset" class="btn btn-default">
+								<i class="fa fa-refresh"></i> Reset
+							</button>
+							<button type="submit" class="btn btn-success">
+								<i class="fa fa-floppy-o"></i> Submit
+							</button>
+							</br>	</br>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<% end %>
+
 	</div>
+	<%end%>
+</div>

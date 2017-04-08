@@ -29,7 +29,9 @@ Rails.application.routes.draw do
   match '/portal/evaluationreport', to: 'portal#evaluation_report', via: :all
   match '/portal/properties', to: 'portal#properties', via: :all
   match '/portal/showroom', to: 'portal#show_room', via: :all  
+  match '/portal/mortgages', to: 'portal#mortgages', via: :all  
   match '/portal/mortgageevaluation', to: 'portal#mortgage_evaluation', via: :all
+  match '/portal/mortgageremoval', to: 'portal#mortgage_removal', via: :all
   
   match '/admin/audittrail', to: 'admin#audit_trail', via: :all
   match '/admin/contact', to: 'admin#contact', via: :all
@@ -48,4 +50,6 @@ Rails.application.routes.draw do
   match '/admin/activateuser', to: 'admin#activate_user', via: :all
   match '/admin/deactivateuser', to: 'admin#deactivate_user', via: :all
   match '/admin/updateprofile', to: 'admin#update_profile', via: :all
+  
+  match '/report/analytics', to: 'report#analytics', via: :all
 end

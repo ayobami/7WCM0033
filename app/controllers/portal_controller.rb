@@ -87,14 +87,16 @@ class PortalController < ApplicationController
     get_dictionary_entries
   end
   
- 
+ def mortgages
+    @mortgages=Mortgage.all
+  end
   
   def mortgage_evaluation
     id=params[:id]
     if(id!=nil)
       @mortgage=Mortgage.find_by(id: id)
     else
-      @mortgage=Mortgage.new
+      redirect_to :action => 'mortgages' 
     end
   end
 
