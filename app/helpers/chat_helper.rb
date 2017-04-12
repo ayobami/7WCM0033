@@ -1,6 +1,4 @@
-
-class ChatHelper
-
+module ChatHelper
 
  def send_cable message
    html = render_message(message)
@@ -11,7 +9,7 @@ class ChatHelper
  
   def render_message message
   ApplicationController.render({
-    partial: 'messages/message',
+    partial: 'home/message',
     locals: { message: message }
   })
   end

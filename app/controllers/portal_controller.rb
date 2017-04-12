@@ -55,6 +55,7 @@ class PortalController < ApplicationController
         property.number_of_baths=property_dto.number_of_baths
         property.short_description=property_dto.short_description
         property.per_unit_price=property_dto.per_unit_price
+        property.customer_number=property_dto.customer_number
         property.property_status=property_dto.property_status
         property.area_size=property_dto.area_size
         property.save!
@@ -115,6 +116,7 @@ class PortalController < ApplicationController
         if(property!=nil)
           property_evaluation =PropertyEvaluation.new
           property_evaluation.property_id= property.id
+          property.customer_number=property_dto.customer_number
           property_evaluation.instructions= property_evaluation_dto.instructions
           property_evaluation.site_area= property_evaluation_dto.site_area
           #property_evaluation.number_of_rooms= property_evaluation_dto.number_of_rooms
@@ -173,6 +175,7 @@ class PortalController < ApplicationController
     property.description=property_dto.description
     property.property_type=property_dto.property_type
     property.number_of_rooms=property_dto.number_of_rooms
+    property.customer_number=property_dto.customer_number
     property.number_of_baths=property_dto.number_of_baths
     property.short_description=property_dto.short_description
     property.per_unit_price=property_dto.per_unit_price
@@ -188,6 +191,7 @@ class PortalController < ApplicationController
     property_dto.description=property.description
     property_dto.property_type=property.property_type
     property_dto.number_of_rooms=property.number_of_rooms
+    property_dto.customer_number=property.customer_number
     property_dto.number_of_baths=property.number_of_baths
     property_dto.short_description=property.short_description
     property_dto.per_unit_price=property.per_unit_price
@@ -252,4 +256,6 @@ class PortalController < ApplicationController
     image_uploader.store!(property_dto.image2)
     image_uploader.store!(property_dto.image3)
   end
+  
+  
 end

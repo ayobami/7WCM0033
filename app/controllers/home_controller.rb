@@ -1,10 +1,11 @@
 require 'time'
+require 'securerandom'
 
 class HomeController < ApplicationController
   layout 'application' 
   def index
     get_search_dictionary_entries
-    @latest_properties=Property.order(id: :desc).take(4)
+    @latest_properties=Property.order(id: :desc).take(3)
   end
 
   def registration
@@ -37,8 +38,6 @@ class HomeController < ApplicationController
     get_dictionary_entries
   end
 
-  
-
   def login
     @loginDTO = nil
     if request.post?
@@ -51,6 +50,12 @@ class HomeController < ApplicationController
           if(encrypted_password==user.password)
            session[:user_id] = user.id
            if user.role == "admin"
+             LoggedInAgent.where(user_id: user.id).delete_all
+             logged_in_agent=LoggedInAgent.new
+             logged_in_agent.user_id=user.id
+             logged_in_agent.chat_id=SecureRandom.uuid
+             logged_in_agent.status="idle"
+             logged_in_agent.save
              redirect_to :controller => 'admin', :action => 'index' 
            else
              redirect_to :action => 'index' 
@@ -66,8 +71,11 @@ class HomeController < ApplicationController
     end   
   end
   
-  def logout
-    session[:user_id] =nil
+  def logout   
+    if(session[:user_id] !=nil ) then
+      LoggedInAgent.where(user_id: session[:user_id]).delete_all
+      session[:user_id] =nil
+    end
     redirect_to :action => 'index'     
   end
   
@@ -111,6 +119,8 @@ class HomeController < ApplicationController
           flash[:action_successful] = "action successful"
           @mortgage_dto= MortgageDTO.new
           @mortgage_dto.customer_number=mortgage_dto.customer_number
+          
+          upload_property_images(mortgage_dto, mortgage.mortgage_number)
         else
           flash[:action_failed] = "action failed"
           @mortgage_dto=mortgage_dto
@@ -167,6 +177,10 @@ class HomeController < ApplicationController
     @latest_properties=Property.where(["property_date >= ?", time_range])
   end
   
+  def all_properties
+    @latest_properties=Property.all.where("property_type=386").order('id DESC')
+  end
+  
   def featured_properties
     @featured_properties=Property.where(property_status: 388) # featured properties
   end
@@ -180,6 +194,7 @@ class HomeController < ApplicationController
         contact.first_name=contact_dto.first_name
         contact.email_address=contact_dto.email_address
         contact.message=contact_dto.message
+        contact.appointment_date=contact_dto.appointment_date
         contact.message_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
         if(contact.valid? && contact.save!)
           flash[:action_successful] = "action successful"
@@ -195,7 +210,35 @@ class HomeController < ApplicationController
   end
   
   def chat
-    
+    if(session[:user_id]!=nil) then
+      logged_in_agents=LoggedInAgent.all
+      if(logged_in_agents !=nil) then
+        logged_in_agent=logged_in_agents.to_a.first
+        message=MessageDTO.new
+        message.agent_id=logged_in_agent.user_id
+        message.user_id=session[:user_id]
+        time = Time.now.to_s
+        message.message_date=DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
+        message.chat_id=logged_in_agent.chat_id
+        @message=message
+        
+        logged_in_agent.status="busy"
+        logged_in_agent.save
+      else       
+        redirect_to :action => 'contact' 
+      end
+    else
+      redirect_to :action => 'contact' 
+    end
+  end
+  
+  def create
+    message_dto = MessageDTO.new(params[:message_dto])
+    message.inbound = false
+    if message.save
+      send_cable(message)
+      redirect_to "/messages/#{message.number}"
+    end
   end
   
   def feed
@@ -259,6 +302,16 @@ class HomeController < ApplicationController
     @no_of_rooms=[1,2,3,4,5,6,7,8,9,10]
     @no_of_baths=[1,2,3,4,5]
     @price_ranges=["1,000,000","3,000,000","5,000,000","8,000,000","10,000,000"]
+  end
+  
+  
+  def upload_property_images(mortgage_dto, owner)
+    image_uploader=ImageUploader.new(owner)
+    image_uploader.store!(mortgage_dto.image1)
+    image_uploader.store!(mortgage_dto.image2)
+    image_uploader.store!(mortgage_dto.image3)
+    image_uploader.store!(mortgage_dto.image4)
+    image_uploader.store!(mortgage_dto.image5)
   end
 
 end

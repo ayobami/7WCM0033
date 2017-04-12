@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   match '/home/showroom', to: 'home#show_room', via: :all
   match '/home/logout', to: 'home#logout', via: :all
   match '/home/property', to: 'home#property', via: :all
+  match '/home/buy', to: 'home#all_properties', via: :all  
   match '/home/latestproperties', to: 'home#latest_properties', via: :all
   match '/home/featuredproperties', to: 'home#featured_properties', via: :all
   match '/home/contact', to: 'home#contact', via: :all

@@ -1,4 +1,4 @@
-<% page_title = "Latest Properties" %>
+<% page_title = "Properties for Sale" %>
 
 <div id="content" class="padding-20">
 	<div class="panel">
@@ -15,7 +15,7 @@
 					<div class="row">
 						<% for property in @latest_properties%>
 							<div class="col-md-4 col-sm-4">
-								<h3> <%= property.short_description%></h3>
+								<h3> <%= property.short_description[0,50]%> ....</h3>
 								<br />
 								<span class="logo-dec"> &#8358; <%= property.property_price.per_unit_price%> </span>
 								

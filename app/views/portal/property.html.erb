@@ -9,7 +9,7 @@
 			<hr />
 		</div>
 
-		<% if !flash[:validation_failed].blank? %>
+		<% if flash[:validation_failed] != nil %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -23,7 +23,7 @@
 		</div>
 		<% end %>
 
-		<% if !flash[:action_failed].blank? %>
+		<% if flash[:action_failed]!= nil %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Could not saved details, checked the provided details email already exist in the database
@@ -33,7 +33,7 @@
 		<% if !flash[:action_successful].blank? %>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
-			Account property Successful !!!
+			Property Registered Successful !!!
 		</div>
 		<% end %>
 
@@ -47,6 +47,9 @@
 								<strong class="black">Property Details</strong>
 							</div>
 						</div>
+						<label>Customer Number *</label>
+						<%= text_field("property_dto", "customer_number", {class: 'form-control required'})%>
+						</br>
 						<label>Short Description *</label>
 						<%= text_area("property_dto", "short_description", {class: 'form-control required'})%>
 						</br>

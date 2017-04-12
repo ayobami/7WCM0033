@@ -1,7 +1,7 @@
 class PropertyDTO
   include ActiveModel::Validations
 
-  attr_accessor :id,
+ attr_accessor :id,
     :description,
     :property_type,
     :number_of_rooms,
@@ -41,8 +41,9 @@ class PropertyDTO
     :country,
     :zip_code,
 	:customer_number
-
+	
   #mount_uploader :image1,:image2,:image3 ImageUploader
+  
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)

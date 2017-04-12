@@ -3,9 +3,9 @@ class ContactDTO
 
   include ActiveModel::Validations
 
-  attr_accessor :surname, :first_name, :email_address, :message
+  attr_accessor :surname, :first_name, :email_address, :message, :appointment_date
 
-  validates_presence_of  :surname, :first_name, :email_address, :message
+  validates_presence_of  :surname, :first_name, :email_address, :message, :appointment_date
 
 
   validates_format_of :email_address, with: EMAIL_REGEX
