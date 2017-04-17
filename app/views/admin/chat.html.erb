@@ -1,7 +1,6 @@
 <% page_title = "Chat with a sales representative" %>
 
 <div id="content" class="padding-20">
-	<%= form_for(:contact_dto, :url => {:controller => 'home', :action => 'contact'}) do |f| %>
 	<div class="panel">
 		<div class="panel-heading">
 			<br/>
@@ -9,39 +8,45 @@
 			<hr />
 		</div>
 
-		<div class="ui one cards thread" data-number="<%= params[:id] %>">     
-			
 		<div class="panel-body center">
 			<div class="center">
-				<div class="col-md-3 col-sm-3">
+				<div class="row">
+					<div class="col-md-9">
+						<ul id="conversations-list">
+							<% @conversations.each do |conversation| %>
+							<%= render 'conversations/conversation', conversation: conversation, user: current_user %>
+							<% end %>
+						</ul>
 					</div>
-				<div class="col-md-6 col-sm-6">
-					<label>Surname *</label>
-						<%= text_field("contact_dto", "surname", {class: 'form-control required'})%>
-						</br>
 
-						<label>First Name *</label>
-						<%= text_field("contact_dto", "first_name", {class: 'form-control required'})%>
-						</br>
-
-					<label>Email Address</label>
-					<%= email_field("contact_dto", "email_address", {class: 'form-control required'})%>
-					<br/>
-					<label>Message *</label>
-						<%= text_area("contact_dto", "message", {class: 'form-control required'})%>
-					<br/>
-					<button type="reset" class="btn btn-default">Reset</button>
-								<button type="submit" class="btn btn-success ml-20">
-						<i class="fa fa-envelope"></i> Submit
-					</button>
-					<br/>
-					<br/>
+					<div class="col-md-3">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Chat Requests</h3>
+							</div>
+							<div class="panel-body">
+								<ul>
+									<% @users.each do |user| 
+										
+										name="#{user.full_name}(#{user.email_address})"
+									%>
+									<li>	
+										<%= link_to "/conversations.js?chat_id=#{user.chat_id}", remote: true do %>
+										<%=name%>
+										<% end %>
+			
+									</li>
+									<% end %>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="col-md-3 col-sm-3">
-					</div>
+
 			</div>
 		</div>
 	</div>
 </div>
-<% end %>
 </div>
+
+<

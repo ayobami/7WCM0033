@@ -1,4 +1,4 @@
-<% page_title = "All Users" %>
+<% page_title = "All Staff" %>
 
 <div id="content" class="padding-20">
 <div class="panel">
@@ -13,6 +13,8 @@
 		<div class="panel-body mr-20 ml-20">
 			<div class="row">
 				
+				<a class="btn btn-small btn-default pull-left" href="/admin/registration"><i class="fa fa-plus"></i> Create User</a>
+				<br/><br/>
 				<p>
 						<table id="dataTable" class="table table-striped table-bordered">
 							<thead>
@@ -34,14 +36,13 @@
 									<td><%= count%></td>
 									<td> <%= full_name%> </td>
 									<td> <%= user.email_address%> </td>
-									<td> <%= user.status%> </td>
 									<td>
 									<% if user.status == 284  %>
 										 <a class="btn btn-small btn-default" 
-                                                href="/admin/deactivateuser?id=<%= user.id%>"><i class="fa fa-edit"></i> Deactivate</a>
+                                                href="/admin/deactivatestaff?id=<%= user.id%>"><i class="fa fa-edit"></i> Deactivate</a>
                                      <% elsif user.status == 285  %>
 										 <a class="btn btn-small btn-default" 
-                                                href="/admin/activateuser?id=<%= user.id%>"><i class="fa fa-edit"></i> Activate</a>
+                                                href="/admin/activatestaff?id=<%= user.id%>"><i class="fa fa-edit"></i> Activate</a>
 								    <% end %>
 									</td>
 								</tr>

@@ -28,12 +28,47 @@ class AdminController < ApplicationController
   def contact
     @contacts=Contact.all
   end
- def news
+  
+  def news
     @allnews=News.all
   end
 
   def users
-    @all_users=User.all
+    @all_users=User.where(role: "user")
+  end
+  
+  def staff
+    @all_users=User.where(role: "admin")
+  end
+  
+  def activate_staff
+    id=params[:id]
+    if(id !=nil )
+      user = User.find_by(id: id)
+      if(user != nil)
+      user.status=284
+      user.save
+      end
+    end
+  redirect_to :action => 'staff'
+  end
+  
+  def deactivate_staff
+    id=params[:id]
+    if(id !=nil )
+      user = User.find_by(id: id)
+      if(user != nil)
+      user.status=285
+      user.save
+      end
+    end
+    redirect_to :action => 'staff'
+  end
+  
+  def chat
+    session[:conversations] ||= []
+    @users = ChatRequest.all
+    @conversations = Message.where(agent_id: session[:user_id])
   end
 
   def activate_user
@@ -126,7 +161,8 @@ class AdminController < ApplicationController
   def adverts
     @alladvert=Advert.all
   end
-   def create_advert
+  
+  def create_advert
     if request.post?
       advert_dto=AdvertDTO.new(params[:advert_dto])
       if advert_dto.valid? then
@@ -192,6 +228,35 @@ class AdminController < ApplicationController
     Advert.find(id).destroy 
     redirect_to :action => 'adverts' 
   end
+  
+  
+  def events
+    @events=Event.all
+  end
+  
+  def create_event
+    if request.post?
+      event_dto=EventDTO.new(params[:event_dto])
+      if event_dto.valid? then
+        event=Event.new
+        event.name=event_dto.name
+        event.description=event_dto.description
+        date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
+        event.created_date=date
+        event.created_by=session[:user_id]
+        event.event_date=date
+        if(event.valid? && event.save!)
+          flash[:action_successful] = "action successful"
+          event_dto= EventDTO.new
+        else
+          flash[:action_failed] = "action failed"
+        end
+      else
+        flash[:validation_failed] = "validation failed"
+      end
+      @event_dto=event_dto
+    end
+  end
 
   def change_password
     @change_password_dto = nil
@@ -246,6 +311,22 @@ class AdminController < ApplicationController
       @registrationDTO = RegistrationDTO.new
     end
     get_dictionary_entries
+  end
+  
+  def show_room    
+    if request.post?
+      show_room_dto=params[:show_room]
+      show_room=ShowRoom.first
+      show_room.colour=show_room_dto['colour']
+      show_room.text_colour=show_room_dto['text_colour']
+      show_room.no_of_properties=show_room_dto['no_of_properties']
+      show_room.slide_show_duration_seconds=show_room_dto['slide_show_duration_seconds']
+      show_room.interval_between_properties_seconds=show_room_dto['interval_between_properties_seconds']
+      show_room.save
+      @show_room=show_room
+     else
+      @show_room=ShowRoom.first
+     end
   end
   
   private 

@@ -4,10 +4,11 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Properties for Sale</title>
-		<%= action_cable_meta_tag %>
+		<%= csrf_meta_tags %>
 		<%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
 		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-		<%= csrf_meta_tags %>
+		
+		
 	</head>
 
 	<body>
@@ -35,7 +36,7 @@
 							<a href="/home/chat">Chat <i class="glyphicon glyphicon-headphones"></i></a>
 						</li>
 						<li class="dropdown">
-							<a href="/home/contact" target="_blank">Book Appointment <i class="fa fa-calendar"></i></a>
+							<a href="/home/contact">Book Appointment <i class="fa fa-calendar"></i></a>
 						</li>
 						<li class="divider"></li>
 						<li class="dropdown">
@@ -52,7 +53,19 @@
 								<li>
 									<a href="/home/featuredproperties">Featured Properties</a>
 								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/home/events">Our Events</a>
+								</li>
 								<%if session[:user_id] != nil%>
+								<li class="divider"></li>
+								<li>
+									<a href="/home/interests">Property Interests</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="/home/searches">Saved Searches</a>
+								</li>
 								<li class="divider"></li>
 								<li>
 									<a href="/home/propertymortgage">Mortgage</a>

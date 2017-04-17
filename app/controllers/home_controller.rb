@@ -168,7 +168,12 @@ class HomeController < ApplicationController
   end
   
   def show_room
-    @properties=Property.all
+    @show_room=ShowRoom.first
+    @properties=Property.all.take(@show_room.no_of_properties)    
+  end
+  
+  def events
+    @meetings=Event.all
   end
   
   def latest_properties
@@ -183,6 +188,32 @@ class HomeController < ApplicationController
   
   def featured_properties
     @featured_properties=Property.where(property_status: 388) # featured properties
+  end
+  
+  def interests
+    user_id=session[:user_id]
+    @interests=PropertySearch.where(user_id: user_id, is_interest: 'YES') 
+  end
+  
+  def delete_interest
+    id=param[:id]
+    if(id!=nil) then
+      PropertySearch.find(id).destroy
+    end
+    redirect_to :action => 'interests'
+  end
+  
+  def searches
+    user_id=session[:user_id]
+    @interests=PropertySearch.where(user_id: user_id, is_interest: 'NO') 
+  end
+  
+  def delete_search
+    id=param[:id]
+    if(id!=nil) then
+      PropertySearch.find(id).destroy
+    end
+    redirect_to :action => 'searches'
   end
   
  def contact
@@ -209,26 +240,36 @@ class HomeController < ApplicationController
     end
   end
   
-  def chat
-    if(session[:user_id]!=nil) then
-      logged_in_agents=LoggedInAgent.all
-      if(logged_in_agents !=nil) then
-        logged_in_agent=logged_in_agents.to_a.first
-        message=MessageDTO.new
-        message.agent_id=logged_in_agent.user_id
-        message.user_id=session[:user_id]
-        time = Time.now.to_s
-        message.message_date=DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
-        message.chat_id=logged_in_agent.chat_id
-        @message=message
-        
-        logged_in_agent.status="busy"
-        logged_in_agent.save
-      else       
-        redirect_to :action => 'contact' 
-      end
+ def chat_request
+   if request.post?
+    chat_request=ChatRequest.new
+    chat_request.full_name=params[:chat_request_dto]['full_name']
+    chat_request.email_address=params[:chat_request_dto]['email_address']
+    chat_request.chat_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
+    chat_request.chat_id=SecureRandom.uuid
+    if(chat_request.full_name !=nil && chat_request.email_address) then
+      chat_request.save
+      @chat_request=chat_request
+      render :chat
     else
-      redirect_to :action => 'contact' 
+      flash[:validation_failed] = "validation failed"
+    end
+   end
+  end
+  
+  def chat
+    user_id=session[:user_id]
+    if(user_id!=nil) then
+      person =Person.find_by(user_id: user_id)
+      chat_request=ChatRequest.new
+      chat_request.full_name=person.last_name + " " +person.first_name
+      chat_request.email_address=person.email_address
+      chat_request.user_id=user_id
+      chat_request.chat_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
+      chat_request.chat_id=SecureRandom.uuid
+      chat_request.save
+    else
+      redirect_to :action => 'chat_request' 
     end
   end
   

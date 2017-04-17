@@ -7,7 +7,6 @@
 			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
 			<hr />
 		</div>
-		
 
 		<div class="panel-body">
 			<div class="row">
@@ -83,40 +82,44 @@
 							<%= text_field("mortgage", "monthly_hoa", {class: 'form-control required'})%>
 							</br>
 						</div>
-					</div>	</br>
-				<div class="row">
-					<p>
-						<table id="dataTable" class="table table-striped table-bordered">
-							<thead>
-								<tr>
-									<th width="5%">SN</th>
-									<th width="50%"> Title </th>
-									<th width="10%"> Extension </th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<% 
-								files=FileModel.find_by(owner_unique_id: @mortgage.mortgage_number)
-								if files != nil then									
-								 count=1
-								 for file in files%>
-								<tr>
-									<td><%= count%></td>
-									<td> <%= file.title%> </td>
-									<td> <%= file.extension%> </td>
-									<td>
-									<a class="btn btn-small btn-default" href="<%=ImageRetrieval.get_property_main_image_path(@mortgage.mortgage_number)%>" target="new">
-										<i class="fa fa-cloud-download"></i> Download</a></td>
-								</tr>
-								<% count+=1%>
-								<% end %>
-								<% end %>
-							</tbody>
-						</table>
-					</p>
-
-				</div>	</br>
+					</div>
+					</br>
+					<div class="row">
+						<div class="col-md-12 col-sm-12">
+						<div class="col-md-2 col-sm-2"></div>
+						<div class="col-md-8 col-sm-8">
+							<p>
+								<table id="dataTable" class="table table-striped table-bordered">
+									<thead>
+										<tr>
+											<th width="5%">SN</th>
+											<th width="50%"> Title </th>
+											<th width="10%"> Extension </th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<%
+										files=FileModel.find_by(owner_unique_id: @mortgage.mortgage_number)
+										if files != nil then
+										count=1
+										for file in files%>
+										<tr>
+											<td><%= count%></td>
+											<td> <%= file.title%> </td>
+											<td> <%= file.extension%> </td>
+											<td><a class="btn btn-small btn-default" href="<%= ImageRetrieval.get_property_main_image_path(@mortgage.mortgage_number)%>" target="new"> <i class="fa fa-cloud-download"></i> Download</a></td>
+										</tr>
+										<% count+=1%>
+										<% end %>
+										<% end %>
+									</tbody>
+								</table>
+							</p>
+						</div>
+						<div class="col-md-2 col-sm-2"></div></div>
+					</div>
+					</br>
 					<div class="row">
 						<div class="col-md-12 col-sm-12">
 
@@ -127,9 +130,10 @@
 							<button type="submit" class="btn btn-warning">
 								<i class="fa fa-pencil"></i> More Info
 							</button>
-							<button type="submit" class="btn btn-success">
+							<a href="/portal/mortgagereview" class="btn btn-success">
 								<i class="fa fa-thumbs-up"></i> Approve
-							</button>
+							</a>
+							
 							</br>	</br>
 						</div>
 					</div>

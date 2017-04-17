@@ -1,0 +1,28 @@
+<% page_title = "Upcoming Events" %>
+
+<div id="content" class="padding-20">
+	<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<hr />
+		</div>
+
+		<div class="panel-body mr-20 ml-20">
+			<div class="row">
+				<p>
+					<%= month_calendar events: @meetings do |date, meetings| %>
+					<%= date %>
+
+					<% meetings.each do |meeting| %>
+					<div>
+						<%= meeting.name %>
+					</div>
+					<% end %>
+					<% end %>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+</div>

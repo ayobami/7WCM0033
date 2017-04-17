@@ -23,6 +23,8 @@ gem 'carrierwave'
 
 gem "audited", "~> 4.3"
 
+gem "simple_calendar", "~> 2.0"
+
 gem "rails-observers", github: 'rails/rails-observers'
 
 #gem 'foreigner'

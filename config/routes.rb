@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
-  mount ActionCable.server => '/cable'
+
   root 'home#index'
+  
+  resources :conversations, only: [:create] do
+    member do
+      post :close
+    end
+
+    resources :messages, only: [:create]
+ end
+  
   
   match '/home/registration', to: 'home#registration', via: :all
   match '/home/login', to: 'home#login', via: :all
@@ -16,6 +25,13 @@ Rails.application.routes.draw do
   match '/home/contact', to: 'home#contact', via: :all
   match '/home/chat', to: 'home#chat', via: :all
   match '/home/feed', to: 'home#feed', via: :all
+  match '/home/interests', to: 'home#interests', via: :all
+  match '/home/searches', to: 'home#searches', via: :all
+  match '/home/events', to: 'home#events', via: :all
+  match '/home/deleteinterest', to: 'home#delete_interest', via: :all
+  match '/home/deletesearch', to: 'home#delete_search', via: :all
+  match '/home/chatrequest', to: 'home#chat_request', via: :all
+  
   match '/home/propertymortgage', to: 'home#property_mortgage', via: :all
 
   match '/account/changepassword', to: 'account#change_password', via: :all
@@ -36,11 +52,13 @@ Rails.application.routes.draw do
   
   match '/admin/audittrail', to: 'admin#audit_trail', via: :all
   match '/admin/contact', to: 'admin#contact', via: :all
+  match '/admin/chat', to: 'admin#chat', via: :all
   match '/admin/changepassword', to: 'admin#change_password', via: :all
   match '/admin/index', to: 'admin#index', via: :all
   match '/admin/registration', to: 'admin#registration', via: :all
   match '/admin/news', to: 'admin#news', via: :all
   match '/admin/users', to: 'admin#users', via: :all
+  match '/admin/staff', to: 'admin#staff', via: :all
   match '/admin/createnews', to: 'admin#create_news', via: :all
   match '/admin/editnews', to: 'admin#edit_news', via: :all
   match '/admin/deletenews', to: 'admin#delete_news', via: :all
@@ -50,7 +68,15 @@ Rails.application.routes.draw do
   match '/admin/deleteadvert', to: 'admin#delete_advert', via: :all
   match '/admin/activateuser', to: 'admin#activate_user', via: :all
   match '/admin/deactivateuser', to: 'admin#deactivate_user', via: :all
+  match '/admin/activatestaff', to: 'admin#activate_staff', via: :all
+  match '/admin/deactivatestaff', to: 'admin#deactivate_staff', via: :all
   match '/admin/updateprofile', to: 'admin#update_profile', via: :all
+  match '/admin/events', to: 'admin#events', via: :all
+  match '/admin/createevent', to: 'admin#create_event', via: :all
+  match '/admin/showroom', to: 'admin#show_room', via: :all
   
   match '/report/analytics', to: 'report#analytics', via: :all
+  
+
+  
 end
