@@ -6,28 +6,33 @@ class PortalController < ApplicationController
     @date = DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
     if request.post?
       property_dto = PropertyDTO.new(params[:property_dto])
-      if property_dto.valid?
+      if property_dto.valid?        
         property=get_property(property_dto)
         address=get_address(property_dto)
         property_price=get_property_price(property_dto)
-        if(property.valid?)
-          address.save
-          property.address_id=address.id
-          property.property_number=PropertyUtil.calculate_property_number
-          property.save
-          property_price.property_id=property.id
-          property_price.save
-
-          #upload image files
-          upload_property_images(property_dto,property.property_number)
-
-          flash[:action_successful] = "action successful"
-          property_dto= PropertyDTO.new
-        else
-          flash[:action_failed] = "action failed"
-        end
+        customer=Person.find_by(person_number: property_dto.customer_number)
+        if(customer)
+          if(property.valid?)
+            address.save
+            property.address_id=address.id
+            property.property_number=PropertyUtil.calculate_property_number
+            property.save
+            property_price.property_id=property.id
+            property_price.save
+  
+            #upload image files
+            upload_property_images(property_dto,property.property_number)
+  
+            flash[:message] = property.property_number
+            property_dto= PropertyDTO.new
+          else
+            flash[:notice] = "action failed"
+          end
+         else
+           flash[:invalid_customer] = "Invalid Customer"
+         end
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @property_dto=property_dto
     else
@@ -78,9 +83,9 @@ class PortalController < ApplicationController
         property_price.interest_rate=property_dto.interest_rate
         property_price.save!
 
-        flash[:action_successful] = "action successful"
+        flash[:message] = "action successful"
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @property_dto=property_dto
     end
@@ -112,46 +117,52 @@ class PortalController < ApplicationController
     if request.post?
       property_evaluation_dto = PropertyEvaluationDTO.new(params[:property_evaluation_dto])
       if(property_evaluation_dto.valid?)
-        property= Property.find_by(property_number: property_evaluation_dto.property_number)
+        property= Property.find_by(property_number: property_evaluation_dto.property_number)        
         if(property!=nil)
-          property_evaluation =PropertyEvaluation.new
-          property_evaluation.property_id= property.id
-          property.customer_number=property_dto.customer_number
-          property_evaluation.instructions= property_evaluation_dto.instructions
-          property_evaluation.site_area= property_evaluation_dto.site_area
-          #property_evaluation.number_of_rooms= property_evaluation_dto.number_of_rooms
-          #property_evaluation.number_of_baths= property_evaluation_dto.number_of_baths
-          property_evaluation.zoning= property_evaluation_dto.zoning
-          property_evaluation.comments= property_evaluation_dto.comments
-          property_evaluation.terms_of_reference= property_evaluation_dto.terms_of_reference
-          property_evaluation.date_of_inspection= property_evaluation_dto.date_of_inspection
-          property_evaluation.date_of_valuation= property_evaluation_dto.date_of_valuation
-          property_evaluation.land_value= property_evaluation_dto.land_value
-          property_evaluation.improvements= property_evaluation_dto.improvements
-          property_evaluation.market_valuation= property_evaluation_dto.market_valuation
-          property_evaluation.registered_proprietor= property_evaluation_dto.registered_proprietor
-          property_evaluation.land_dimensions= property_evaluation_dto.land_dimensions
-          property_evaluation.land_area= property_evaluation_dto.land_area
-          property_evaluation.encumberances= property_evaluation_dto.encumberances
-          property_evaluation.topography= property_evaluation_dto.topography
-          property_evaluation.services= property_evaluation_dto.services
-          property_evaluation.environmental_issues= property_evaluation_dto.environmental_issues
-          property_evaluation.location= property_evaluation_dto.location
-          property_evaluation.dwelling_description= property_evaluation_dto.dwelling_description
-          property_evaluation.construction= property_evaluation_dto.construction
-          property_evaluation.pc_items= property_evaluation_dto.pc_items
-          #property_evaluation.fixture_features= property_evaluation_dto.fixture_features
-          property_evaluation.other_improvements= property_evaluation_dto.other_improvements
-          property_evaluation.building_areas= property_evaluation_dto.building_areas
-          property_evaluation.save
-          flash[:action_successful] = "action successful"
-          @property_evaluation_dto= PropertyEvaluationDTO.new
+          existing_report= PropertyEvaluation.find_by(property_id: property.id)
+          if(existing_report == nil) then
+            property_evaluation =PropertyEvaluation.new
+            property_evaluation.property_id= property.id
+            property.customer_number=property.customer_number
+            property_evaluation.instructions= property_evaluation_dto.instructions
+            property_evaluation.site_area= property_evaluation_dto.site_area
+            #property_evaluation.number_of_rooms= property_evaluation_dto.number_of_rooms
+            #property_evaluation.number_of_baths= property_evaluation_dto.number_of_baths
+            property_evaluation.zoning= property_evaluation_dto.zoning
+            property_evaluation.comments= property_evaluation_dto.comments
+            property_evaluation.terms_of_reference= property_evaluation_dto.terms_of_reference
+            property_evaluation.date_of_inspection= property_evaluation_dto.date_of_inspection
+            property_evaluation.date_of_valuation= property_evaluation_dto.date_of_valuation
+            property_evaluation.land_value= property_evaluation_dto.land_value
+            property_evaluation.improvements= property_evaluation_dto.improvements
+            property_evaluation.market_valuation= property_evaluation_dto.market_valuation
+            property_evaluation.registered_proprietor= property_evaluation_dto.registered_proprietor
+            property_evaluation.land_dimensions= property_evaluation_dto.land_dimensions
+            property_evaluation.land_area= property_evaluation_dto.land_area
+            property_evaluation.encumberances= property_evaluation_dto.encumberances
+            property_evaluation.topography= property_evaluation_dto.topography
+            property_evaluation.services= property_evaluation_dto.services
+            property_evaluation.environmental_issues= property_evaluation_dto.environmental_issues
+            property_evaluation.location= property_evaluation_dto.location
+            property_evaluation.dwelling_description= property_evaluation_dto.dwelling_description
+            property_evaluation.construction= property_evaluation_dto.construction
+            property_evaluation.pc_items= property_evaluation_dto.pc_items
+            #property_evaluation.fixture_features= property_evaluation_dto.fixture_features
+            property_evaluation.other_improvements= property_evaluation_dto.other_improvements
+            property_evaluation.building_areas= property_evaluation_dto.building_areas
+            property_evaluation.save
+            flash[:message] = "action successful"
+            @property_evaluation_dto= PropertyEvaluationDTO.new
+           else
+             flash[:report_exists] = "validation failed"
+             @property_evaluation_dto=property_evaluation_dto
+           end
         else
-          flash[:action_failed] = "action failed"
+          flash[:notice] = "action failed"
           @property_evaluation_dto=property_evaluation_dto
         end
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
         @property_evaluation_dto=property_evaluation_dto
       end
     end

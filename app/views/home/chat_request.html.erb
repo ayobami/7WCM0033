@@ -10,7 +10,7 @@
 		</div>
 
 
-		<% if flash[:validation_failed]!= nil  %>
+		<% if flash[:alert]!= nil  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -24,7 +24,7 @@
 		</div>
 		<% end %>
 
-		<% if flash[:action_failed]!= nil  %>
+		<% if flash[:notice]!= nil  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Something went wrong

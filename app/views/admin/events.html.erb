@@ -1,4 +1,4 @@
-<% page_title = "All Events" %>
+<% page_title = "Events Management" %>
 
 <div id="content" class="padding-20">
 <div class="panel">
@@ -24,7 +24,7 @@
 									<th> Event Date</th>
 									<th> Created Date</th>
 									<th> Creator</th>
-									<th></th>
+									<th width="20%"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -32,7 +32,7 @@
 								<% count=1%>
 								<% for entry in @events
 									person =Person.find_by(user_id: entry.created_by)
-									full_name=person.last_name + " " +person.first_name
+									full_name=person.last_name + " " + person.first_name
 								%>
 								<tr>
 									<td><%= count%></td>
@@ -46,7 +46,7 @@
                                                 href="/admin/editeventid=<%= entry.id%>"><i class="fa fa-edit"></i> Edit</a>
                                                 ||
 												<a class="btn btn-small btn-default" 
-                                                href="/admin/deleteevent?id=<%= entry.id%>"><i class="fa fa-thrash"></i> Delete</a>
+                                                href="/admin/deleteevent?id=<%= entry.id%>"><i class="fa fa-recycle"></i> Delete</a>
 									</td>
 								</tr>
 								<% count+=1%>

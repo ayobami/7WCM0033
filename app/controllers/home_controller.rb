@@ -23,13 +23,13 @@ class HomeController < ApplicationController
           person.user_id=user.id
           person.address_id=address.id
           person.save
-          flash[:action_successful] = "action successful"
+          flash[:message] = "action successful"
           registrationDTO= RegistrationDTO.new  
         else
-          flash[:action_failed] = "action failed"  
+          flash[:notice] = "action failed"  
         end
       else
-        flash[:validation_failed] = "validation failed"       
+        flash[:alert] = "validation failed"       
       end      
     @registrationDTO=registrationDTO
     else
@@ -37,40 +37,45 @@ class HomeController < ApplicationController
     end
     get_dictionary_entries
   end
-
-  def login
+  
+ def login
     @loginDTO = nil
     if request.post?
       loginDTO = LoginDTO.new(params[:loginDTO])
       if loginDTO.valid?
-        
         user = User.find_by(email_address: loginDTO.email)
         if(user != nil)
-          encrypted_password= BCrypt::Engine.hash_secret(loginDTO.password, user.salt)
-          if(encrypted_password==user.password)
-           session[:user_id] = user.id
-           if user.role == "admin"
-             LoggedInAgent.where(user_id: user.id).delete_all
-             logged_in_agent=LoggedInAgent.new
-             logged_in_agent.user_id=user.id
-             logged_in_agent.chat_id=SecureRandom.uuid
-             logged_in_agent.status="idle"
-             logged_in_agent.save
-             redirect_to :controller => 'admin', :action => 'index' 
-           else
-             redirect_to :action => 'index' 
-           end
-           
+          if(user.status==284)
+            encrypted_password= BCrypt::Engine.hash_secret(loginDTO.password, user.salt)
+            if(encrypted_password==user.password)
+              session[:user_id] = user.id
+              if user.role == "admin"
+                LoggedInAgent.where(user_id: user.id).delete_all
+                logged_in_agent=LoggedInAgent.new
+                logged_in_agent.user_id=user.id
+                logged_in_agent.chat_id=SecureRandom.uuid
+                logged_in_agent.status="idle"
+                logged_in_agent.save
+                redirect_to :controller => 'admin', :action => 'index'
+              else
+                redirect_to :action => 'index'
+              end
+            else
+              flash[:notice] = "action failed"
+            end
+          else
+            flash[:locked] = "account locked"
           end
-        end 
-        flash[:action_failed] = "action failed"
+        else
+          flash[:alert] = "validation failed"
+        end
       else
-        flash[:validation_failed] = "validation failed" 
+        flash[:alert] = "validation failed"
       end
       @loginDTO=loginDTO
-    end   
+    end
   end
-  
+
   def logout   
     if(session[:user_id] !=nil ) then
       LoggedInAgent.where(user_id: session[:user_id]).delete_all
@@ -116,17 +121,17 @@ class HomeController < ApplicationController
           #update property status
           property.property_status=390
           property.save
-          flash[:action_successful] = "action successful"
+          flash[:message] = "action successful"
           @mortgage_dto= MortgageDTO.new
           @mortgage_dto.customer_number=mortgage_dto.customer_number
           
           upload_property_images(mortgage_dto, mortgage.mortgage_number)
         else
-          flash[:action_failed] = "action failed"
+          flash[:notice] = "action failed"
           @mortgage_dto=mortgage_dto
         end
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
         @mortgage_dto=mortgage_dto
       end
     else
@@ -228,13 +233,13 @@ class HomeController < ApplicationController
         contact.appointment_date=contact_dto.appointment_date
         contact.message_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
         if(contact.valid? && contact.save!)
-          flash[:action_successful] = "action successful"
+          flash[:message] = "action successful"
           contact_dto= ContactDTO.new
         else
-          flash[:action_failed] = "action failed"
+          flash[:notice] = "action failed"
         end
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @contact_dto=contact_dto
     end
@@ -252,7 +257,7 @@ class HomeController < ApplicationController
       @chat_request=chat_request
       render :chat
     else
-      flash[:validation_failed] = "validation failed"
+      flash[:alert] = "validation failed"
     end
    end
   end

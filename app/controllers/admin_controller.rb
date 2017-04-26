@@ -30,7 +30,7 @@ class AdminController < ApplicationController
   end
   
   def news
-    @allnews=News.all
+    @allnews=News.all.order(id: :desc)
   end
 
   def users
@@ -105,13 +105,13 @@ class AdminController < ApplicationController
         news.user_id=session[:user_id]
         news.news_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
         if(news.valid? && news.save!)
-          flash[:action_successful] = "action successful"
+          flash[:message] = "action successful"
           news_dto= NewsDTO.new
         else
-          flash[:action_failed] = "action failed"
+          flash[:notice] = "action failed"
         end
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @news_dto=news_dto
     end
@@ -141,12 +141,12 @@ class AdminController < ApplicationController
         news.title=news_dto.title
         news.text=news_dto.text
         if(news.valid? && news.save!)
-          flash[:action_successful] = "action successful"
+          flash[:message] = "action successful"
         else
-          flash[:action_failed] = "action failed"
+          flash[:notice] = "action failed"
         end
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @news_dto=news_dto
     end
@@ -159,7 +159,7 @@ class AdminController < ApplicationController
   end
 
   def adverts
-    @alladvert=Advert.all
+    @alladvert=Advert.all.order(id: :desc)
   end
   
   def create_advert
@@ -174,13 +174,13 @@ class AdminController < ApplicationController
         advert.user_id=session[:user_id]
         advert.advert_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
         if(advert.valid? && advert.save!)
-          flash[:action_successful] = "action successful"
+          flash[:message] = "action successful"
           advert_dto= AdvertDTO.new
         else
-          flash[:action_failed] = "action failed"
+          flash[:notice] = "action failed"
         end
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @advert_dto=advert_dto
     end
@@ -212,12 +212,12 @@ class AdminController < ApplicationController
         advert.title=advert_dto.title
         advert.text=advert_dto.text
         if(advert.valid? && advert.save!)
-          flash[:action_successful] = "action successful"
+          flash[:message] = "action successful"
         else
-          flash[:action_failed] = "action failed"
+          flash[:notice] = "action failed"
         end
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @advert_dto=advert_dto
     end
@@ -246,13 +246,13 @@ class AdminController < ApplicationController
         event.created_by=session[:user_id]
         event.event_date=date
         if(event.valid? && event.save!)
-          flash[:action_successful] = "action successful"
+          flash[:message] = "action successful"
           event_dto= EventDTO.new
         else
-          flash[:action_failed] = "action failed"
+          flash[:notice] = "action failed"
         end
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @event_dto=event_dto
     end
@@ -270,14 +270,14 @@ class AdminController < ApplicationController
           if(encrypted_password==user.password)
             user.password=BCrypt::Engine.hash_secret(change_password_dto.new_password, user.salt)
             user.save!
-            flash[:action_successful]="password changed"
+            flash[:message]="password changed"
           else
-            flash[:action_failed] = "action failed"
+            flash[:notice] = "action failed"
           end
         end
 
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @change_password_dto=change_password_dto
     end
@@ -290,21 +290,21 @@ class AdminController < ApplicationController
     if request.post?
       registrationDTO = RegistrationDTO.new(params[:registrationDTO])
       if registrationDTO.valid?
-        person=get_person(registrationDTO)
-        address=get_address(registrationDTO)
-        user=get_user(registrationDTO)
+        person=get_person1(registrationDTO)
+        address=get_address1(registrationDTO)
+        user=get_user1(registrationDTO)
         if(user.valid? && user.save!) #save other entities only if the user account is unique
           address.save
           person.user_id=user.id
           person.address_id=address.id
           person.save
-          flash[:action_successful] = "action successful"
+          flash[:message] = "action successful"
           registrationDTO= RegistrationDTO.new  
         else
-          flash[:action_failed] = "action failed"  
+          flash[:notice] = "action failed"  
         end
       else
-        flash[:validation_failed] = "validation failed"       
+        flash[:alert] = "validation failed"       
       end      
     @registrationDTO=registrationDTO
     else
@@ -324,6 +324,7 @@ class AdminController < ApplicationController
       show_room.interval_between_properties_seconds=show_room_dto['interval_between_properties_seconds']
       show_room.save
       @show_room=show_room
+      flash[:message] = "action successful"
      else
       @show_room=ShowRoom.first
      end
@@ -331,7 +332,7 @@ class AdminController < ApplicationController
   
   private 
   
-  def get_person(registrationDTO)
+  def get_person1(registrationDTO)
     person=Person.new
     person.first_name=registrationDTO.first_name
     person.last_name=registrationDTO.last_name
@@ -348,7 +349,7 @@ class AdminController < ApplicationController
     return person
   end
   
-   def get_address(registrationDTO)
+   def get_address1(registrationDTO)
     address=Address.new
     address.street1=registrationDTO.street1
     address.street2=registrationDTO.street2
@@ -359,7 +360,7 @@ class AdminController < ApplicationController
     return address
   end
   
-   def get_user(registrationDTO)
+   def get_user1(registrationDTO)
     user=User.new
     user.email_address=registrationDTO.email
     user.password=registrationDTO.password

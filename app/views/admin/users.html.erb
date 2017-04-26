@@ -1,4 +1,4 @@
-<% page_title = "All Users" %>
+<% page_title = "Customer Accounts" %>
 
 <div id="content" class="padding-20">
 <div class="panel">
@@ -20,6 +20,7 @@
 									<th>SN</th>
 									<th> Full Name </th>
 									<th> Email Address</th>
+									<th>Status</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -30,18 +31,24 @@
 									person =Person.find_by(user_id: user.id)
 									full_name=person.last_name + " " +person.first_name
 								%>
-								<tr>
+								<tr align="left">
 									<td><%= count%></td>
 									<td> <%= full_name%> </td>
 									<td> <%= user.email_address%> </td>
-									<td> <%= user.status%> </td>
+									<td> 
+										<% if user.status == 284  %>
+									    <span class="label label-info">Active</span>
+                                     <% elsif user.status == 285  %>
+										 <span class="label label-warning">Inactive</span>
+								    <% end %>
+										</td>
 									<td>
 									<% if user.status == 284  %>
 										 <a class="btn btn-small btn-default" 
-                                                href="/admin/deactivateuser?id=<%= user.id%>"><i class="fa fa-edit"></i> Deactivate</a>
+                                                href="/admin/deactivateuser?id=<%= user.id%>"><i class="fa fa-thumbs-down"></i> Deactivate</a>
                                      <% elsif user.status == 285  %>
 										 <a class="btn btn-small btn-default" 
-                                                href="/admin/activateuser?id=<%= user.id%>"><i class="fa fa-edit"></i> Activate</a>
+                                                href="/admin/activateuser?id=<%= user.id%>"><i class="fa fa-thumbs-up"></i> Activate</a>
 								    <% end %>
 									</td>
 								</tr>

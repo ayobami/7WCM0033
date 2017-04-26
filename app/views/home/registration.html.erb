@@ -10,7 +10,7 @@
 		</div>
 
 
-		<% if !flash[:validation_failed].blank? %>
+		<% if flash[:alert] != nil %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -24,14 +24,14 @@
 		</div>
 		<% end %>
 
-		<% if !flash[:action_failed].blank?  %>
+		<% if flash[:notice]!= nil %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Could not saved details, checked the provided details email already exist in the database
 		</div>
 		<% end %>
 
-		<% if !flash[:action_successful].blank?  %>
+		<% if flash[:message] != nil %>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
 			Account Registration Successful !!!
@@ -77,9 +77,8 @@
 
 						<label>Date of Birth *</label>
 						</br>
-						<%= date_select("registrationDTO", "birth_date" , start_year: 1930)%>
+						<%= date_select("registrationDTO", "birth_date" , start_year: 1930, with_css_classes: 'form-control' )%>
 						</br>
-
 					</div>
 
 					<div class="col-md-4 col-sm-4">

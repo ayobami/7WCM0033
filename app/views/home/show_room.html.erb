@@ -5,20 +5,29 @@
 			<h3 class="text-muted lead"><span class="logo-dec size-25">Property ShowRoom</span></h3>
 			<hr />
 		</div>
-		<div class="panel-body">
+		<div class="panel-body ">
 
 			<div class="row">
 				<div  class="col-md-12 col-sm-12">
-					<div class="slideshow-container">
+					<button class="next">
+						Next
+					</button>
+					<button class="prev">
+						Previous
+					</button>
+					<div id="room" class="slideshow-container ">
+						<div style="display: inline-block;">
+							<img src="https://placeimg.com/400/200/people"/>
+						</div>
 						<%@properties.each{ |property|%>
 						<% image_path=ImageRetrieval.get_property_main_image_path(property.property_number)%>
-						<a href="/home/property?id=<%=property.id%>">
-						<div class="mySlides fade">
+						<div>
+						<a href="/home/property?id=<%= property.id%>">
+						<div class="">
 							<div class="numbertext"></div>
-							<%= image_tag(image_path, height: '500px', width: '100%') %>
+							<%= image_tag(image_path, height: '700px', width: '700px') %>
 							<div class="text container-bg">
-								<h1 class="pull-left size-25 black"> 
-								&#8358; <%= property.per_unit_price%> .	<%= property.number_of_rooms%> Rooms .  <%= property.number_of_baths%> Baths </h1>
+								<h1 class="pull-left size-25 black"> &#8358; <%= property.per_unit_price%> .	<%= property.number_of_rooms%> Rooms .  <%= property.number_of_baths%> Baths </h1>
 								<br/>
 								<br/>
 								<% address=Address.find_by(id: property.address_id)%>
@@ -30,11 +39,9 @@
 								</p>
 
 							</div>
-						</div>
-						</a>
+						</div> </a>
 						<%}%>
-						<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-						<a class="next" onclick="plusSlides(1)">&#10095;</a>
+						</div>
 					</div>
 					<br>
 				</div>
@@ -45,54 +52,75 @@
 	<br/>
 	<br/>
 	<br/>
-								<br/>
+	<br/>
 </div>
 <script>
-	//var slideIndex = 1;
-	//showSlides(slideIndex);
-	var slideIndex = 0;
-	showSlides();
+	var currentIndex = 0,
+	    items = $('.slideshow-container  div'),
+	    itemAmt = items.length;
 
-	function plusSlides(n) {
-		showSlides(slideIndex += n);
+	function cycleItems() {
+		var item = $('.slideshow-container  div').eq(currentIndex);
+		items.hide();
+		item.css('display', 'inline-block');
 	}
 
-	function currentSlide(n) {
-		showSlides( slideIndex = n);
-	}
-
-	function showSlides() {
-		var i;
-		var slides = document.getElementsByClassName("mySlides");
-		for ( i = 0; i < slides.length; i++) {
-			slides[i].style.display = "none";
+	var autoSlide = setInterval(function() {
+		currentIndex += 1;
+		if (currentIndex > itemAmt - 1) {
+			currentIndex = 0;
 		}
-		slideIndex++;
-		if (slideIndex > slides.length) {
-			slideIndex = 1
-		}
-		slides[slideIndex - 1].style.display = "block";
-		setTimeout(showSlides, <%=(@show_room.slide_show_duration_seconds * 1000)%>);
-		// Change image every 2 seconds
-	}
+		cycleItems();
+	}, 3000);
 
-	/*function showSlides(n) {
-	 var i;
-	 var slides = document.getElementsByClassName("mySlides");
-	 var dots = document.getElementsByClassName("dot");
-	 if (n > slides.length) {
-	 slideIndex = 1
-	 }
-	 if (n < 1) {
-	 slideIndex = slides.length
-	 }
-	 for ( i = 0; i < slides.length; i++) {
-	 slides[i].style.display = "none";
-	 }
-	 for ( i = 0; i < dots.length; i++) {
-	 dots[i].className = dots[i].className.replace(" active", "");
-	 }
-	 slides[slideIndex - 1].style.display = "block";
-	 dots[slideIndex - 1].className += " active";
-	 }*/
+	$('.next').click(function() {
+		clearInterval(autoSlide);
+		currentIndex += 1;
+		if (currentIndex > itemAmt - 1) {
+			currentIndex = 0;
+		}
+		cycleItems();
+	});
+
+	$('.prev').click(function() {
+		clearInterval(autoSlide);
+		currentIndex -= 1;
+		if (currentIndex < 0) {
+			currentIndex = itemAmt - 1;
+		}
+		cycleItems();
+	});
+
 </script>
+
+<style>
+	.slideshow-container {
+		max-width: 400px;
+		background-color: black;
+		margin: 0 auto;
+		text-align: center;
+		position: relative;
+	}
+	.slideshow-container  div {
+		background-color: white;
+		width: 100%;
+		display: inline-block;
+		display: none;
+	}
+	.slideshow-container  img {
+		width: 100%;
+		height: auto;
+	}
+
+	button {
+		position: absolute;
+	}
+
+	.next {
+		right: 5px;
+	}
+
+	.prev {
+		left: 5px;
+	}
+</style>

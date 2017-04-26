@@ -1,19 +1,19 @@
 class ReportController < ApplicationController
-  layout 'admin_layout'
+  layout 'report_layout'
   def properties
-    @properties=Property.all
+    @properties=Property.all.order(id: :desc)
   end
 
   def users
-    @users=User.all
+    @users=User.where(:role => 'user').order(id: :desc)
   end
 
   def mortgages
-    @mortgages=Mortgage.all
+    @mortgages=Mortgage.all.order(id: :desc)
   end
 
   def purchases
-    @purchases=Purchase.all
+    @purchases=Purchase.all.order(id: :desc)
   end
 
   def analytics

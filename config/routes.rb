@@ -76,7 +76,10 @@ Rails.application.routes.draw do
   match '/admin/showroom', to: 'admin#show_room', via: :all
   
   match '/report/analytics', to: 'report#analytics', via: :all
-  
+  match '/report/users', to: 'report#users', via: :all
+  match '/report/properties', to: 'report#properties', via: :all
+  match '/report/mortgages', to: 'report#mortgages', via: :all
+  match '/report/purchases', to: 'report#purchases', via: :all
 
   
 end

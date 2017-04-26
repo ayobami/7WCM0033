@@ -9,14 +9,14 @@
 			<hr />
 		</div>
 
-		<% if flash[:action_successful] != nil  %>
+		<% if flash[:message] != nil  %>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
 			We have reserved your message and will get back to you shortly
 		</div>
 		<% end %>
 
-		<% if flash[:validation_failed]!= nil  %>
+		<% if flash[:alert]!= nil  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -30,7 +30,7 @@
 		</div>
 		<% end %>
 
-		<% if flash[:action_failed]!= nil  %>
+		<% if flash[:notice]!= nil  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Something went wrong

@@ -1,4 +1,4 @@
-<% page_title = "All Staff" %>
+<% page_title = "Agency's Staff" %>
 
 <div id="content" class="padding-20">
 <div class="panel">
@@ -22,6 +22,7 @@
 									<th>SN</th>
 									<th> Full Name </th>
 									<th> Email Address</th>
+									<th>Status</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -32,10 +33,17 @@
 									person =Person.find_by(user_id: user.id)
 									full_name=person.last_name + " " +person.first_name
 								%>
-								<tr>
+								<tr align="left">
 									<td><%= count%></td>
 									<td> <%= full_name%> </td>
 									<td> <%= user.email_address%> </td>
+									<td> 
+										<% if user.status == 284  %>
+									    <span class="label label-info">Active</span>
+                                     <% elsif user.status == 285  %>
+										 <span class="label label-warning">Inactive</span>
+								    <% end %>
+										</td>
 									<td>
 									<% if user.status == 284  %>
 										 <a class="btn btn-small btn-default" 

@@ -9,7 +9,7 @@
 			<hr />
 		</div>
 
-		<% if !flash[:validation_failed].blank? %>
+		<% if flash[:alert]  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -23,14 +23,14 @@
 		</div>
 		<% end %>
 
-		<% if !flash[:action_failed].blank? %>
+		<% if flash[:notice]  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Could not save details, checked the provided details
 		</div>
 		<% end %>
 
-		<% if !flash[:action_successful].blank? %>
+		<% if flash[:message]  %>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
 			Property Updated Successful !!!

@@ -1,4 +1,4 @@
-<% page_title = "Staff Registration" %>
+<% page_title = "Staff Account Registration" %>
 
 <div id="content" class="padding-20">
 	<%= form_for(:registrationDTO, :url => {:controller => 'admin', :action => 'registration'}) do |f| %>
@@ -10,7 +10,7 @@
 		</div>
 
 
-		<% if flash[:validation_failed]!= nil %>
+		<% if flash[:alert] && @registrationDTO!=nil%>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -24,14 +24,14 @@
 		</div>
 		<% end %>
 
-		<% if flash[:action_failed]!= nil %>
+		<% if flash[:notice]%>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
-			Could not saved details, checked the provided details, email already exist in the database
+			Could not saved details, checked the provided details, staff email already exist in the database
 		</div>
 		<% end %>
 
-		<% if flash[:action_successful]!= nil%>
+		<% if flash[:message]%>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
 			Staff Account Registration Successful !!!
@@ -45,7 +45,7 @@
 					<div class="col-md-4 col-sm-4">
 						<div class="panel panel-default">
 							<div class="panel-heading panel-heading-transparent">
-								<strong class="black">Personal Information</strong>
+								<strong class="black">Staff Information</strong>
 							</div>
 						</div>
 

@@ -1,4 +1,4 @@
-<% page_title = "News Entries" %>
+<% page_title = "Create News / Special Offers" %>
 <div id="content" class="padding-20">
 	<%= form_for(:news_dto, :url => {:controller => 'admin', :action => 'create_news'}) do |f| %>
 	<div class="panel">
@@ -8,7 +8,7 @@
 			<hr />
 		</div>
 
-		<% if flash[:validation_failed].blank?  == false %>
+		<% if flash[:alert] %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -22,17 +22,17 @@
 		</div>
 		<% end %>
 
-		<% if flash[:action_failed].blank?  == false  %>
+		<% if flash[:notice]  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			New not saved
 		</div>
 		<% end %>
 
-		<% if flash[:action_successful] != nil %>
+		<% if flash[:message]%>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
-			News Saved Successfully!!!
+			Shared Successfully!!!
 		</div>
 		<% end %>
 

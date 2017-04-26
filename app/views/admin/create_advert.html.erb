@@ -1,4 +1,4 @@
-<% page_title = "New Adverts" %>
+<% page_title = "Create Advertisement Entry" %>
 <div id="content" class="padding-20">
 	<%= form_for(:advert_dto, :url => {:controller => 'admin', :action => 'create_advert'}) do |f| %>
 	<div class="panel">
@@ -8,7 +8,7 @@
 			<hr />
 		</div>
 
-		<% if !flash[:validation_failed].blank?  %>
+		<% if flash[:alert]  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -22,14 +22,14 @@
 		</div>
 		<% end %>
 
-		<% if !flash[:action_failed].blank?  %>
+		<% if flash[:notice]  %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Advert not saved
 		</div>
 		<% end %>
 
-		<% if !flash[:action_successful].blank?  %>
+		<% if flash[:message]  %>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
 			Advert Saved Successfully!!!

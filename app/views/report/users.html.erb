@@ -1,4 +1,4 @@
-<% page_title = "All Users" %>
+<% page_title = "Customers' Report" %>
 
 <div id="content" class="padding-20">
 <div class="panel">
@@ -12,45 +12,55 @@
 
 		<div class="panel-body mr-20 ml-20">
 			<div class="row">
-				
-				<a class="btn btn-small btn-default pull-left" href="/admin/registration"><i class="fa fa-plus"></i> Create User</a>
-				<br/><br/>
-				<p>
+				<a class="btn btn-small btn-default pull-right"><i class="fa fa-print"></i> Print</a>
+				<br/>			
 						<table id="dataTable" class="table table-striped table-bordered">
 							<thead>
 								<tr>
 									<th>SN</th>
-									<th> Full Name </th>
-									<th> Email Address</th>
-									<th> Status</th>
-									<th></th>
+									<th>Cus. No.</th>
+									<th>Full Name</th>
+									<th> Email </th>
+									<th> Phone</th>
+									<th> Address</th>
+									<th> Gender</th>
+									<th>Religion </th>
+									<th> M. Status</th>
+									<th>Type</th>
 								</tr>
 							</thead>
 							<tbody>
-								<% if @all_users != nil  %>
-								<% count=1%>
-								<% for user in @all_users
+								<% if @users != nil  
+									genders=Dictionary.where(:category => 'gender')
+									religions=Dictionary.where(:category => 'religion')
+									maritalstatuses=Dictionary.where(:category => 'maritalstatus')
+									persontypes=Dictionary.where(:category => 'persontype')
+									count=1%>
+								<% for user in @users
 									person =Person.find_by(user_id: user.id)
 									full_name=person.last_name + " " +person.first_name
+									gender = (genders.select { |g| g.id == person.gender }).first
+									religion = (religions.select { |g| g.id == person.religion }).first
+									maritalstatus = (maritalstatuses.select { |g| g.id == person.marital_status }).first
+									persontype = (persontypes.select { |g| g.id == person.person_type }).first
+									address=Address.find_by(id: person.address_id)
+									full_address=address.street1 + " " +address.city+ " " + address.zip_code
 								%>
 								<tr>
-									<td><%= count%></td>
+									<td> <%= count%> </td>
+									<td> <%= person.person_number%> </td>
 									<td> <%= full_name%> </td>
-									<td> <%= user.email_address%> </td>
-									<td> <%= user.status%> </td>
-									<td>
-									<% if user.status == 284  %>
-										 <a class="btn btn-small btn-default" 
-                                                href="/admin/deactivateuser?id=<%= user.id%>"><i class="fa fa-edit"></i> Deactivate</a>
-                                     <% elsif user.status == 285  %>
-										 <a class="btn btn-small btn-default" 
-                                                href="/admin/activateuser?id=<%= user.id%>"><i class="fa fa-edit"></i> Deactivate</a>
-								    <% end %>
-									</td>
+									<td> <%= user.email_address%> </td>			
+									<td> <%= person.phone_number%> </td>	
+									<td> <%= full_address%> </td>						
+									<td> <%= gender.label%> </td>	
+									<td> <%= religion.label%> </td>	
+									<td> <%= maritalstatus.label%> </td>	
+									<td> <%= persontype.label%> </td>		
 								</tr>
-								<% count+=1%>
-								<% end %>
-								<% end %>
+								<% count+=1 
+								   end 
+								   end %>
 							</tbody>
 						</table>
 					</p>

@@ -12,14 +12,14 @@ class AccountController < ApplicationController
           if(encrypted_password==user.password)
             user.password=BCrypt::Engine.hash_secret(change_password_dto.new_password, user.salt)
             user.save!
-            flash[:action_successful]="password changed"
+            flash[:message]="password changed"
           else
-            flash[:action_failed] = "action failed"
+            flash[:notice] = "action failed"
           end
         end
 
       else
-        flash[:validation_failed] = "validation failed"
+        flash[:alert] = "validation failed"
       end
       @change_password_dto=change_password_dto
     end
@@ -34,10 +34,10 @@ class AccountController < ApplicationController
         token="email=#{email}&token=#{user.salt}"
         message="Please click on the link to reset your password http://localhost:3000/account/resetpassword?#{token}"
         send_mail(email, "Password Reset Link", message)
-        flash[:action_successful]="password reset"
+        flash[:message]="password reset"
       end
     else
-      flash[:validation_failed] = "validation failed"
+      flash[:alert] = "validation failed"
     end
   end
   end
@@ -52,12 +52,12 @@ class AccountController < ApplicationController
       if(user != nil)
         user.password=BCrypt::Engine.hash_secret(new_password, user.salt)
         user.save!
-        flash[:action_successful]="password changed"
+        flash[:message]="password changed"
       else
-        flash[:action_failed] = "action failed"
+        flash[:notice] = "action failed"
       end     
     else
-      flash[:validation_failed] = "validation failed"
+      flash[:alert] = "validation failed"
     end
     
   else

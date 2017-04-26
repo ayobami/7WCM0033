@@ -1,4 +1,4 @@
-<% page_title = "Show-Room Setup" %>
+<% page_title = "Online Showroom Management" %>
 <div id="content" class="padding-20">
 	<%= form_for(:event_dto, :url => {:controller => 'admin', :action => 'show_room'}) do |f| %>
 	<div class="panel">
@@ -8,28 +8,14 @@
 			<hr />
 		</div>
 
-		<% if flash[:validation_failed] !=nil %>
-		<br/>
-		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
-			Please fill all the required fields marked with *
-			<br/>
-			<br/>
-			<% for message_error in @event_dto.errors.full_messages %>
-			<li>
-				* <%= message_error %>
-			</li>
-			<% end %>
-		</div>
-		<% end %>
-
-		<% if flash[:action_failed]!= nil  %>
+		<% if flash[:notice] %>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Show room setup not saved
 		</div>
 		<% end %>
 
-		<% if flash[:action_successful] !=nil %>
+		<% if flash[:message]%>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
 			Show room setup saved Successfully!!!
@@ -61,6 +47,10 @@
 						</br>
 							<label>Interval in Seconds Before Displaying another Property *</label>
 						<%= text_field("show_room", "interval_between_properties_seconds", {class: 'form-control required'})%>
+
+						</br>
+							<label>No of Images to show per Property *</label>
+						<%= text_field("show_room", "no_of_images", {class: 'form-control required'})%>
 
 						</br>
 								<br /><br />

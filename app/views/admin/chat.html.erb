@@ -1,4 +1,4 @@
-<% page_title = "Chat with a sales representative" %>
+<% page_title = "Sales Team - Chat" %>
 
 <div id="content" class="padding-20">
 	<div class="panel">
@@ -12,6 +12,7 @@
 			<div class="center">
 				<div class="row">
 					<div class="col-md-9">
+						Click on any incoming chat request to start conversation
 						<ul id="conversations-list">
 							<% @conversations.each do |conversation| %>
 							<%= render 'conversations/conversation', conversation: conversation, user: current_user %>
@@ -28,7 +29,7 @@
 								<ul>
 									<% @users.each do |user| 
 										
-										name="#{user.full_name}(#{user.email_address})"
+										name="#{user.full_name}"
 									%>
 									<li>	
 										<%= link_to "/conversations.js?chat_id=#{user.chat_id}", remote: true do %>
@@ -36,6 +37,7 @@
 										<% end %>
 			
 									</li>
+									<hr/>
 									<% end %>
 								</ul>
 							</div>

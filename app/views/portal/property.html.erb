@@ -9,7 +9,7 @@
 			<hr />
 		</div>
 
-		<% if flash[:validation_failed] != nil %>
+		<% if flash[:alert]%>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Please fill all the required fields marked with *
@@ -23,14 +23,21 @@
 		</div>
 		<% end %>
 
-		<% if flash[:action_failed]!= nil %>
+		<% if flash[:notice1]%>
 		<br/>
 		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
 			Could not saved details, checked the provided details email already exist in the database
 		</div>
 		<% end %>
+		
+		<% if flash[:invalid_customer]%>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			No customer with the provided number exists
+		</div>
+		<% end %>
 
-		<% if !flash[:action_successful].blank? %>
+		<% if flash[:message]  %>
 		<br/>
 		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
 			Property Registered Successful !!!

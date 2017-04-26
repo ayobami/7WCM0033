@@ -1,10 +1,10 @@
-<% page_title = "All Adverts" %>
+<% page_title = "Advertisements Management" %>
 
 <div id="content" class="padding-20">
 <div class="panel">
 		<div class="panel-heading">
 			<br/>
-			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span> <i class="fa fa-book"></i> </h3>
 			<hr />
 		</div>
 
@@ -12,7 +12,7 @@
 
 		<div class="panel-body mr-20 ml-20">
 			<div class="row">
-					<a class="btn btn-small btn-default pull-left" href="/admin/createadvert"><i class="fa fa-newspaper-o"></i> New Entry</a>
+					<a class="btn btn-small btn-default pull-left" href="/admin/createadvert"><i class="fa fa-plus-circle"></i> New Entry</a>
 				<br/><br/>
 				<p>
 						<table id="dataTable" class="table table-striped table-bordered">
@@ -42,7 +42,7 @@
                                                 href="/admin/editadvert?id=<%= entry.id%>"><i class="fa fa-edit"></i> Edit</a>
                                                 ||
 												<a class="btn btn-small btn-default" 
-                                                href="/admin/deleteadvert?id=<%= entry.id%>"><i class="fa fa-thrash"></i> Delete</a>
+                                                href="/admin/deleteadvert?id=<%= entry.id%>"><i class="fa fa-recycle"></i> Delete</a>
 									</td>
 								</tr>
 								<% count+=1%>

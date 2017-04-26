@@ -1,0 +1,22 @@
+
+CIM Model and Database
+
+Held a session to explain CIM data model and created a user with read only access to CIM database, installed
+Teradata SQL assistant on their computer, to ensure they have access and prior knowledge of data available before creating campaigns.
+
+
+Campaigns Management
+
+Review of their campaign segments and steps and providing recommendations on possible area of improvements.
+
+Added new data attributes for use in their segment creation
+
+
+Issues/Concern
+
+Due to data growing daily, refreshing of data from EDW to CIM database(Bteq Loading) takes up to 3 hours to finish.
+EDW team to optimize the Bteq loading to reduce.
+
+
+http://win-o0hfssn2iin:8080/tfs/PSMEA/UEE/_backlogs/board?quickstart=Kanban 
+

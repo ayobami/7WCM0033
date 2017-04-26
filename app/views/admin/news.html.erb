@@ -1,10 +1,10 @@
-<% page_title = "All News Entries" %>
+<% page_title = "Latest News and Offers" %>
 
 <div id="content" class="padding-20">
 <div class="panel">
 		<div class="panel-heading">
 			<br/>
-			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span> <i class="fa fa-newspaper-o"></i></h3>
 			<hr />
 		</div>
 
@@ -43,7 +43,7 @@
                                                 href="/admin/editnews?id=<%= entry.id%>"><i class="fa fa-edit"></i> Edit</a>
                                                 ||
 												<a class="btn btn-small btn-default" 
-                                                href="/admin/deletenews?id=<%= entry.id%>"><i class="fa fa-thrash"></i> Delete</a>
+                                                href="/admin/deletenews?id=<%= entry.id%>"><i class="fa fa-recycle"></i> Delete</a>
 									</td>
 								</tr>
 								<% count+=1%>
