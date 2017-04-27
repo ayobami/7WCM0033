@@ -245,6 +245,54 @@ class HomeController < ApplicationController
     end
   end
   
+  def interest_form
+    if request.post?
+      payment_request_dto=PaymentRequestDTO.new(params[:payment_request_dto])
+      if payment_request_dto.valid? then
+        payment_request=PaymentRequest.new
+        payment_request.surname=payment_request_dto.surname
+        payment_request.first_name=payment_request_dto.first_name
+        payment_request.email_address=payment_request_dto.email_address
+        payment_request.comment=payment_request_dto.comment
+        payment_request.property_id=payment_request_dto.property_id
+        payment_request.phone_number=payment_request_dto.phone_number
+        payment_request.expected_date=payment_request_dto.expected_date
+        payment_request.create_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
+        if(payment_request.valid? && payment_request.save!)
+          flash[:message] = "action successful"
+          payment_request_dto= PaymentRequestDTO.new
+          redirect_to :action => 'interest_saved'
+        else
+          flash[:notice] = "action failed"
+        end
+      else
+        flash[:alert] = "validation failed"
+      end
+      @payment_request_dto=payment_request_dto
+    
+  else
+    id=params[:id]
+    if(id!=nil)
+      user_id=session[:user_id]
+      if(user_id!=nil) then
+         payment_request=PaymentRequest.new
+         payment_request.property_id=id
+         payment_request.user_id=user_id
+         payment_request.create_date=DateTime.parse(Time.now.to_s).strftime("%d/%m/%Y %H:%M")
+         payment_request.save
+         redirect_to :action => 'interest_saved'
+      else
+         @payment_request_dto=PaymentRequestDTO.new
+         @payment_request_dto.property_id=id
+      end
+    end   
+  end
+ end
+ 
+ def interest_saved
+   
+ end
+  
  def chat_request
    if request.post?
     chat_request=ChatRequest.new

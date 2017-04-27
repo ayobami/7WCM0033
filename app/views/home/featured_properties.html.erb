@@ -24,11 +24,11 @@
 								<%= image_tag(ImageRetrieval.get_property_main_image_path(property.property_number), height: '200', width: '300') %>
 								<br />
 								<br />
-								<button class="btn btn-default mr-20" type="submit">
-									<i class="fa fa-money"></i> Buy Now
-								</button>
-								<a href="#" class="btn btn-info"><i class="fa fa-search"></i> View Details</a>
-								<br />
+								<a href="/home/interest?id=<%= property.id%>" class="btn btn-default mr-20">
+							<i class="fa fa-money"></i> Buy Now
+						</a>
+						<a href="/home/property?id=<%= property.id%>" class="btn btn-info"><i class="fa fa-search"></i> View Details</a>
+						<br />
 								<br />
 							</div>
 						<% end %>

@@ -1,0 +1,109 @@
+<% page_title = "Property Payment Confirmation" %>
+
+<div id="content" class="padding-20">
+	<%= form_for(:payment_dto, :url => {:controller => 'portal', :action => 'payment'}, :html => { :multipart => true }) do |f| %>
+	<div class="panel">
+		<div class="panel-heading">
+			<br/>
+			<h3 class="text-muted lead"><span class="logo-dec"><%= page_title%></span></h3>
+			<hr />
+		</div>
+
+		<% if flash[:alert]%>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Please fill all the required fields marked with *
+			<br/>
+			<br/>
+			<% for message_error in @payment_dto.errors.full_messages %>
+			<li>
+				<%= message_error %>
+			</li>
+			<% end %>
+		</div>
+		<% end %>
+
+		<% if flash[:notice]%>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			Could not saved details, checked the provided details
+		</div>
+		<% end %>
+
+		<% if flash[:invalid_customer]%>
+		<br/>
+		<div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
+			No customer with the provided number exists
+		</div>
+		<% end %>
+
+		<% if flash[:message]%>
+		<br/>
+		<div class="alert alert-success noborder text-center weight-400 nomargin noradius">
+			Payment Details Registered Successful !!!
+		</div>
+		<% end %>
+
+		<div class="panel-body">
+			<div class="row">
+				<div class="form-group">
+
+					<div class="col-md-6 col-sm-6">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Details</strong>
+							</div>
+						</div>
+						<label>Property Number *</label>
+						<%= text_field("payment_dto", "property_number", {class: 'form-control required'})%>
+						</br>
+						<label>Customer Number *</label>
+						<%= text_field("payment_dto", "customer_number", {class: 'form-control required'})%>
+						</br>
+						<label>Description</label>
+						<%= text_area("payment_dto", "description", {class: 'form-control required'})%>
+						</br>
+
+						</br>
+						<label>Payment Documents*</label>
+						<%= file_field(:payment_dto, :image1, accept: 'image/png,image/gif,image/jpeg', class: 'form-control required')%>
+						</br>
+
+					</div>
+
+					<div class="col-md-6 col-sm-6">
+						<div class="panel panel-default">
+							<div class="panel-heading panel-heading-transparent">
+								<strong class="black">Payment Information</strong>
+							</div>
+						</div>
+
+						<label>Amount *</label>
+						<%= text_field("payment_dto", "price", {class: 'form-control required'})%>
+						</br>
+						<label>Financial Institution</label>
+						<%= text_field("payment_dto", "bank", {class: 'form-control required'})%>
+						</br>
+						<label>Details</label>
+						<%= text_area("payment_dto", "description", {class: 'form-control required'})%>
+						</br>
+						<label>Payment Date*</label>
+						</br>
+						<%= date_select("payment_dto", "payment_date" , start_year: 2017, with_css_classes: 'form-control' )%>
+					
+						<br/>
+						<br /><br />
+						<button  type="reset" class="btn btn-default">
+							<i class="fa fa-refresh"></i> Reset
+						</button>
+						<button type="submit" class="btn btn-success">
+							<i class="fa fa-floppy-o"></i> Submit
+						</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
+</div>

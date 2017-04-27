@@ -1,12 +1,12 @@
 class PortalController < ApplicationController
-  layout 'admin_layout' 
+  layout 'admin_layout'
   def property
     @property_dto = nil
     time = Time.now.to_s
     @date = DateTime.parse(time).strftime("%d/%m/%Y %H:%M")
     if request.post?
       property_dto = PropertyDTO.new(params[:property_dto])
-      if property_dto.valid?        
+      if property_dto.valid?
         property=get_property(property_dto)
         address=get_address(property_dto)
         property_price=get_property_price(property_dto)
@@ -19,18 +19,18 @@ class PortalController < ApplicationController
             property.save
             property_price.property_id=property.id
             property_price.save
-  
+
             #upload image files
             upload_property_images(property_dto,property.property_number)
-  
+
             flash[:message] = property.property_number
             property_dto= PropertyDTO.new
           else
             flash[:notice] = "action failed"
           end
-         else
-           flash[:invalid_customer] = "Invalid Customer"
-         end
+        else
+          flash[:invalid_customer] = "Invalid Customer"
+        end
       else
         flash[:alert] = "validation failed"
       end
@@ -39,6 +39,18 @@ class PortalController < ApplicationController
       @property_dto = PropertyDTO.new
     end
     get_dictionary_entries
+  end
+
+  def interests
+      @payment_requests=PaymentRequest.all
+  end
+  
+  def payment
+      
+  end
+  
+  def payments
+      @payments=Payment.all
   end
 
   def edit_property
@@ -92,17 +104,17 @@ class PortalController < ApplicationController
 
     get_dictionary_entries
   end
-  
- def mortgages
+
+  def mortgages
     @mortgages=Mortgage.all
   end
-  
+
   def mortgage_evaluation
     id=params[:id]
     if(id!=nil)
       @mortgage=Mortgage.find_by(id: id)
     else
-      redirect_to :action => 'mortgages' 
+      redirect_to :action => 'mortgages'
     end
   end
 
@@ -117,7 +129,7 @@ class PortalController < ApplicationController
     if request.post?
       property_evaluation_dto = PropertyEvaluationDTO.new(params[:property_evaluation_dto])
       if(property_evaluation_dto.valid?)
-        property= Property.find_by(property_number: property_evaluation_dto.property_number)        
+        property= Property.find_by(property_number: property_evaluation_dto.property_number)
         if(property!=nil)
           existing_report= PropertyEvaluation.find_by(property_id: property.id)
           if(existing_report == nil) then
@@ -153,10 +165,10 @@ class PortalController < ApplicationController
             property_evaluation.save
             flash[:message] = "action successful"
             @property_evaluation_dto= PropertyEvaluationDTO.new
-           else
-             flash[:report_exists] = "validation failed"
-             @property_evaluation_dto=property_evaluation_dto
-           end
+          else
+            flash[:report_exists] = "validation failed"
+            @property_evaluation_dto=property_evaluation_dto
+          end
         else
           flash[:notice] = "action failed"
           @property_evaluation_dto=property_evaluation_dto
@@ -167,7 +179,7 @@ class PortalController < ApplicationController
       end
     end
   end
-  
+
   def evaluation_report
     id=params[:id]
     if(id!=nil)
@@ -267,6 +279,5 @@ class PortalController < ApplicationController
     image_uploader.store!(property_dto.image2)
     image_uploader.store!(property_dto.image3)
   end
-  
-  
+
 end

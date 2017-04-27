@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   match '/home/chat', to: 'home#chat', via: :all
   match '/home/feed', to: 'home#feed', via: :all
   match '/home/interests', to: 'home#interests', via: :all
+  match '/home/interest', to: 'home#interest_form', via: :all
+  match '/home/interestsaved', to: 'home#interest_saved', via: :all
   match '/home/searches', to: 'home#searches', via: :all
   match '/home/events', to: 'home#events', via: :all
   match '/home/deleteinterest', to: 'home#delete_interest', via: :all
@@ -47,6 +49,9 @@ Rails.application.routes.draw do
   match '/portal/properties', to: 'portal#properties', via: :all
   match '/portal/showroom', to: 'portal#show_room', via: :all  
   match '/portal/mortgages', to: 'portal#mortgages', via: :all  
+  match '/portal/interests', to: 'portal#interests', via: :all    
+  match '/portal/payment', to: 'portal#payment', via: :all  
+  match '/portal/payments', to: 'portal#payments', via: :all  
   match '/portal/mortgageevaluation', to: 'portal#mortgage_evaluation', via: :all
   match '/portal/mortgageremoval', to: 'portal#mortgage_removal', via: :all
   

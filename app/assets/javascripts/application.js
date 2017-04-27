@@ -17,6 +17,7 @@
 //= require jquery.dataTables
 //= require dataTables.scroller.min
 //= require modernizr
+//= require flexile
 //= require bootstrap.min
 //= require chart.min
 //= require ckeditor/init
